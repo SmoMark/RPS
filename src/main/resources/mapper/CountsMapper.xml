@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdu.rps.mapper.CountsMapper">
+  <resultMap id="BaseResultMap" type="com.hdu.rps.model.Counts">
+    <id column="CountsNo" jdbcType="INTEGER" property="countsno" />
+    <result column="UserNo" jdbcType="INTEGER" property="userno" />
+    <result column="CountsType" jdbcType="INTEGER" property="countstype" />
+    <result column="CountsReason" jdbcType="INTEGER" property="countsreason" />
+    <result column="CountsQuantity" jdbcType="INTEGER" property="countsquantity" />
+    <result column="CountsTime" jdbcType="TIMESTAMP" property="countstime" />
+    <result column="CountsIntro" jdbcType="VARCHAR" property="countsintro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CountsNo, UserNo, CountsType, CountsReason, CountsQuantity, CountsTime, CountsIntro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from counts
+    where CountsNo = #{countsno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from counts
+    where CountsNo = #{countsno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hdu.rps.model.Counts">
+    insert into counts (CountsNo, UserNo, CountsType, 
+      CountsReason, CountsQuantity, CountsTime, 
+      CountsIntro)
+    values (#{countsno,jdbcType=INTEGER}, #{userno,jdbcType=INTEGER}, #{countstype,jdbcType=INTEGER}, 
+      #{countsreason,jdbcType=INTEGER}, #{countsquantity,jdbcType=INTEGER}, #{countstime,jdbcType=TIMESTAMP}, 
+      #{countsintro,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hdu.rps.model.Counts">
+    insert into counts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="countsno != null">
+        CountsNo,
+      </if>
+      <if test="userno != null">
+        UserNo,
+      </if>
+      <if test="countstype != null">
+        CountsType,
+      </if>
+      <if test="countsreason != null">
+        CountsReason,
+      </if>
+      <if test="countsquantity != null">
+        CountsQuantity,
+      </if>
+      <if test="countstime != null">
+        CountsTime,
+      </if>
+      <if test="countsintro != null">
+        CountsIntro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="countsno != null">
+        #{countsno,jdbcType=INTEGER},
+      </if>
+      <if test="userno != null">
+        #{userno,jdbcType=INTEGER},
+      </if>
+      <if test="countstype != null">
+        #{countstype,jdbcType=INTEGER},
+      </if>
+      <if test="countsreason != null">
+        #{countsreason,jdbcType=INTEGER},
+      </if>
+      <if test="countsquantity != null">
+        #{countsquantity,jdbcType=INTEGER},
+      </if>
+      <if test="countstime != null">
+        #{countstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countsintro != null">
+        #{countsintro,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hdu.rps.model.Counts">
+    update counts
+    <set>
+      <if test="userno != null">
+        UserNo = #{userno,jdbcType=INTEGER},
+      </if>
+      <if test="countstype != null">
+        CountsType = #{countstype,jdbcType=INTEGER},
+      </if>
+      <if test="countsreason != null">
+        CountsReason = #{countsreason,jdbcType=INTEGER},
+      </if>
+      <if test="countsquantity != null">
+        CountsQuantity = #{countsquantity,jdbcType=INTEGER},
+      </if>
+      <if test="countstime != null">
+        CountsTime = #{countstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countsintro != null">
+        CountsIntro = #{countsintro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CountsNo = #{countsno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hdu.rps.model.Counts">
+    update counts
+    set UserNo = #{userno,jdbcType=INTEGER},
+      CountsType = #{countstype,jdbcType=INTEGER},
+      CountsReason = #{countsreason,jdbcType=INTEGER},
+      CountsQuantity = #{countsquantity,jdbcType=INTEGER},
+      CountsTime = #{countstime,jdbcType=TIMESTAMP},
+      CountsIntro = #{countsintro,jdbcType=VARCHAR}
+    where CountsNo = #{countsno,jdbcType=INTEGER}
+  </update>
+</mapper>

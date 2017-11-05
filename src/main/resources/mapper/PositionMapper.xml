@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdu.rps.mapper.PositionMapper">
+  <resultMap id="BaseResultMap" type="com.hdu.rps.model.Position">
+    <id column="PosNo" jdbcType="INTEGER" property="posno" />
+    <result column="PosType" jdbcType="INTEGER" property="postype" />
+    <result column="PosState" jdbcType="INTEGER" property="posstate" />
+    <result column="PosOffice" jdbcType="VARCHAR" property="posoffice" />
+    <result column="PosTime" jdbcType="TIMESTAMP" property="postime" />
+    <result column="PosDeadline" jdbcType="TIMESTAMP" property="posdeadline" />
+    <result column="PosNeeds" jdbcType="INTEGER" property="posneeds" />
+    <result column="PosIntro" jdbcType="VARCHAR" property="posintro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PosNo, PosType, PosState, PosOffice, PosTime, PosDeadline, PosNeeds, PosIntro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from position
+    where PosNo = #{posno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from position
+    where PosNo = #{posno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hdu.rps.model.Position">
+    insert into position (PosNo, PosType, PosState, 
+      PosOffice, PosTime, PosDeadline, 
+      PosNeeds, PosIntro)
+    values (#{posno,jdbcType=INTEGER}, #{postype,jdbcType=INTEGER}, #{posstate,jdbcType=INTEGER}, 
+      #{posoffice,jdbcType=VARCHAR}, #{postime,jdbcType=TIMESTAMP}, #{posdeadline,jdbcType=TIMESTAMP}, 
+      #{posneeds,jdbcType=INTEGER}, #{posintro,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hdu.rps.model.Position">
+    insert into position
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="posno != null">
+        PosNo,
+      </if>
+      <if test="postype != null">
+        PosType,
+      </if>
+      <if test="posstate != null">
+        PosState,
+      </if>
+      <if test="posoffice != null">
+        PosOffice,
+      </if>
+      <if test="postime != null">
+        PosTime,
+      </if>
+      <if test="posdeadline != null">
+        PosDeadline,
+      </if>
+      <if test="posneeds != null">
+        PosNeeds,
+      </if>
+      <if test="posintro != null">
+        PosIntro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="posno != null">
+        #{posno,jdbcType=INTEGER},
+      </if>
+      <if test="postype != null">
+        #{postype,jdbcType=INTEGER},
+      </if>
+      <if test="posstate != null">
+        #{posstate,jdbcType=INTEGER},
+      </if>
+      <if test="posoffice != null">
+        #{posoffice,jdbcType=VARCHAR},
+      </if>
+      <if test="postime != null">
+        #{postime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="posdeadline != null">
+        #{posdeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="posneeds != null">
+        #{posneeds,jdbcType=INTEGER},
+      </if>
+      <if test="posintro != null">
+        #{posintro,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hdu.rps.model.Position">
+    update position
+    <set>
+      <if test="postype != null">
+        PosType = #{postype,jdbcType=INTEGER},
+      </if>
+      <if test="posstate != null">
+        PosState = #{posstate,jdbcType=INTEGER},
+      </if>
+      <if test="posoffice != null">
+        PosOffice = #{posoffice,jdbcType=VARCHAR},
+      </if>
+      <if test="postime != null">
+        PosTime = #{postime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="posdeadline != null">
+        PosDeadline = #{posdeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="posneeds != null">
+        PosNeeds = #{posneeds,jdbcType=INTEGER},
+      </if>
+      <if test="posintro != null">
+        PosIntro = #{posintro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PosNo = #{posno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hdu.rps.model.Position">
+    update position
+    set PosType = #{postype,jdbcType=INTEGER},
+      PosState = #{posstate,jdbcType=INTEGER},
+      PosOffice = #{posoffice,jdbcType=VARCHAR},
+      PosTime = #{postime,jdbcType=TIMESTAMP},
+      PosDeadline = #{posdeadline,jdbcType=TIMESTAMP},
+      PosNeeds = #{posneeds,jdbcType=INTEGER},
+      PosIntro = #{posintro,jdbcType=VARCHAR}
+    where PosNo = #{posno,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdu.rps.mapper.BonusMapper">
+  <resultMap id="BaseResultMap" type="com.hdu.rps.model.Bonus">
+    <id column="BonusNo" jdbcType="INTEGER" property="bonusno" />
+    <result column="UserNo" jdbcType="INTEGER" property="userno" />
+    <result column="BonusSupports" jdbcType="INTEGER" property="bonussupports" />
+    <result column="BonusMoney" jdbcType="REAL" property="bonusmoney" />
+    <result column="BonusTime" jdbcType="DATE" property="bonustime" />
+    <result column="BonusDeadline" jdbcType="DATE" property="bonusdeadline" />
+    <result column="BonusIntro" jdbcType="VARCHAR" property="bonusintro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    BonusNo, UserNo, BonusSupports, BonusMoney, BonusTime, BonusDeadline, BonusIntro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bonus
+    where BonusNo = #{bonusno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bonus
+    where BonusNo = #{bonusno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hdu.rps.model.Bonus">
+    insert into bonus (BonusNo, UserNo, BonusSupports, 
+      BonusMoney, BonusTime, BonusDeadline, 
+      BonusIntro)
+    values (#{bonusno,jdbcType=INTEGER}, #{userno,jdbcType=INTEGER}, #{bonussupports,jdbcType=INTEGER}, 
+      #{bonusmoney,jdbcType=REAL}, #{bonustime,jdbcType=DATE}, #{bonusdeadline,jdbcType=DATE}, 
+      #{bonusintro,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hdu.rps.model.Bonus">
+    insert into bonus
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bonusno != null">
+        BonusNo,
+      </if>
+      <if test="userno != null">
+        UserNo,
+      </if>
+      <if test="bonussupports != null">
+        BonusSupports,
+      </if>
+      <if test="bonusmoney != null">
+        BonusMoney,
+      </if>
+      <if test="bonustime != null">
+        BonusTime,
+      </if>
+      <if test="bonusdeadline != null">
+        BonusDeadline,
+      </if>
+      <if test="bonusintro != null">
+        BonusIntro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bonusno != null">
+        #{bonusno,jdbcType=INTEGER},
+      </if>
+      <if test="userno != null">
+        #{userno,jdbcType=INTEGER},
+      </if>
+      <if test="bonussupports != null">
+        #{bonussupports,jdbcType=INTEGER},
+      </if>
+      <if test="bonusmoney != null">
+        #{bonusmoney,jdbcType=REAL},
+      </if>
+      <if test="bonustime != null">
+        #{bonustime,jdbcType=DATE},
+      </if>
+      <if test="bonusdeadline != null">
+        #{bonusdeadline,jdbcType=DATE},
+      </if>
+      <if test="bonusintro != null">
+        #{bonusintro,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hdu.rps.model.Bonus">
+    update bonus
+    <set>
+      <if test="userno != null">
+        UserNo = #{userno,jdbcType=INTEGER},
+      </if>
+      <if test="bonussupports != null">
+        BonusSupports = #{bonussupports,jdbcType=INTEGER},
+      </if>
+      <if test="bonusmoney != null">
+        BonusMoney = #{bonusmoney,jdbcType=REAL},
+      </if>
+      <if test="bonustime != null">
+        BonusTime = #{bonustime,jdbcType=DATE},
+      </if>
+      <if test="bonusdeadline != null">
+        BonusDeadline = #{bonusdeadline,jdbcType=DATE},
+      </if>
+      <if test="bonusintro != null">
+        BonusIntro = #{bonusintro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BonusNo = #{bonusno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hdu.rps.model.Bonus">
+    update bonus
+    set UserNo = #{userno,jdbcType=INTEGER},
+      BonusSupports = #{bonussupports,jdbcType=INTEGER},
+      BonusMoney = #{bonusmoney,jdbcType=REAL},
+      BonusTime = #{bonustime,jdbcType=DATE},
+      BonusDeadline = #{bonusdeadline,jdbcType=DATE},
+      BonusIntro = #{bonusintro,jdbcType=VARCHAR}
+    where BonusNo = #{bonusno,jdbcType=INTEGER}
+  </update>
+</mapper>

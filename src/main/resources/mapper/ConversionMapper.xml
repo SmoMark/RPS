@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdu.rps.mapper.ConversionMapper">
+  <resultMap id="BaseResultMap" type="com.hdu.rps.model.Conversion">
+    <id column="CvsNo" jdbcType="INTEGER" property="cvsno" />
+    <result column="GiftNo" jdbcType="INTEGER" property="giftno" />
+    <result column="UserNo" jdbcType="INTEGER" property="userno" />
+    <result column="CvsCounts" jdbcType="INTEGER" property="cvscounts" />
+    <result column="CvsTime" jdbcType="TIMESTAMP" property="cvstime" />
+    <result column="CvsDeadline" jdbcType="TIMESTAMP" property="cvsdeadline" />
+    <result column="CvsIntro" jdbcType="VARCHAR" property="cvsintro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CvsNo, GiftNo, UserNo, CvsCounts, CvsTime, CvsDeadline, CvsIntro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from conversion
+    where CvsNo = #{cvsno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from conversion
+    where CvsNo = #{cvsno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hdu.rps.model.Conversion">
+    insert into conversion (CvsNo, GiftNo, UserNo, 
+      CvsCounts, CvsTime, CvsDeadline, 
+      CvsIntro)
+    values (#{cvsno,jdbcType=INTEGER}, #{giftno,jdbcType=INTEGER}, #{userno,jdbcType=INTEGER}, 
+      #{cvscounts,jdbcType=INTEGER}, #{cvstime,jdbcType=TIMESTAMP}, #{cvsdeadline,jdbcType=TIMESTAMP}, 
+      #{cvsintro,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hdu.rps.model.Conversion">
+    insert into conversion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cvsno != null">
+        CvsNo,
+      </if>
+      <if test="giftno != null">
+        GiftNo,
+      </if>
+      <if test="userno != null">
+        UserNo,
+      </if>
+      <if test="cvscounts != null">
+        CvsCounts,
+      </if>
+      <if test="cvstime != null">
+        CvsTime,
+      </if>
+      <if test="cvsdeadline != null">
+        CvsDeadline,
+      </if>
+      <if test="cvsintro != null">
+        CvsIntro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cvsno != null">
+        #{cvsno,jdbcType=INTEGER},
+      </if>
+      <if test="giftno != null">
+        #{giftno,jdbcType=INTEGER},
+      </if>
+      <if test="userno != null">
+        #{userno,jdbcType=INTEGER},
+      </if>
+      <if test="cvscounts != null">
+        #{cvscounts,jdbcType=INTEGER},
+      </if>
+      <if test="cvstime != null">
+        #{cvstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvsdeadline != null">
+        #{cvsdeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvsintro != null">
+        #{cvsintro,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hdu.rps.model.Conversion">
+    update conversion
+    <set>
+      <if test="giftno != null">
+        GiftNo = #{giftno,jdbcType=INTEGER},
+      </if>
+      <if test="userno != null">
+        UserNo = #{userno,jdbcType=INTEGER},
+      </if>
+      <if test="cvscounts != null">
+        CvsCounts = #{cvscounts,jdbcType=INTEGER},
+      </if>
+      <if test="cvstime != null">
+        CvsTime = #{cvstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvsdeadline != null">
+        CvsDeadline = #{cvsdeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvsintro != null">
+        CvsIntro = #{cvsintro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CvsNo = #{cvsno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hdu.rps.model.Conversion">
+    update conversion
+    set GiftNo = #{giftno,jdbcType=INTEGER},
+      UserNo = #{userno,jdbcType=INTEGER},
+      CvsCounts = #{cvscounts,jdbcType=INTEGER},
+      CvsTime = #{cvstime,jdbcType=TIMESTAMP},
+      CvsDeadline = #{cvsdeadline,jdbcType=TIMESTAMP},
+      CvsIntro = #{cvsintro,jdbcType=VARCHAR}
+    where CvsNo = #{cvsno,jdbcType=INTEGER}
+  </update>
+</mapper>

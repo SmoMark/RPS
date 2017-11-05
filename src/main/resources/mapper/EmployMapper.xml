@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdu.rps.mapper.EmployMapper">
+  <resultMap id="BaseResultMap" type="com.hdu.rps.model.Employ">
+    <id column="EmployNo" jdbcType="INTEGER" property="employno" />
+    <result column="RcdNo" jdbcType="INTEGER" property="rcdno" />
+    <result column="PosNo" jdbcType="INTEGER" property="posno" />
+    <result column="EmployTime" jdbcType="DATE" property="employtime" />
+    <result column="EmployState" jdbcType="INTEGER" property="employstate" />
+    <result column="EmployIntro" jdbcType="VARCHAR" property="employintro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EmployNo, RcdNo, PosNo, EmployTime, EmployState, EmployIntro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employ
+    where EmployNo = #{employno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from employ
+    where EmployNo = #{employno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hdu.rps.model.Employ">
+    insert into employ (EmployNo, RcdNo, PosNo, 
+      EmployTime, EmployState, EmployIntro
+      )
+    values (#{employno,jdbcType=INTEGER}, #{rcdno,jdbcType=INTEGER}, #{posno,jdbcType=INTEGER}, 
+      #{employtime,jdbcType=DATE}, #{employstate,jdbcType=INTEGER}, #{employintro,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hdu.rps.model.Employ">
+    insert into employ
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="employno != null">
+        EmployNo,
+      </if>
+      <if test="rcdno != null">
+        RcdNo,
+      </if>
+      <if test="posno != null">
+        PosNo,
+      </if>
+      <if test="employtime != null">
+        EmployTime,
+      </if>
+      <if test="employstate != null">
+        EmployState,
+      </if>
+      <if test="employintro != null">
+        EmployIntro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="employno != null">
+        #{employno,jdbcType=INTEGER},
+      </if>
+      <if test="rcdno != null">
+        #{rcdno,jdbcType=INTEGER},
+      </if>
+      <if test="posno != null">
+        #{posno,jdbcType=INTEGER},
+      </if>
+      <if test="employtime != null">
+        #{employtime,jdbcType=DATE},
+      </if>
+      <if test="employstate != null">
+        #{employstate,jdbcType=INTEGER},
+      </if>
+      <if test="employintro != null">
+        #{employintro,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hdu.rps.model.Employ">
+    update employ
+    <set>
+      <if test="rcdno != null">
+        RcdNo = #{rcdno,jdbcType=INTEGER},
+      </if>
+      <if test="posno != null">
+        PosNo = #{posno,jdbcType=INTEGER},
+      </if>
+      <if test="employtime != null">
+        EmployTime = #{employtime,jdbcType=DATE},
+      </if>
+      <if test="employstate != null">
+        EmployState = #{employstate,jdbcType=INTEGER},
+      </if>
+      <if test="employintro != null">
+        EmployIntro = #{employintro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EmployNo = #{employno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hdu.rps.model.Employ">
+    update employ
+    set RcdNo = #{rcdno,jdbcType=INTEGER},
+      PosNo = #{posno,jdbcType=INTEGER},
+      EmployTime = #{employtime,jdbcType=DATE},
+      EmployState = #{employstate,jdbcType=INTEGER},
+      EmployIntro = #{employintro,jdbcType=VARCHAR}
+    where EmployNo = #{employno,jdbcType=INTEGER}
+  </update>
+</mapper>
