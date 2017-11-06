@@ -13,9 +13,8 @@
     html, body{
       height:100%;
       overflow: hidden;
-
     }
-    html>body{		/*-- for !IE6.0 --*/
+    html>body{
       width: auto;
       height: auto;
       position: absolute;
@@ -23,7 +22,6 @@
       left: 0px;
       right: 0px;
       bottom: 0px;
-
     }
     body {
       border:0px solid #ffffff;
@@ -53,7 +51,7 @@
       width:100%;
       height:70%;
       line-height:450px;
-      background:url("images/background -1.jpg") repeat-x;
+      background:url("../background1.jpg") repeat-x;
       position:absolute;
       top:0px;
       overflow:hidden;
@@ -81,18 +79,17 @@
       width:140px;
       height:25px;
       line-height:25px;
-      background:url("images/background.jpg") repeat-x;
+      background:url("../background1.jpg") repeat-x;
       color:#FFFFFF;
-      direction:none;
+      direction:inherit;
       text-align:center;
       border-bottom:1px #000066 solid;
       border:1px #06597D solid;
     }
     #left ul li a:hover{
-
-      background:url("images/background.jpg") 0px 25px;
+      background:url("../background1.jpg") 0px 25px;
       color:#99FFCC;
-      direction:none;
+      direction:inherit;
       text-align:center;
       border-bottom:1px #000066 solid;
     }
@@ -157,12 +154,9 @@
           <input type="submit" name="btn" value="管理员入口" id="sub3" onclick="location.href='/ad'">
         </form>
         </div>
-
       </div>
     <div id="bottomDiv">
-
     </div>
   </div>
-
   </body>
 </html>

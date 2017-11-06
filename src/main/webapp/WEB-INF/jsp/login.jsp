@@ -9,21 +9,17 @@
     <meta name="author" content="">
 
     <title>登录界面</title>
-
     <!-- Bootstrap Core CSS -->
-    <link href="demo/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="../bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="demo/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
+    <link href="../metisMenu.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="demo/dist/css/sb-admin-2.css" rel="stylesheet">
-
+    <link href="../sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="demo/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../font-awesome.min.css" rel="stylesheet" type="text/css">
 
 </head>
-<body background="images/background.jpg">
+<body background="../background.jpg">
 
 <div class="container">
     <div class="row">
