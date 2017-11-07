@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* 全局设置 */
+body{
+	font-size:12px;
+	font-family:"微软雅黑";
+	margin:0px;
+	padding:0px;
+	background-image:url("../bg.jpg");
+	background-color:#C1E6F5;
+	background-repeat:repeat-x;
+}
+
+a:link{
+	text-decoration:none;
+	color:#39F;
+}
+
+a:visited{
+	text-decoration:none;
+	color:#39F;
+}
+a:hover{
+	text-decoration:underline;
+	color:#36C;
+}

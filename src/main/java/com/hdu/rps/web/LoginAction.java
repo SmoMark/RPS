@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -50,48 +49,54 @@ public class LoginAction {
         }
     }
 
-    @ResponseBody
     @RequestMapping(value = "/hr",method = RequestMethod.POST)
-    private String hrLogin(@RequestParam String email, @RequestParam String password) {
+    private ModelAndView hrLogin(@RequestParam String email, @RequestParam String password) {
         try {
             result = loginServiceImpl.findByUserEmailAndUserPasswordAndUserJob(email,password,"hr");
         } catch (Exception e) {
             System.out.println("loginAction:"+e);
         }
         if(result == true) {
-            return "success";
+            modelAndView = new ModelAndView("hrHome");
+            return modelAndView;
         } else {
-            return "error";
+            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=HR入口");
+            modelAndView.addObject("error","账号或密码错误");
+            return modelAndView;
         }
     }
 
-    @ResponseBody
     @RequestMapping(value = "/re",method = RequestMethod.POST)
-    private String reLogin(@RequestParam String email, @RequestParam String password) {
+    private ModelAndView reLogin(@RequestParam String email, @RequestParam String password) {
         try {
             result = loginServiceImpl.findByUserEmailAndUserPasswordAndUserJob(email,password,"re");
         } catch (Exception e) {
             System.out.println("loginAction:"+e);
         }
-        if(result == true) {
-            return "success";
+        if(result) {
+            modelAndView = new ModelAndView("reHome");
+            return modelAndView;
         } else {
-            return "error";
+            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=推荐人入口");
+            modelAndView.addObject("error","账号或密码错误");
+            return modelAndView;
         }
     }
 
-    @ResponseBody
     @RequestMapping(value = "/ad",method = RequestMethod.POST)
-    private String adLogin(@RequestParam String email, @RequestParam String password) {
+    private ModelAndView adLogin(@RequestParam String email, @RequestParam String password) {
         try {
             result = loginServiceImpl.findByUserEmailAndUserPasswordAndUserJob(email,password,"ad");
         } catch (Exception e) {
             System.out.println("loginAction:"+e);
         }
-        if(result == true) {
-            return "success";
+        if(result) {
+            modelAndView = new ModelAndView("adHome");
+            return modelAndView;
         } else {
-            return "error";
+            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=管理员入口");
+            modelAndView.addObject("error","账号或密码错误");
+            return modelAndView;
         }
     }
 }

@@ -1,3 +1,4 @@
+<%@ page import="static java.awt.SystemColor.window" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -40,6 +41,18 @@
                             <div class="checkbox">
                                 <label>
                                     <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                </label>
+                                <label>
+                                    <p>
+                                        <%
+                                            String error = request.getParameter("error");
+                                            if(error != null) {
+                                        %>
+                                            <h5><font color="red"><%=error%></font></h5>
+                                        <%
+                                            }
+                                        %>
+                                    </p>
                                 </label>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
