@@ -31,20 +31,24 @@ public class LoginAction {
 
     @RequestMapping(value = "/selectLogin",method = RequestMethod.GET)
     public ModelAndView login(@RequestParam String btn) {
-        if("HR入口".equals(btn)) {
+        if("HR入口".equals(btn) || "hr".equals(btn)) {
             modelAndView = new ModelAndView("/login");
             modelAndView.addObject("job","hr");
             logger.info("------------HR入口-------------");
             return modelAndView;
-        } else if("推荐人入口".equals(btn)) {
+        } else if("推荐人入口".equals(btn) || "re".equals(btn)) {
             modelAndView = new ModelAndView("/login");
             modelAndView.addObject("job","re");
             logger.info("------------推荐人入口-------------");
             return modelAndView;
-        } else {
+        } else if("管理员入口".equals(btn) || "ad".equals(btn)) {
             modelAndView = new ModelAndView("/login");
             modelAndView.addObject("job","ad");
             logger.info("------------管理员入口-------------");
+            return modelAndView;
+        }   else {
+            logger.error("--------LoginAction:selectLogin出错------");
+            modelAndView = new ModelAndView("/index");
             return modelAndView;
         }
     }
@@ -60,7 +64,7 @@ public class LoginAction {
             modelAndView = new ModelAndView("hrHome");
             return modelAndView;
         } else {
-            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=HR入口");
+            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=hr");
             modelAndView.addObject("error","账号或密码错误");
             return modelAndView;
         }
@@ -77,7 +81,7 @@ public class LoginAction {
             modelAndView = new ModelAndView("reHome");
             return modelAndView;
         } else {
-            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=推荐人入口");
+            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=re");
             modelAndView.addObject("error","账号或密码错误");
             return modelAndView;
         }
@@ -94,7 +98,7 @@ public class LoginAction {
             modelAndView = new ModelAndView("adHome");
             return modelAndView;
         } else {
-            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=管理员入口");
+            modelAndView = new ModelAndView("redirect:/login/selectLogin?btn=ad");
             modelAndView.addObject("error","账号或密码错误");
             return modelAndView;
         }
