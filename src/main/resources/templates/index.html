@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>HR人才推荐系统</title>
-    <link href="../indexCSS.css" rel="stylesheet" type="text/css"/>
+    <link th:href="@{../indexCSS.css}" href="../local/indexCSS.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="mainDiv">
@@ -12,7 +12,7 @@
     </div>
     <div id="centerDiv">
         <div id="form">
-            <form action="/login/selectLogin" method="get">
+            <form th:action="@{/login/selectLogin}" action="../templates/login.html" method="get">
                 <input type="submit" name="btn" value="HR入口" id="sub1" onclick="location.href='/hr'"/>
                 <input type="submit" name="btn" value="推荐人入口" id="sub2" onclick="location.href='/re'"/>
                 <input type="submit" name="btn" value="管理员入口" id="sub3" onclick="location.href='/ad'"/>
