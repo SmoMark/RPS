@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HRHomeAction {
     @RequestMapping("/homeDetail")
     public String homeDetail() {
-        return "homeDetail";
+        return "hrHomeDetail";
     }
 }
