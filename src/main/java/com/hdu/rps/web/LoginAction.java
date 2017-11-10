@@ -52,12 +52,17 @@ public class LoginAction {
     }
 
     @RequestMapping(value = "/hr",method = RequestMethod.POST)
-    private String hrLogin(@RequestParam String email, @RequestParam String password, ModelMap modelMap, HttpServletRequest request
+    private String hrLogin(@RequestParam(required = false) String email, @RequestParam(required = false) String password, ModelMap modelMap, HttpServletRequest request
     , HttpServletResponse response) {
         response.setHeader("Cache-Control","no-cache"); //不对页面进行缓存，再次访问时将从服务器重新获取最新版本
         response.setHeader("Cache-Control","no-store"); //任何情况下都不缓存页面
         response.setDateHeader("Expires", 0); //使缓存过期
         response.setHeader("Pragma","no-cache"); //HTTP 1.0 向后兼容
+        logger.info("-----email:" + email + ",password:" + password + "----------");
+        if(email.isEmpty() || password.isEmpty()) {
+            logger.info("--------返回到主页面----------");
+            return "index";
+        }
         try {
             result = loginServiceImpl.findByUserEmailAndUserPasswordAndUserJob(email,password,"hr");
         } catch (Exception e) {
@@ -67,7 +72,8 @@ public class LoginAction {
             modelMap.addAttribute("job","hr");
             httpSession = request.getSession();
             httpSession.setAttribute("userID",result);
-            return "home";
+            httpSession.setAttribute("job","hr");
+            return "redirect:/home";
         } else {
             modelMap.addAttribute("errorTip",true);
             return "redirect:/login/selectLogin?btn=hr";
@@ -83,7 +89,9 @@ public class LoginAction {
         }
         if(result != -1) {
             modelMap.addAttribute("job","re");
-            return "home";
+            httpSession.setAttribute("userID",result);
+            httpSession.setAttribute("job","re");
+            return "redirect:/home";
         } else {
             modelMap.addAttribute("error",true);
             return "redirect:/login/selectLogin?btn=re";
@@ -99,7 +107,9 @@ public class LoginAction {
         }
         if(result != -1) {
             modelMap.addAttribute("job","ad");
-            return "home";
+            httpSession.setAttribute("userID",result);
+            httpSession.setAttribute("job","ad");
+            return "redirect:/home";
         } else {
             modelMap.addAttribute("error",true);
             return "redirect:/login/selectLogin?btn=ad";

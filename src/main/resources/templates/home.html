@@ -12,17 +12,14 @@
     <script th:src="@{../jquery.js}" src="../public/jquery.js"></script>
 </head>
 <body style="background-color:#f2f9fd;">
-<!--<h1 th:text="|session的userID值:${session.userID}|"></h1>-->
-<div th:if="${session.userID == null}">
-    <script>window.location = "/login/"</script>
-</div>
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top" style="float:left">
         <h1><img th:src="@{/HR.png}" src="../static/HR.png" class="radius-circle rotate-hover" height="50" alt="" />HR</h1>
     </div>
     <div class="head-l" style="float: right">
-        <a class="button button-little bg-red" th:href="@{/logout}" href="#">
-            <span class="icon-power-off"></span> 退出登录</a>
+        <a class="button button-little bg-red" href="#" th:href="@{/logout}">
+            <span class="icon-power-off"></span> 退出登录
+        </a>
     </div>
 </div>
 <div class="leftnav">
