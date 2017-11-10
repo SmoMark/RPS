@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
+    <meta http-equiv="Pragma"   content="no-cache"/>
+    <meta http-equiv="Cache-Control"   content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <title>登陆界面</title>
     <!-- Bootstrap Core CSS -->
     <link th:href="@{../bootstrap.min.css}" href="../resources/bootstrap.min.css" rel="stylesheet"/>
@@ -21,7 +24,7 @@
                     <h2 align="center">人才推荐系统</h2>
                 </div>
                 <div class="panel-body">
-                    <form role="form" th:action="@{/login/{job}(job=${job})}" action="../templates/hrHome.html" method="post">
+                    <form role="form" th:action="@{/login/{job}(job=${job})}" action="home.html" method="post">
                         <fieldset>
                             <div class="form-group">
                                 <p>账号：</p> <input class="form-control" placeholder="手机号/邮箱" name="email" type="email" autofocus=""/>

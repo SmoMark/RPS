@@ -6,5 +6,5 @@ package com.hdu.rps.service;
 
 public interface LoginService {
 
-   boolean findByUserEmailAndUserPasswordAndUserJob(String useremail, String userpassword, String userjob);
+   int findByUserEmailAndUserPasswordAndUserJob(String useremail, String userpassword, String userjob);
 }

@@ -15,20 +15,19 @@ public class LoginServiceImpl implements LoginService {
     private User user = null;
     private String job = null;
     private String password = null;
-
     @Autowired
     private UserMapper userMapper;
 
     @Override
-    public boolean findByUserEmailAndUserPasswordAndUserJob(String useremail, String userpassword, String userjob) {
+    public int findByUserEmailAndUserPasswordAndUserJob(String useremail, String userpassword, String userjob) {
         try {
             user = userMapper.selectByUserEmail(useremail);
         }catch (Exception e) {
             System.out.println("LoginService"+e.getMessage());
+            return -1;
         }
-
         if(user == null) {
-            return false;
+            return -1;
         }
         logger.info("--------查找结束-------");
         job = user.getUserjob();
@@ -36,10 +35,10 @@ public class LoginServiceImpl implements LoginService {
         logger.info("-------job:" + job + ",password:" + password);
         if(userjob.equals(job) & password.equals(userpassword)) {
             logger.info("--------找到该账号-------");
-            return true;
+            return user.getUserno();
         } else {
             logger.info("-------未找到该账号---------");
-            return false;
+            return -1;
         }
     }
 }
