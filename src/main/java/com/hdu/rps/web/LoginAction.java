@@ -81,7 +81,7 @@ public class LoginAction {
     }
 
     @RequestMapping(value = "/re",method = RequestMethod.POST)
-    private String reLogin(@RequestParam String email, @RequestParam String password,ModelMap modelMap) {
+    private String reLogin(@RequestParam String email, @RequestParam String password,ModelMap modelMap,HttpServletRequest request) {
         try {
             result = loginServiceImpl.findByUserEmailAndUserPasswordAndUserJob(email,password,"re");
         } catch (Exception e) {
@@ -89,6 +89,7 @@ public class LoginAction {
         }
         if(result != -1) {
             modelMap.addAttribute("job","re");
+            httpSession = request.getSession();
             httpSession.setAttribute("userID",result);
             httpSession.setAttribute("job","re");
             return "redirect:/home";
@@ -99,7 +100,7 @@ public class LoginAction {
     }
 
     @RequestMapping(value = "/ad",method = RequestMethod.POST)
-    private String adLogin(@RequestParam String email, @RequestParam String password,ModelMap modelMap) {
+    private String adLogin(@RequestParam String email, @RequestParam String password,ModelMap modelMap,HttpServletRequest request) {
         try {
             result = loginServiceImpl.findByUserEmailAndUserPasswordAndUserJob(email,password,"ad");
         } catch (Exception e) {
@@ -107,6 +108,7 @@ public class LoginAction {
         }
         if(result != -1) {
             modelMap.addAttribute("job","ad");
+            httpSession = request.getSession();
             httpSession.setAttribute("userID",result);
             httpSession.setAttribute("job","ad");
             return "redirect:/home";

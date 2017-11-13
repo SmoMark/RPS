@@ -13,4 +13,9 @@ public class HRHomeAction {
     public String homeDetail() {
         return "hrHomeDetail";
     }
+
+    @RequestMapping("/recruit")
+    public String recruit() {
+        return "addJob";
+    }
 }
