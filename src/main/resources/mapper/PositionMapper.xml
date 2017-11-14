@@ -6,8 +6,8 @@
     <result column="PosType" jdbcType="INTEGER" property="postype" />
     <result column="PosState" jdbcType="INTEGER" property="posstate" />
     <result column="PosOffice" jdbcType="VARCHAR" property="posoffice" />
-    <result column="PosTime" jdbcType="TIMESTAMP" property="postime" />
-    <result column="PosDeadline" jdbcType="TIMESTAMP" property="posdeadline" />
+    <result column="PosTime" jdbcType="VARCHAR" property="postime" />
+    <result column="PosDeadline" jdbcType="VARCHAR" property="posdeadline" />
     <result column="PosNeeds" jdbcType="INTEGER" property="posneeds" />
     <result column="PosIntro" jdbcType="VARCHAR" property="posintro" />
     <result column="PosSalary1" jdbcType="INTEGER" property="possalary1" />
@@ -20,8 +20,8 @@
     <result column="PosType" jdbcType="INTEGER" property="postype" />
     <result column="PosState" jdbcType="INTEGER" property="posstate" />
     <result column="PosOffice" jdbcType="VARCHAR" property="posoffice" />
-    <result column="PosTime" jdbcType="TIMESTAMP" property="postime" />
-    <result column="PosDeadline" jdbcType="TIMESTAMP" property="posdeadline" />
+    <result column="PosTime" jdbcType="VARCHAR" property="postime" />
+    <result column="PosDeadline" jdbcType="VARCHAR" property="posdeadline" />
     <result column="PosNeeds" jdbcType="INTEGER" property="posneeds" />
     <result column="PosIntro" jdbcType="VARCHAR" property="posintro" />
     <result column="PosSalary1" jdbcType="INTEGER" property="possalary1" />
@@ -57,7 +57,7 @@
       PosSalary2, PosSkill, PosMessage
       )
     values (#{postype,jdbcType=INTEGER}, #{posstate,jdbcType=INTEGER},
-      #{posoffice,jdbcType=VARCHAR}, #{postime,jdbcType=TIMESTAMP}, #{posdeadline,jdbcType=TIMESTAMP}, 
+      #{posoffice,jdbcType=VARCHAR}, #{postime,jdbcType=VARCHAR}, #{posdeadline,jdbcType=VARCHAR},
       #{posneeds,jdbcType=INTEGER}, #{posintro,jdbcType=VARCHAR}, #{possalary1,jdbcType=INTEGER}, 
       #{possalary2,jdbcType=INTEGER}, #{posskill,jdbcType=VARCHAR}, #{posmessage,jdbcType=VARCHAR}
       )
@@ -116,10 +116,10 @@
         #{posoffice,jdbcType=VARCHAR},
       </if>
       <if test="postime != null">
-        #{postime,jdbcType=TIMESTAMP},
+        #{postime,jdbcType=VARCHAR},
       </if>
       <if test="posdeadline != null">
-        #{posdeadline,jdbcType=TIMESTAMP},
+        #{posdeadline,jdbcType=VARCHAR},
       </if>
       <if test="posneeds != null">
         #{posneeds,jdbcType=INTEGER},
@@ -154,10 +154,10 @@
         PosOffice = #{posoffice,jdbcType=VARCHAR},
       </if>
       <if test="postime != null">
-        PosTime = #{postime,jdbcType=TIMESTAMP},
+        PosTime = #{postime,jdbcType=VARCHAR},
       </if>
       <if test="posdeadline != null">
-        PosDeadline = #{posdeadline,jdbcType=TIMESTAMP},
+        PosDeadline = #{posdeadline,jdbcType=VARCHAR},
       </if>
       <if test="posneeds != null">
         PosNeeds = #{posneeds,jdbcType=INTEGER},
@@ -185,8 +185,8 @@
     set PosType = #{postype,jdbcType=INTEGER},
       PosState = #{posstate,jdbcType=INTEGER},
       PosOffice = #{posoffice,jdbcType=VARCHAR},
-      PosTime = #{postime,jdbcType=TIMESTAMP},
-      PosDeadline = #{posdeadline,jdbcType=TIMESTAMP},
+      PosTime = #{postime,jdbcType=VARCHAR},
+      PosDeadline = #{posdeadline,jdbcType=VARCHAR},
       PosNeeds = #{posneeds,jdbcType=INTEGER},
       PosIntro = #{posintro,jdbcType=VARCHAR},
       PosSalary1 = #{possalary1,jdbcType=INTEGER},

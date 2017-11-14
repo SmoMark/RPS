@@ -5,7 +5,6 @@ import com.hdu.rps.model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,14 +25,11 @@ public class HRRecruitServiceImpl implements HRRecruitService {
     private int posType = 0;
     private int posState = 0;   //岗位余量
     private int afterConPosCount;
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
-    private Date date;
-    private Date afterConDate;
+    private StringBuffer afterConDeadTime;
     private List<Position> positionList = new ArrayList<>();
     @Override
     public void recruit(String jobname, String jobcount, String province, String city,
                         String deadtime, int salary1, int salary2, String duty, String skill, String message) {
-        date = new Date();
         position = new Position();  //重构
         if("java工程师".equals(jobname)) {
             posType = 1;
@@ -54,13 +50,20 @@ public class HRRecruitServiceImpl implements HRRecruitService {
         }
         posState = Integer.parseInt(jobcount);
         afterConPosCount = Integer.parseInt(jobcount);
-        //添加属性
-        position.setPostype(posType);
-        position.setPosstate(posState);        //余量
-        position.setPosoffice(province + city);
+        afterConDeadTime = new StringBuffer(deadtime.substring(0,10) + " " + deadtime.substring(11,deadtime.length()));
         try {
-            position.setPostime(simpleDateFormat.parse(simpleDateFormat.format(date)));
-            position.setPosdeadline(simpleDateFormat.parse(deadtime));
+            //添加属性
+            position.setPostype(posType);
+            position.setPosstate(posState);        //余量
+            position.setPosoffice(province + city);
+
+            //获取当前时间
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            logger.info("-------当前时间： " + simpleDateFormat.format(date) + " ------");
+
+            position.setPostime(simpleDateFormat.format(date));
+            position.setPosdeadline(String.valueOf(afterConDeadTime));
             position.setPosneeds(afterConPosCount);
             position.setPosintro(duty);
             position.setPossalary1(salary1);
@@ -69,7 +72,7 @@ public class HRRecruitServiceImpl implements HRRecruitService {
             position.setPosmessage(message);
 
             positionMapper.insert(position);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             logger.warning("------------存储招聘信息失败---------");
             e.printStackTrace();
         }

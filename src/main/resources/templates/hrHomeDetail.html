@@ -47,18 +47,19 @@
 <body>
 <table class="hovertable">
     <tr>
-        <th>序号</th>
-        <th>岗位</th>
-        <th>招聘人数</th>
-        <th>工作地点</th>
-        <th>截止时间</th>
-        <th>薪资</th>
-        <th>岗位职责</th>
-        <th>岗位要求</th>
-        <th>备注</th>
+        <th style="text-align: center" width="40px" th:width="50px">序号</th>
+        <th style="text-align: center" width="90px" th:width="100px">岗位</th>
+        <th style="text-align: center" width="80px" th:width="100px">招聘人数</th>
+        <th style="text-align: center" width="105px" th:width="105px">工作地点</th>
+        <th style="text-align: center" width="110px" th:width="110px">发布时间</th>
+        <th style="text-align: center" width="100px" th:width="100px">截止时间</th>
+        <th style="text-align: center" width="120px" th:width="120px">薪资</th>
+        <th style="text-align: center" width="200px" th:width="200px">岗位职责</th>
+        <th style="text-align: center" width="160px" th:width="160px">岗位要求</th>
+        <th style="text-align: center">备注</th>
     </tr>
     <tr th:each="position,iterStat : ${positionList}">
-        <th th:text="${iterStat.count}">序号</th>
+        <th th:text="${iterStat.count}">100</th>
         <td th:if="${position.postype == 1}">java工程师</td>
         <td th:if="${position.postype == 2}">前端工程师</td>
         <td th:if="${position.postype == 3}">后台工程师</td>
@@ -67,12 +68,13 @@
         <td th:if="${position.postype == 6}">财务</td>
         <td th:if="${position.postype == 7}">总经理助理</td>
         <td th:if="${position.postype == 8}">文员</td>
-        <td th:text="${position.posneeds}">招聘人数</td>
-        <td th:text="${position.posoffice}">工作地点</td>
-        <td th:text="${position.posdeadline}">截止时间</td>
-        <td th:text="|${position.possalary1}-${position.possalary2}|">薪资</td>
-        <td th:text="${position.posintro}">岗位职责</td>
-        <td th:text="${position.posskill}">岗位要求</td>
+        <td th:text="${position.posneeds}">1000</td>
+        <td th:text="${position.posoffice}">宁夏回族自治区某某某市</td>
+        <td th:text="${position.postime}">2017-11-14 19:31:30</td>
+        <td th:text="${position.posdeadline}">2017-12-31 12:00</td>
+        <td th:text="|${position.possalary1}-${position.possalary2}|">10000-11000</td>
+        <td th:utext="${position.posintro}">配合团队完成原型设计等前端工作</td>
+        <td th:text="${position.posskill}">软件工程-英语六级-3-5年</td>
         <td th:text="${position.posmessage}">备注</td>
     </tr>
 <!--    ${positionList}-->

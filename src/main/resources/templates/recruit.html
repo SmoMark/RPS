@@ -5,13 +5,6 @@
     <title>发布测试</title>
 </head>
 <body>
-<h3 th:text="|岗位:${jobname}|" ></h3>
-<h3 th:text="|招聘人数：${jobcount}|"></h3>
-<h3 th:text="|工作地点:${province}${city}|"></h3>
-<h3 th:text="|截止日期：${deadtime}|"></h3>
-<h3 th:text="|薪资：${salary1}到${salary2}|"></h3>
-<h3 th:text="|岗位职责:${duty}|"></h3>
-<h3 th:text="|岗位要求：${skill}|"></h3>
-<h3 th:text="|备注：${message}|"></h3>
+<h3 th:utext="|岗位职责:${duty}|"></h3>
 </body>
 </html>

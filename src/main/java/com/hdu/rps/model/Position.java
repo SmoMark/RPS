@@ -1,7 +1,5 @@
 package com.hdu.rps.model;
 
-import java.util.Date;
-
 public class Position {
     private Integer posno;
 
@@ -11,9 +9,9 @@ public class Position {
 
     private String posoffice;
 
-    private Date postime;
+    private String postime;
 
-    private Date posdeadline;
+    private String posdeadline;
 
     private Integer posneeds;
 
@@ -59,19 +57,19 @@ public class Position {
         this.posoffice = posoffice == null ? null : posoffice.trim();
     }
 
-    public Date getPostime() {
+    public String getPostime() {
         return postime;
     }
 
-    public void setPostime(Date postime) {
+    public void setPostime(String postime) {
         this.postime = postime;
     }
 
-    public Date getPosdeadline() {
+    public String getPosdeadline() {
         return posdeadline;
     }
 
-    public void setPosdeadline(Date posdeadline) {
+    public void setPosdeadline(String posdeadline) {
         this.posdeadline = posdeadline;
     }
 
