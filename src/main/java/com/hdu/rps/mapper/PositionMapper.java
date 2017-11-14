@@ -2,6 +2,8 @@ package com.hdu.rps.mapper;
 
 import com.hdu.rps.model.Position;
 
+import java.util.List;
+
 public interface PositionMapper {
     int deleteByPrimaryKey(Integer posno);
 
@@ -14,4 +16,7 @@ public interface PositionMapper {
     int updateByPrimaryKeySelective(Position record);
 
     int updateByPrimaryKey(Position record);
+
+    List<Position> findAll();
+
 }

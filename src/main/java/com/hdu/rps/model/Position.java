@@ -19,6 +19,14 @@ public class Position {
 
     private String posintro;
 
+    private Integer possalary1;
+
+    private Integer possalary2;
+
+    private String posskill;
+
+    private String posmessage;
+
     public Integer getPosno() {
         return posno;
     }
@@ -81,5 +89,37 @@ public class Position {
 
     public void setPosintro(String posintro) {
         this.posintro = posintro == null ? null : posintro.trim();
+    }
+
+    public Integer getPossalary1() {
+        return possalary1;
+    }
+
+    public void setPossalary1(Integer possalary1) {
+        this.possalary1 = possalary1;
+    }
+
+    public Integer getPossalary2() {
+        return possalary2;
+    }
+
+    public void setPossalary2(Integer possalary2) {
+        this.possalary2 = possalary2;
+    }
+
+    public String getPosskill() {
+        return posskill;
+    }
+
+    public void setPosskill(String posskill) {
+        this.posskill = posskill == null ? null : posskill.trim();
+    }
+
+    public String getPosmessage() {
+        return posmessage;
+    }
+
+    public void setPosmessage(String posmessage) {
+        this.posmessage = posmessage == null ? null : posmessage.trim();
     }
 }

@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id="back">
-<form action="" method="post" class="elegant-aero">
+<form action="#" th:action="@{/hr/recruit}" method="post" class="elegant-aero">
     <h1>发布招聘
         <span>请填写您的招聘需求</span>
     </h1>
@@ -38,36 +38,59 @@
 
     <label>
         <span>工作地点 :</span>
-        <select id="province" runat="server" onchange="selectprovince(this);" style=" width:95px;"></select>
-        <select id="city" runat="server" style=" width:95px;"></select>
+        <select id="province" name="province" runat="server" onchange="selectprovince(this);" style=" width:95px;"></select>
+        <select id="city" name="city" runat="server" style=" width:95px;"></select>
     </label>
 
     <label>
         <span>截止时间 ：</span>
         <td >
-            <input type="date" value="2017-12-31"/>
+            <input type="date" name="deadtime" value="2017-12-31"/>
         </td>
     </label>
 
     <label>
         <span>薪资 ：</span>
-        <select id="xinzi1" onchange="setXinzi()" style="width: 95px;"></select>
+        <select id="xinzi1" name="salary1" onchange="setSalary2()" style="width: 95px;">
+            <option value="1000">1000</option>
+            <option value="2000">2000</option>
+            <option value="3000">3000</option>
+            <option value="4000">4000</option>
+            <option value="5000">5000</option>
+            <option value="6000">6000</option>
+            <option value="7000">7000</option>
+            <option value="8000">8000</option>
+            <option value="9000">9000</option>
+            <option value="10000">10000</option>
+        </select>
         —
-        <select id="xinzi2" onchange="setXinzi()" style="width: 95px;"></select>
+        <select id="xinzi2" name = "salary2" style="width: 95px;">
+            <option value="1000">1000</option>
+            <option value="2000" selected="selected">2000</option>
+            <option value="3000">3000</option>
+            <option value="4000">4000</option>
+            <option value="5000">5000</option>
+            <option value="6000">6000</option>
+            <option value="7000">7000</option>
+            <option value="8000">8000</option>
+            <option value="9000">9000</option>
+            <option value="10000">10000</option>
+            <option value="11000">11000</option>
+        </select>
     </label>
 
     <label>
         <span>岗位职责 :</span>
         <br/><br/><br/>
        <!-- <input id="duty" type="text" name="duty" placeholder="输入" />-->
-        <textarea cols="80" class="ckeditor" id="editor1" name="comments" rows="10">
+        <textarea cols="80" name="duty" class="ckeditor" id="editor1"  rows="10">
 
         </textarea>
     </label>
 
     <label>
         <span>岗位要求 :</span>
-        <input type="text" class="" value="" data-value=""  onclick="appendCity(this,'duoxuan')" />
+        <input type="text" name="skill" class="" value="" data-value=""  onclick="appendCity(this,'duoxuan')" />
     </label>
 
     <label>
@@ -79,12 +102,12 @@
     <div>
         <label>
             <div style="float:left;">
-                <input type="submit" class="button1"  value="紧急发布" />
+                <input type="submit" class="button1"  value="紧急发布" name="btn"/>
             </div>
         </label>
         <label>
             <div style="float:right;">
-                <input type="submit" class="button2"  value="普通发布" />
+                <input type="submit" class="button2"  value="普通发布" name="btn"/>
             </div>
         </label>
     </div>
@@ -233,24 +256,12 @@
             ddlCity.appendChild(option);
         }
     }
+    function setSalary2() {
+        var salary1Value = document.getElementById("xinzi1").value;
+        var salary2 = document.getElementById("xinzi2");
+        salary2[(salary1Value/1000)].selected = true;
+    }
 </script>
-
-    <script type="text/javascript">
-        var xinzi1 = document.getElementById("xinzi1");
-        for(var i = 1000 ; i &lt; 9001 ; i = i+1000){
-            var options = document.createElement("option");
-            options.innerHTML = i;
-            xinzi1.appendChild(options);
-        }
-    </script>
-    <script type="text/javascript">
-        var xinzi2 = document.getElementById("xinzi2");
-        for(var i = 2000 ; i &lt; 10001 ; i = i+1000){
-            var options = document.createElement("option");
-            options.innerHTML = i;
-            xinzi2.appendChild(options);
-        }
-    </script>
 </div>
 </body>
 </html>
