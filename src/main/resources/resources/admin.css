@@ -71,7 +71,7 @@ ul,li{ list-style-type:none;}
 input[type="checkbox"], input[type="radio"]{ width:15px; height:15px; vertical-align:-3px; margin-right:5px;}
 
 textarea[name=content]{width:100%; height:500px; border:1px solid #ddd; border-radius:3px; -webkit-border-radius:3px;}
-
+.tr-link:hover { cursor: pointer; }
 
 
 

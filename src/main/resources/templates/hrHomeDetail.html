@@ -19,14 +19,6 @@
 </head>
 <div class="title">招聘信息</div>
 <style type="text/css">
-    table.hovertable {
-        font-family: verdana,arial,sans-serif;
-        font-size:11px;
-        color:#333333;
-        border-width: 1px;
-        border-color: #999999;
-        border-collapse: collapse;
-    }
     table.hovertable th {
         background-color:#c3dde0;
         border-width: 1px;
@@ -45,20 +37,32 @@
     }
 </style>
 <body>
+<div style="float: right">
+    <li >
+        <button type="button" class="button border-green" id="checkall" ><span class="icon-check"></span> 全选</button>
+        <button class="button border-red" onclick="DelSelect()"><span class="icon-trash-o"></span> 批量删除</button>
+    </li>
+</div>
 <table class="hovertable">
     <tr>
-        <th style="text-align: center" width="40px" th:width="50px">序号</th>
-        <th style="text-align: center" width="90px" th:width="100px">岗位</th>
-        <th style="text-align: center" width="80px" th:width="100px">招聘人数</th>
+        <th type="checkbox" width="40px" th:width="40px"></th>
+        <th style="text-align: center" width="40px" th:width="40px">序号</th>
+        <th style="text-align: center" width="90px" th:width="90px">岗位</th>
+        <th style="text-align: center" width="50px" th:width="50px">招聘人数</th>
         <th style="text-align: center" width="105px" th:width="105px">工作地点</th>
         <th style="text-align: center" width="110px" th:width="110px">发布时间</th>
         <th style="text-align: center" width="100px" th:width="100px">截止时间</th>
-        <th style="text-align: center" width="120px" th:width="120px">薪资</th>
+        <th style="text-align: center" width="110px" th:width="110px">薪资</th>
         <th style="text-align: center" width="200px" th:width="200px">岗位职责</th>
-        <th style="text-align: center" width="160px" th:width="160px">岗位要求</th>
+        <th style="text-align: center" width="90px" th:width="90px">岗位要求</th>
         <th style="text-align: center">备注</th>
+        <th style="text-align: center" width="110px">操作</th>
     </tr>
-    <tr th:each="position,iterStat : ${positionList}">
+    <tbody>
+    <tr th:each="position,iterStat : ${positionList}" class="tr-link">
+        <td style="text-align:left; padding-left:20px;">
+            <input type="checkbox" name="id[]" value="" id="id[]" th:value="${position.posno}"/>
+        </td>
         <th th:text="${iterStat.count}">100</th>
         <td th:if="${position.postype == 1}">java工程师</td>
         <td th:if="${position.postype == 2}">前端工程师</td>
@@ -76,8 +80,77 @@
         <td th:utext="${position.posintro}">配合团队完成原型设计等前端工作</td>
         <td th:text="${position.posskill}">软件工程-英语六级-3-5年</td>
         <td th:text="${position.posmessage}">备注</td>
+        <td>
+            <div class="button-group">
+                <a class="button border-red" href="#" th:href="@{/hr/del/{id}(id=${position.posno})}"
+                   onclick="return del()" th:value="${position.posno}" value="1">
+                    <span class="icon-trash-o"></span> 删除
+                </a>
+            </div>
+        </td>
     </tr>
-<!--    ${positionList}-->
+    </tbody>
 </table>
+
+<script type="text/javascript">
+    //单个删除
+    function del() {
+        if (confirm("您确定要删除吗？")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //全选
+    $("#checkall").click(function() {
+        var flag = -1;
+
+        $("input[name='id[]']").each(function() {
+            if (this.checked) {
+
+            } else {    //有未选中的
+                flag = 0;
+            }
+        });
+        if(flag == 0) {
+            $("input[name='id[]']").each(function() {
+                this.checked = true;
+            });
+        } else {        //全选中
+            $("input[name='id[]']").each(function() {
+                this.checked = false;
+            });
+        }
+    })
+
+    //批量删除
+    function DelSelect() {
+        var Checkbox = false;
+        $("input[name='id[]']").each(function() {
+            if (this.checked == true) {
+                Checkbox = true;
+            }
+        });
+        if (Checkbox) {
+            var t = confirm("您确认要删除选中的内容吗？");
+            if (t == false) {
+                return false;
+            } else {
+                var checkedID="";
+                $("input[name='id[]']").each(function() {
+                    if (this.checked == true) {
+                        checkedID += this.value + ",";
+
+                    }
+                });
+                window.location.replace("/hr/delSelected?checkedID="+checkedID);
+            }
+        } else {
+            alert("请选择您要删除的内容!");
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

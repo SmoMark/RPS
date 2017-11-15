@@ -4,10 +4,9 @@ import com.hdu.rps.model.Position;
 import com.hdu.rps.service.HRRecruitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.logging.Logger;
 /**
  * Created by SJH on 2017/11/7.
  */
+@Transactional
 @RequestMapping("/hr")
 @Controller
 public class HRHomeAction {
@@ -25,7 +25,7 @@ public class HRHomeAction {
 
     private Logger logger = Logger.getLogger(String.valueOf(HRHomeAction.this));
     private List<Position> positionList = new ArrayList<>();
-
+    private String[] ids;
     @RequestMapping("/homeDetail")
     public String homeDetail(ModelMap modelMap) {
         positionList = hrRecruitServiceImpl.getPositionList();
@@ -56,6 +56,21 @@ public class HRHomeAction {
         } else {
             logger.warning("--------------发布有误---------");
         }
+        return "redirect:/hr/homeDetail";
+    }
+
+    @RequestMapping("/del/{id}")
+    public String delByID(@PathVariable int id) {
+        logger.info("------------删除单个招聘信息id=" + id);
+        hrRecruitServiceImpl.delByID(id);
+        return "redirect:/hr/homeDetail";
+    }
+
+    @RequestMapping("/delSelected")
+    public String delSelected(@RequestParam String checkedID) {
+        logger.info("-----------删除多个招聘信息-----------");
+        ids = checkedID.split(",");
+        hrRecruitServiceImpl.delSelected(ids);
         return "redirect:/hr/homeDetail";
     }
 }

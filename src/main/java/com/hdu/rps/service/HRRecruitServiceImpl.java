@@ -4,6 +4,7 @@ import com.hdu.rps.mapper.PositionMapper;
 import com.hdu.rps.model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 /**
  * Created by SJH on 2017/11/14.
  */
+@Transactional
 @Service
 public class HRRecruitServiceImpl implements HRRecruitService {
 
@@ -27,6 +29,8 @@ public class HRRecruitServiceImpl implements HRRecruitService {
     private int afterConPosCount;
     private StringBuffer afterConDeadTime;
     private List<Position> positionList = new ArrayList<>();
+    private int index;
+    private int[] nums;
     @Override
     public void recruit(String jobname, String jobcount, String province, String city,
                         String deadtime, int salary1, int salary2, String duty, String skill, String message) {
@@ -83,4 +87,25 @@ public class HRRecruitServiceImpl implements HRRecruitService {
         positionList = positionMapper.findAll();
         return positionList;
     }
+
+    @Override
+    public void delByID(int id) {
+        positionMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void delSelected(String[] ids) {
+        nums = new int[ids.length];
+        //string数组转int数组
+        for(index = 0;index < ids.length; index++) {
+            nums[index] = Integer.parseInt(ids[index]);
+        }
+
+        for(index = 0;index < ids.length; index++) {
+            logger.info("------多项删除：第" + (index+1) + "项id： " + nums[index]);
+            positionMapper.deleteByPrimaryKey(nums[index]);
+        }
+    }
+
+
 }

@@ -36,9 +36,9 @@
     margin-top: 10px;
     font-weight: bold;
 }
-.elegant-aero input[type="text"], .elegant-aero input[type="email"], .elegant-aerotextarea, .elegant-aero select {
+.elegant-aero input[type="datetime-local"], .elegant-aero input[type="email"], .elegant-aerotextarea, .elegant-aero select {
      color: #888;
-     width: 70%;
+     width: 40%;
      padding: 0px 0px 0px 5px;
      border: 1px solid #C5E2FF;
      background: #FBFBFB;

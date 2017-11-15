@@ -1,9 +1,10 @@
 package com.hdu.rps.mapper;
 
 import com.hdu.rps.model.Position;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 public interface PositionMapper {
     int deleteByPrimaryKey(Integer posno);
 
