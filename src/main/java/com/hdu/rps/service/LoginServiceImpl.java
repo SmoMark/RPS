@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 /**
  * Created by SJH on 2017/11/5.
  */
@@ -15,6 +17,7 @@ public class LoginServiceImpl implements LoginService {
     private User user = null;
     private String job = null;
     private String password = null;
+    private ArrayList<String> emailList;
     @Autowired
     private UserMapper userMapper;
 
@@ -40,5 +43,11 @@ public class LoginServiceImpl implements LoginService {
             logger.info("-------未找到该账号---------");
             return -1;
         }
+    }
+
+    @Override
+    public ArrayList<String> findEmailByJob(String job) {
+        emailList = (ArrayList<String>) userMapper.findEmailByJob(job);
+        return emailList;
     }
 }

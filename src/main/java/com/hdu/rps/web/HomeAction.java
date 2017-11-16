@@ -29,10 +29,10 @@ public class HomeAction {
             userID = (int) httpSession.getAttribute("userID");
             job = (String) httpSession.getAttribute("job");
             modelMap.addAttribute("job",job);
+            return "home";
         } catch (Exception e) {
             logger.info("-----不存在HomeAction.httpSession.useID----");
             return "index";
         }
-        return "home";
     }
 }

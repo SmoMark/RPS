@@ -73,6 +73,7 @@ public class LoginAction {
             httpSession = request.getSession();
             httpSession.setAttribute("userID",result);
             httpSession.setAttribute("job","hr");
+            httpSession.setAttribute("hrEmail",email);
             return "redirect:/home";
         } else {
             modelMap.addAttribute("errorTip",true);

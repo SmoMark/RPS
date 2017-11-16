@@ -14,7 +14,12 @@
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top" style="float:left">
-        <h1><img th:src="@{/HR.png}" src="../static/HR.png" class="radius-circle rotate-hover" height="50" alt="" />HR</h1>
+        <h1 th:if="${job eq 'hr'}">
+            <img th:src="@{/HR.png}" src="../static/HR.png" class="radius-circle rotate-hover" height="50" alt="" />HR
+        </h1>
+        <h1 th:if="${job eq 're'}">
+            <img th:src="@{/HR.png}" src="../static/HR.png" class="radius-circle rotate-hover" height="50" alt="" />推荐人
+        </h1>
     </div>
     <div class="head-l" style="float: right">
         <a class="button button-little bg-red" href="#" th:href="@{/logout}">
@@ -37,6 +42,26 @@
             <li>
                 <a href="../templates/addJob.html" th:href="@{/hr/addJob}" target="right">
                     <span class="icon-caret-right"></span> 普通招聘
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div th:if="${job eq 're'}">
+        <ul style="display:block">
+            <li>
+                <a href="../templates/recommended.html" th:href="@{/re/recommended}" target="right">
+                    <span class="icon-caret-right"></span> 推荐跟踪
+                </a>
+            </li>
+            <li>
+                <a href="../templates/addToRepos.html" th:href="@{/re/addToRepos}" target="right">
+                    <span class="icon-caret-right"></span> 导入人才库
+                </a>
+            </li>
+            <li>
+                <a href="../templates/integral.html" th:href="@{/re/integral}" target="right">
+                    <span class="icon-caret-right"></span> 积分排行
                 </a>
             </li>
         </ul>

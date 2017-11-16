@@ -38,7 +38,7 @@
 </style>
 <body>
 <div style="float: right">
-    <li >
+    <li th:if="${job eq 'hr'}">
         <button type="button" class="button border-green" id="checkall" ><span class="icon-check"></span> 全选</button>
         <button class="button border-red" onclick="DelSelect()"><span class="icon-trash-o"></span> 批量删除</button>
     </li>
@@ -82,9 +82,13 @@
         <td th:text="${position.posmessage}">备注</td>
         <td>
             <div class="button-group">
-                <a class="button border-red" href="#" th:href="@{/hr/del/{id}(id=${position.posno})}"
+                <a th:if="${job eq 'hr'}" class="button border-red" href="#" th:href="@{/hr/del/{id}(id=${position.posno})}"
                    onclick="return del()" th:value="${position.posno}" value="1">
                     <span class="icon-trash-o"></span> 删除
+                </a>
+
+                <a th:if="${job eq 're'}" class="button border-red" href="#" th:href="@{/re/}">
+                    <span class="icon-trash-o"></span> 推荐
                 </a>
             </div>
         </td>

@@ -21,6 +21,14 @@
     UserNo, UserPhone, UserPassword, UserName, UserAge, UserSex, UserEmail, UserBirthday, 
     UserCompany, UserCreated, UserDepartment, UserJob, UserTime, UserJobAge
   </sql>
+
+  <resultMap id="emailMap" type="java.lang.String">
+    <result column="UserEmail" jdbcType="VARCHAR" property="useremail" />
+  </resultMap>
+  <select id="findEmailByJob" parameterType="java.lang.String" resultMap="emailMap">
+    SELECT UserEmail from user where UserJob = #{userjob}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

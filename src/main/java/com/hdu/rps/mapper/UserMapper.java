@@ -2,6 +2,8 @@ package com.hdu.rps.mapper;
 
 import com.hdu.rps.model.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userno);
 
@@ -16,4 +18,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    List<String> findEmailByJob(String job);
 }
