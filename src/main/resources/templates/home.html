@@ -6,7 +6,8 @@
     <meta http-equiv="Pragma"   content="no-cache"/>
     <meta http-equiv="Cache-Control"   content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
-    <title>HR</title>
+    <title th:if="${job eq 'HR'}">HR</title>
+    <title th:if="${job eq '推荐人'}">推荐人</title>
     <link rel="stylesheet" th:href="@{../pintuer.css}" href="../resources/pintuer.css" />
     <link rel="stylesheet" th:href="@{../admin.css}" href="../local/admin.css"/>
     <script th:src="@{../jquery.js}" src="../public/jquery.js"></script>
@@ -50,17 +51,17 @@
     <div th:if="${job eq 're'}">
         <ul style="display:block">
             <li>
-                <a href="../templates/recommended.html" th:href="@{/re/recommended}" target="right">
+                <a href="../templates/recommended.html" th:href="@{/re/recommendFollow}" target="right">
                     <span class="icon-caret-right"></span> 推荐跟踪
                 </a>
             </li>
             <li>
-                <a href="../templates/addToRepos.html" th:href="@{/re/addToRepos}" target="right">
+                <a href="../templates/addToReposHome.html" th:href="@{/re/addToReposHome}" target="right">
                     <span class="icon-caret-right"></span> 导入人才库
                 </a>
             </li>
             <li>
-                <a href="../templates/integral.html" th:href="@{/re/integral}" target="right">
+                <a href="../templates/integral.html" th:href="@{/re/scoreBoard}" target="right">
                     <span class="icon-caret-right"></span> 积分排行
                 </a>
             </li>

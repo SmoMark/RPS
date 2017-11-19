@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../style.css}" href="../resources/style.css"/>
+    <script th:src="@{../jquery-treat.js}" src="../public/jquery-treat.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <!-- Team members structure start -->
+    <div class="team-members row">
+        <div class="single-member effect-2" th:each="recommendedPerson,iterStat : ${recommendedPersonArrayList}">
+            <div class="member-image">
+                <img th:src="@{/re/getRecommendedPersonPhoto/(userPhoto=${recommendedPerson.rdpphoto})}"  alt="被推荐人照片"/><!--这里是每个人的头像-->
+            </div>
+            <div class="member-info">
+                <h3 th:text="${recommendedPerson.rdpname}">石佳豪</h3>
+                <br/>
+                <h4 th:text="${recommendedPerson.rdpmajor}">软件工程</h4>
+                <!--<h5 th:text="${recommendedPerson.rdpbrief}">个人简介</h5>-->
+                <div class="social-touch" >
+                    <a class="tweet-touch" th:href="@{/re/getRecommendedPersonDetail(personID=${recommendedPerson.rdpno})}" href="../templates/recommendedPersonDetail.html">详细信息</a>
+                </div>
+                <button>推荐</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

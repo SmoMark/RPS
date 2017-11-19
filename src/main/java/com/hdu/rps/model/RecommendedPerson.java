@@ -1,7 +1,5 @@
 package com.hdu.rps.model;
 
-import java.util.Date;
-
 public class RecommendedPerson {
     private Integer rdpno;
 
@@ -11,7 +9,7 @@ public class RecommendedPerson {
 
     private String rdplocate;
 
-    private Date rdpbirthday;
+    private String rdpbirthday;
 
     private Integer rdpsex;
 
@@ -21,25 +19,13 @@ public class RecommendedPerson {
 
     private Integer rdpmarriage;
 
-    private String rdpidcard;
+    private String rdpenglishlevel;
 
-    private Date rdptime;
-
-    private Integer rdpstafftype;
-
-    private Integer rdpsalarytype;
-
-    private Integer rdplevel;
-
-    private Integer rdpenglishlevel;
-
-    private Integer rdpcomputlevel;
+    private String rdpcomputlevel;
 
     private Integer rdpjobage;
 
-    private Integer rdpdutydepartment;
-
-    private Integer rdpphone;
+    private String rdpphone;
 
     private String rdpaddress;
 
@@ -50,6 +36,10 @@ public class RecommendedPerson {
     private String rdpemail;
 
     private String rdpphoto;
+
+    private String rdpbrief;
+
+    private String rdpgraduation;
 
     public Integer getRdpno() {
         return rdpno;
@@ -83,11 +73,11 @@ public class RecommendedPerson {
         this.rdplocate = rdplocate == null ? null : rdplocate.trim();
     }
 
-    public Date getRdpbirthday() {
+    public String getRdpbirthday() {
         return rdpbirthday;
     }
 
-    public void setRdpbirthday(Date rdpbirthday) {
+    public void setRdpbirthday(String rdpbirthday) {
         this.rdpbirthday = rdpbirthday;
     }
 
@@ -123,59 +113,19 @@ public class RecommendedPerson {
         this.rdpmarriage = rdpmarriage;
     }
 
-    public String getRdpidcard() {
-        return rdpidcard;
-    }
-
-    public void setRdpidcard(String rdpidcard) {
-        this.rdpidcard = rdpidcard == null ? null : rdpidcard.trim();
-    }
-
-    public Date getRdptime() {
-        return rdptime;
-    }
-
-    public void setRdptime(Date rdptime) {
-        this.rdptime = rdptime;
-    }
-
-    public Integer getRdpstafftype() {
-        return rdpstafftype;
-    }
-
-    public void setRdpstafftype(Integer rdpstafftype) {
-        this.rdpstafftype = rdpstafftype;
-    }
-
-    public Integer getRdpsalarytype() {
-        return rdpsalarytype;
-    }
-
-    public void setRdpsalarytype(Integer rdpsalarytype) {
-        this.rdpsalarytype = rdpsalarytype;
-    }
-
-    public Integer getRdplevel() {
-        return rdplevel;
-    }
-
-    public void setRdplevel(Integer rdplevel) {
-        this.rdplevel = rdplevel;
-    }
-
-    public Integer getRdpenglishlevel() {
+    public String getRdpenglishlevel() {
         return rdpenglishlevel;
     }
 
-    public void setRdpenglishlevel(Integer rdpenglishlevel) {
+    public void setRdpenglishlevel(String rdpenglishlevel) {
         this.rdpenglishlevel = rdpenglishlevel;
     }
 
-    public Integer getRdpcomputlevel() {
+    public String getRdpcomputlevel() {
         return rdpcomputlevel;
     }
 
-    public void setRdpcomputlevel(Integer rdpcomputlevel) {
+    public void setRdpcomputlevel(String rdpcomputlevel) {
         this.rdpcomputlevel = rdpcomputlevel;
     }
 
@@ -187,19 +137,11 @@ public class RecommendedPerson {
         this.rdpjobage = rdpjobage;
     }
 
-    public Integer getRdpdutydepartment() {
-        return rdpdutydepartment;
-    }
-
-    public void setRdpdutydepartment(Integer rdpdutydepartment) {
-        this.rdpdutydepartment = rdpdutydepartment;
-    }
-
-    public Integer getRdpphone() {
+    public String getRdpphone() {
         return rdpphone;
     }
 
-    public void setRdpphone(Integer rdpphone) {
+    public void setRdpphone(String rdpphone) {
         this.rdpphone = rdpphone;
     }
 
@@ -241,5 +183,47 @@ public class RecommendedPerson {
 
     public void setRdpphoto(String rdpphoto) {
         this.rdpphoto = rdpphoto == null ? null : rdpphoto.trim();
+    }
+
+    public String getRdpbrief() {
+        return rdpbrief;
+    }
+
+    public void setRdpbrief(String rdpbrief) {
+        this.rdpbrief = rdpbrief == null ? null : rdpbrief.trim();
+    }
+
+    public String getRdpgraduation() {
+        return rdpgraduation;
+    }
+
+    public void setRdpgraduation(String rdpgraduation) {
+        this.rdpgraduation = rdpgraduation == null ? null : rdpgraduation.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "RecommendedPerson{" +
+                "rdpno=" + rdpno +
+                ", rdpname='" + rdpname + '\'' +
+                ", rdpnation=" + rdpnation +
+                ", rdplocate='" + rdplocate + '\'' +
+                ", rdpbirthday=" + rdpbirthday +
+                ", rdpsex=" + rdpsex +
+                ", rdpdeal=" + rdpdeal +
+                ", rdpinsurance=" + rdpinsurance +
+                ", rdpmarriage=" + rdpmarriage +
+                ", rdpenglishlevel=" + rdpenglishlevel +
+                ", rdpcomputlevel=" + rdpcomputlevel +
+                ", rdpjobage=" + rdpjobage +
+                ", rdpphone=" + rdpphone +
+                ", rdpaddress='" + rdpaddress + '\'' +
+                ", rdpschool='" + rdpschool + '\'' +
+                ", rdpmajor='" + rdpmajor + '\'' +
+                ", rdpemail='" + rdpemail + '\'' +
+                ", rdpphoto='" + rdpphoto + '\'' +
+                ", rdpbrief='" + rdpbrief + '\'' +
+                ", rdpgraduation='" + rdpgraduation + '\'' +
+                '}';
     }
 }

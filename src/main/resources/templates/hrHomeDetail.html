@@ -45,7 +45,7 @@
 </div>
 <table class="hovertable">
     <tr>
-        <th type="checkbox" width="40px" th:width="40px"></th>
+        <th th:if="${job eq 'hr'}" type="checkbox" width="40px" th:width="40px"></th>
         <th style="text-align: center" width="40px" th:width="40px">序号</th>
         <th style="text-align: center" width="90px" th:width="90px">岗位</th>
         <th style="text-align: center" width="50px" th:width="50px">招聘人数</th>
@@ -60,7 +60,7 @@
     </tr>
     <tbody>
     <tr th:each="position,iterStat : ${positionList}" class="tr-link">
-        <td style="text-align:left; padding-left:20px;">
+        <td th:if="${job eq 'hr'}" style="text-align:left; padding-left:20px;">
             <input type="checkbox" name="id[]" value="" id="id[]" th:value="${position.posno}"/>
         </td>
         <th th:text="${iterStat.count}">100</th>
@@ -87,7 +87,7 @@
                     <span class="icon-trash-o"></span> 删除
                 </a>
 
-                <a th:if="${job eq 're'}" class="button border-red" href="#" th:href="@{/re/}">
+                <a th:if="${job eq 're'}" class="button border-red" href="../templates/re" th:href="@{/re/recommendBtn}">
                     <span class="icon-trash-o"></span> 推荐
                 </a>
             </div>

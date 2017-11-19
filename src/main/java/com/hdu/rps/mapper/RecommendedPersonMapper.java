@@ -2,6 +2,8 @@ package com.hdu.rps.mapper;
 
 import com.hdu.rps.model.RecommendedPerson;
 
+import java.util.ArrayList;
+
 public interface RecommendedPersonMapper {
     int deleteByPrimaryKey(Integer rdpno);
 
@@ -14,4 +16,6 @@ public interface RecommendedPersonMapper {
     int updateByPrimaryKeySelective(RecommendedPerson record);
 
     int updateByPrimaryKey(RecommendedPerson record);
+
+    ArrayList<RecommendedPerson> findAll();
 }

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>详细信息</title>
+    <!--CSS-->
+    <link rel="stylesheet" th:href="@{../admin.css}" href="../local/admin.css"/>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data" action="#" th:action="@{/re/addToRepos}">
+    <table width="800" border="1" align="center" cellpadding="10" cellspacing="0">
+        <caption><h2>个人简历</h2></caption>
+        <tr>
+            <td colspan="3" bgcolor="#9FCDEA">个人资料</td>
+        </tr>
+        <tr>
+            <td style="width: 320px">姓 名：<h3 th:text="${recommendedPerson.rdpname}" style="height: 20px">石佳豪</h3>
+            </td>
+            <td style="width: 250px">性别：
+                <h3 th:if="${recommendedPerson.rdpsex == 0}">男</h3>
+                <h3 th:if="${recommendedPerson.rdpsex == 1}">女</h3>
+            </td>
+
+            <td rowspan="4" align="center" valign="middle" >
+                <div>
+                    <img height="200px" width="140px" th:src="@{/re/getRecommendedPersonPhoto(userPhoto=${recommendedPerson.rdpphoto})}"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>出 生：<h3 th:text="${recommendedPerson.rdpbirthday}" style="height: 20px"></h3>
+            </td>
+            <td>民 族：
+                <h3 th:if="${recommendedPerson.rdpnation == 3}">汉族</h3>
+                <h3 th:unless="${recommendedPerson.rdpnation == 3}">少数民族</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>政治面貌：
+                <h3 th:if="${recommendedPerson.rdpdeal == 0}">群众</h3>
+                <h3 th:if="${recommendedPerson.rdpdeal == 1}">党员</h3>
+                <h3 th:if="${recommendedPerson.rdpdeal == 2}">团员</h3>
+                <h3 th:if="${recommendedPerson.rdpdeal == 3}">其他</h3>
+            </td>
+            <td>籍 贯：
+                <h3 th:text="${recommendedPerson.rdplocate}">浙江省杭州市</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>联系方式：
+                <h3 th:text="${recommendedPerson.rdpphone}">123456789</h3>
+            </td>
+            <td>电子邮件：
+                <h3 th:text="${recommendedPerson.rdpemail}">123456789@qq.com</h3>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="3">现居地址：
+                <h3 th:text="${recommendedPerson.rdpaddress}">浙江省杭州市</h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" bgcolor="#9FCDEA">教育背景</td>
+        </tr>
+        <tr>
+            <td>高校名称 :
+                <h3 th:text="${recommendedPerson.rdpschool}">HDU</h3>
+            </td>
+            <td>主修专业 :
+                <h3 th:text="${recommendedPerson.rdpmajor}">软件工程</h3>
+            </td>
+            <td>学 历 :
+                <h3 th:if="${recommendedPerson.rdpinsurance == 1}">其他</h3>
+                <h3 th:if="${recommendedPerson.rdpinsurance == 4}">本科</h3>
+                <h3 th:if="${recommendedPerson.rdpinsurance == 5}">专科</h3>
+                <h3 th:if="${recommendedPerson.rdpinsurance == 6}">硕士</h3>
+                <h3 th:if="${recommendedPerson.rdpinsurance == 7}">博士</h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" bgcolor="#9FCDEA">计算机能力</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <label>
+                    <h3 th:text="${recommendedPerson.rdpcomputlevel}">计算机能力</h3>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" bgcolor="#9FCDEA">外语水平</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+               <h3 th:text="${recommendedPerson.rdpenglishlevel}">英语能力</h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" bgcolor="#9FCDEA">特长及兴趣爱好</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <h3 th:text="${recommendedPerson.rdpbrief}">简介</h3>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

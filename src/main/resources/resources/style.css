@@ -1,0 +1,54 @@
+body{ font-family: Lato,'Open Sans', sans-sarif; font-size: 16px; background-color: #FFF; }
+*{margin: 0; padding: 0; box-sizing: border-box;}
+.container{margin: 0 auto; max-width: 1000px;}
+.row{width: 103%; float: left; margin: 110px -1.5%;}
+
+/*= common css to all effects =*/
+.single-member{width: 280px; float: left; margin: 30px 2.5%; background-color: #fff; text-align: center; position: relative;}
+.member-image img{max-width: 100%; vertical-align: middle;}
+h3 {font-size: 24px; font-weight: normal; margin: 10px 0 0; text-transform: uppercase;}
+h5 {font-size: 16px; font-weight: 300; margin: 0 0 15px; line-height: 22px;}
+.social-touch a{display: inline-block;position:relative;bottom: 0px; width: 100px; height: 26px;margin-bottom:0px;vertical-align: middle;  background-repeat: no-repeat; opacity: 0.7; transition: 0.3s;}
+.social-touch a:hover{opacity: 1; transition: 0.3s;}
+.tweet-touch{background-position: -35px 0;}
+.icon-colored .tweet-touch{background-position: -35px -27px;}
+/*= common css to all effects end =*/
+
+/*= effect-2 css =*/
+.effect-2{max-height: 302px; min-height: 302px; overflow: hidden;}
+.effect-2 h3{padding-top: 7px; line-height: 33px;}
+.effect-2 .member-image{border-bottom: 5px solid #1E90FF; height: 212px; overflow: hidden; width: 100%; transition: 0.4s; display: inline-block; float: none; vertical-align: middle;}
+.effect-2 .member-info{transition: 0.4s;}
+.effect-2 .member-image img{width: 100%; vertical-align: bottom;}
+.effect-2 .social-touch{background-color: #1E90FF;position:relative;bottom: 0px; float: left; left: 0;overflow: hidden; padding: 5px 0; width: 100%; transition: 0.4s;}
+.effect-2:hover .member-image{height: 80px; transition: 0.4s;}
+.effect-2 .button1{padding: 10px 30px 10px 30px;
+	background: #FFA07A;
+	border: none;
+	color: #FFF;
+	box-shadow: 1px 1px 1px #FF4500;
+	-webkit-box-shadow: 1px 1px 1px #FF4500;
+	-moz-box-shadow: 1px 1px 1px #FF4500;
+	text-shadow: 1px 1px 1px 	#FF7F50;}
+.effect-2.button1:hover{ background: #FF7F50;}
+.effect-2 .button2{ padding: 10px 30px 10px 30px;
+	background: #66C1E4;
+	border: none;
+	color: #FFF;
+	box-shadow: 1px 1px 1px #4C6E91;
+	-webkit-box-shadow: 1px 1px 1px #4C6E91;
+	-moz-box-shadow: 1px 1px 1px #4C6E91;
+	text-shadow: 1px 1px 1px #5079A3;}
+.effect-2.button2:hover{ background: #3EB1DD;}
+
+/*= effect-2 css end =*/
+
+/*= Media Query 
+=============== */
+@media only screen and (max-width: 980px){
+	.row{width: 100%; margin: 110px 0;}
+	.team-members{text-align: center;}
+	.single-member{float: none; display: inline-block; vertical-align: bottom;}
+}
+/*= Media Query End
+=================== */
