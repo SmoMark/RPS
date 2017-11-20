@@ -2,6 +2,7 @@ package com.hdu.rps.web;
 
 import com.hdu.rps.model.RecommendedPerson;
 import com.hdu.rps.service.RecommendServiceImpl;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -24,6 +26,8 @@ public class ReHomeAction {
     private Logger logger = Logger.getLogger(String.valueOf(ReHomeAction.this));
     private ArrayList<RecommendedPerson> recommendedPersonArrayList;
     private RecommendedPerson recommendedPerson;
+    private HttpSession httpSession;
+    private int userID;
 
     @Autowired
     private RecommendServiceImpl recommendServiceImpl;
@@ -35,10 +39,11 @@ public class ReHomeAction {
     }
 
     @RequestMapping("/recommendBtn")
-    public String recommendBtn(ModelMap modelMap) {
+    public String recommendBtn(ModelMap modelMap,@RequestParam String positionID) {
         logger.info("---------进入被推荐人列表-------");
         recommendedPersonArrayList = recommendServiceImpl.findAll();
         modelMap.addAttribute("recommendedPersonArrayList",recommendedPersonArrayList);
+        modelMap.addAttribute("positionID",positionID);
         return "recommend";
     }
 
@@ -112,4 +117,18 @@ public class ReHomeAction {
         modelMap.addAttribute("recommendedPerson",recommendedPerson);
         return "recommendedPersonDetail";
     }
+
+    @RequestMapping("/recommend/{positionID}/{recommendedPersonID}")
+    public String recommend(@PathVariable String positionID,@PathVariable String recommendedPersonID, HttpServletRequest httpServletRequest) {
+        httpSession = httpServletRequest.getSession();
+        try {
+            userID = (int) httpSession.getAttribute("userID");
+            logger.info("--------positionID:" + positionID + ",recommendedPersonID:" + recommendedPersonID + ",userID:" + userID);
+            recommendServiceImpl.recommend(userID,Integer.parseInt(recommendedPersonID),Integer.parseInt(positionID));
+        } catch (Exception e) {
+            logger.warning("-------推荐出错-----" + e.getMessage());
+        }
+        return "redirect:/hr/homeDetail";
+    }
+
 }

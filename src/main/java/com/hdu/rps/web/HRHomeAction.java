@@ -1,6 +1,8 @@
 package com.hdu.rps.web;
 
 import com.hdu.rps.model.Position;
+import com.hdu.rps.model.RecommendedPerson;
+import com.hdu.rps.service.HRDealImpl;
 import com.hdu.rps.service.HRRecruitServiceImpl;
 import com.hdu.rps.service.LoginServiceImpl;
 import com.hdu.rps.service.MailServiceImpl;
@@ -33,6 +35,9 @@ public class HRHomeAction {
     @Autowired
     private LoginServiceImpl loginServiceImpl;
 
+    @Autowired
+    private HRDealImpl hrDealImpl;
+
     private Logger logger = Logger.getLogger(String.valueOf(HRHomeAction.this));
     private List<Position> positionList = new ArrayList<>();
     private String[] ids;
@@ -41,6 +46,7 @@ public class HRHomeAction {
     private String hrEmail;
     private ArrayList<String> emailList;
     private String[] emailStrings;
+    private ArrayList<RecommendedPerson> recommendedPersonArrayList;
 
     @RequestMapping("/homeDetail")
     public String homeDetail(ModelMap modelMap, HttpServletRequest request) {
@@ -109,5 +115,41 @@ public class HRHomeAction {
         ids = checkedID.split(",");
         hrRecruitServiceImpl.delSelected(ids);
         return "redirect:/hr/homeDetail";
+    }
+
+    @RequestMapping("/needToBeDoneDetail")
+    public String needToBeDoneHome(@RequestParam String positionID, ModelMap modelMap) {
+        recommendedPersonArrayList = hrDealImpl.findRecommendedPersonByPosNo(Integer.parseInt(positionID));
+        if(recommendedPersonArrayList == null) {
+            modelMap.addAttribute("zero",true);
+            return "needToBeDoneDetail";  //尚未有被推荐人选，前端显示
+        }
+        return "redirect:/hr/showRecomendedPersonByState/?positionID=" + positionID + "&state=1";
+    }
+
+    @RequestMapping("/pass/{recommendedPersonID}/{positionNo}")
+    public String pass(@PathVariable String recommendedPersonID,@PathVariable String positionNo) {
+        hrDealImpl.pass(Integer.parseInt(recommendedPersonID),Integer.parseInt(positionNo));
+        return "redirect:/hr/needToBeDoneDetail?positionID=" + positionNo;
+    }
+
+    @RequestMapping("/notPass/{recommendedPersonID}/{positionNo}")
+    public String notPass(@PathVariable String recommendedPersonID,@PathVariable String positionNo) {
+        hrDealImpl.notPass(Integer.parseInt(recommendedPersonID),Integer.parseInt(positionNo));
+        return "redirect:/hr/needToBeDoneDetail?positionID=" + positionNo;
+    }
+
+    @RequestMapping("/showRecomendedPersonByState")
+    public String showRecomendedPersonByState(@RequestParam String positionID,@RequestParam int state,ModelMap modelMap){
+        logger.info("++++++positionID:" + positionID + ",state:" + state);
+        recommendedPersonArrayList = hrDealImpl.findRecommendedPersonByPosNoAndState(Integer.parseInt(positionID),state);
+        if(recommendedPersonArrayList == null) {
+            modelMap.addAttribute("zero",true);
+            return "needToBeDoneDetail";  //尚未有处于此状态的被推荐人，前端显示
+        }
+        modelMap.addAttribute("recommendedPersonByPosNo",recommendedPersonArrayList);
+        modelMap.addAttribute("positionNo",positionID);
+        modelMap.addAttribute("page",state);
+        return "needToBeDoneDetail";
     }
 }

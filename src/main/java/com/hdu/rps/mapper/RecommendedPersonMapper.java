@@ -18,4 +18,5 @@ public interface RecommendedPersonMapper {
     int updateByPrimaryKey(RecommendedPerson record);
 
     ArrayList<RecommendedPerson> findAll();
+
 }

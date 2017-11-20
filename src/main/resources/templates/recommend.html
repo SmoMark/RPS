@@ -28,7 +28,7 @@
                 <div class="social-touch" >
                     <a class="tweet-touch" th:href="@{/re/getRecommendedPersonDetail(personID=${recommendedPerson.rdpno})}" href="../templates/recommendedPersonDetail.html">详细信息</a>
                 </div>
-                <button>推荐</button>
+                <a class="button border-red" th:href="@{/re/recommend/{positionID}/{recommendedPersonID}((positionID = ${positionID}),recommendedPersonID = ${recommendedPerson.rdpno})}">推荐</a>
             </div>
         </div>
     </div>

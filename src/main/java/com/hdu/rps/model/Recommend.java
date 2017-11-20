@@ -1,7 +1,5 @@
 package com.hdu.rps.model;
 
-import java.util.Date;
-
 public class Recommend {
     private Integer rcdno;
 
@@ -11,11 +9,13 @@ public class Recommend {
 
     private Integer rcdstate;
 
-    private Date rcdaddtime;
+    private String rcdaddtime;
 
-    private Date rcdmodtime;
+    private String rcdmodtime;
 
     private String rcdintro;
+
+    private Integer posno;
 
     public Integer getRcdno() {
         return rcdno;
@@ -49,20 +49,20 @@ public class Recommend {
         this.rcdstate = rcdstate;
     }
 
-    public Date getRcdaddtime() {
+    public String getRcdaddtime() {
         return rcdaddtime;
     }
 
-    public void setRcdaddtime(Date rcdaddtime) {
-        this.rcdaddtime = rcdaddtime;
+    public void setRcdaddtime(String rcdaddtime) {
+        this.rcdaddtime = rcdaddtime == null ? null : rcdaddtime.trim();
     }
 
-    public Date getRcdmodtime() {
+    public String getRcdmodtime() {
         return rcdmodtime;
     }
 
-    public void setRcdmodtime(Date rcdmodtime) {
-        this.rcdmodtime = rcdmodtime;
+    public void setRcdmodtime(String rcdmodtime) {
+        this.rcdmodtime = rcdmodtime == null ? null : rcdmodtime.trim();
     }
 
     public String getRcdintro() {
@@ -71,5 +71,13 @@ public class Recommend {
 
     public void setRcdintro(String rcdintro) {
         this.rcdintro = rcdintro == null ? null : rcdintro.trim();
+    }
+
+    public Integer getPosno() {
+        return posno;
+    }
+
+    public void setPosno(Integer posno) {
+        this.posno = posno;
     }
 }

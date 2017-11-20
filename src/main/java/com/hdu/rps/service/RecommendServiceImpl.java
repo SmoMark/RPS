@@ -1,13 +1,17 @@
 package com.hdu.rps.service;
 
+import com.hdu.rps.mapper.RecommendMapper;
 import com.hdu.rps.mapper.RecommendedPersonMapper;
+import com.hdu.rps.model.Recommend;
 import com.hdu.rps.model.RecommendedPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -25,10 +29,13 @@ public class RecommendServiceImpl implements RecommendService {
     private int pointIndex;
     private String fileLastName;
     private Logger logger = Logger.getLogger(String.valueOf(RecommendServiceImpl.this));
+    private Recommend recommend = null;
 
     @Autowired
     private RecommendedPersonMapper recommendedPersonMapper;
 
+    @Autowired
+    private RecommendMapper recommendMapper;
 
     @Override
     public ArrayList<RecommendedPerson> findAll() {
@@ -123,5 +130,27 @@ public class RecommendServiceImpl implements RecommendService {
     public RecommendedPerson findByID(int id) {
         recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(id);
         return recommendedPerson;
+    }
+
+    @Override
+    public void recommend(int userID, int recommendedPersonID,int positionID) {
+        logger.info("--------查询该被推荐人是否被推荐到该职位-----");
+        logger.info("------recommendedPersonID:" + recommendedPersonID + ",positionID:" + positionID);
+        recommend = recommendMapper.selectByRecommendedNoAndPosNo(recommendedPersonID,positionID);
+        if(recommend != null) {
+            logger.info("-----该被推荐人已经被推荐过----");
+            //添加前端提示功能
+            return;
+        }
+        recommend = new Recommend();
+        recommend.setUserno(userID);
+        recommend.setRepno(recommendedPersonID);
+        recommend.setPosno(positionID);
+        //获取当前时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        recommend.setRcdaddtime(simpleDateFormat.format(date));
+        logger.info("------------进行推荐-------------");
+        recommendMapper.insert(recommend);
     }
 }

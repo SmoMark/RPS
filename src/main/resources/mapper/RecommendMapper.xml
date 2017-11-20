@@ -6,13 +6,30 @@
     <result column="UserNo" jdbcType="INTEGER" property="userno" />
     <result column="RePNo" jdbcType="INTEGER" property="repno" />
     <result column="RcdState" jdbcType="INTEGER" property="rcdstate" />
-    <result column="RcdAddTime" jdbcType="TIMESTAMP" property="rcdaddtime" />
-    <result column="RcdModTime" jdbcType="TIMESTAMP" property="rcdmodtime" />
+    <result column="RcdAddTime" jdbcType="VARCHAR" property="rcdaddtime" />
+    <result column="RcdModTime" jdbcType="VARCHAR" property="rcdmodtime" />
     <result column="RcdIntro" jdbcType="VARCHAR" property="rcdintro" />
+    <result column="PosNo" jdbcType="INTEGER" property="posno" />
   </resultMap>
   <sql id="Base_Column_List">
-    RcdNo, UserNo, RePNo, RcdState, RcdAddTime, RcdModTime, RcdIntro
+    RcdNo, UserNo, RePNo, RcdState, RcdAddTime, RcdModTime, RcdIntro, PosNo
   </sql>
+  <select id="selectRecommendedPersonIDByPosnoAndState" resultType="java.lang.Integer">
+    SELECT RepNo
+    from recommend
+    where PosNo = #{posno,jdbcType=INTEGER} and RcdState = #{state,jdbcType=INTEGER}
+  </select>
+  <select id="selectRecommendedPersonIDByPosno" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    SELECT RepNo
+    from recommend
+    where PosNo = #{posno,jdbcType=INTEGER}
+  </select>
+  <select id="selectByRecommendedNoAndPosNo" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from recommend
+    WHERE RepNo = #{repno,jdbcType=INTEGER} and PosNo = #{posno,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -26,10 +43,10 @@
   <insert id="insert" parameterType="com.hdu.rps.model.Recommend">
     insert into recommend (RcdNo, UserNo, RePNo, 
       RcdState, RcdAddTime, RcdModTime, 
-      RcdIntro)
+      RcdIntro, PosNo)
     values (#{rcdno,jdbcType=INTEGER}, #{userno,jdbcType=INTEGER}, #{repno,jdbcType=INTEGER}, 
-      #{rcdstate,jdbcType=INTEGER}, #{rcdaddtime,jdbcType=TIMESTAMP}, #{rcdmodtime,jdbcType=TIMESTAMP}, 
-      #{rcdintro,jdbcType=VARCHAR})
+      #{rcdstate,jdbcType=INTEGER}, #{rcdaddtime,jdbcType=VARCHAR}, #{rcdmodtime,jdbcType=VARCHAR}, 
+      #{rcdintro,jdbcType=VARCHAR}, #{posno,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.hdu.rps.model.Recommend">
     insert into recommend
@@ -55,6 +72,9 @@
       <if test="rcdintro != null">
         RcdIntro,
       </if>
+      <if test="posno != null">
+        PosNo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rcdno != null">
@@ -70,13 +90,16 @@
         #{rcdstate,jdbcType=INTEGER},
       </if>
       <if test="rcdaddtime != null">
-        #{rcdaddtime,jdbcType=TIMESTAMP},
+        #{rcdaddtime,jdbcType=VARCHAR},
       </if>
       <if test="rcdmodtime != null">
-        #{rcdmodtime,jdbcType=TIMESTAMP},
+        #{rcdmodtime,jdbcType=VARCHAR},
       </if>
       <if test="rcdintro != null">
         #{rcdintro,jdbcType=VARCHAR},
+      </if>
+      <if test="posno != null">
+        #{posno,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -93,13 +116,16 @@
         RcdState = #{rcdstate,jdbcType=INTEGER},
       </if>
       <if test="rcdaddtime != null">
-        RcdAddTime = #{rcdaddtime,jdbcType=TIMESTAMP},
+        RcdAddTime = #{rcdaddtime,jdbcType=VARCHAR},
       </if>
       <if test="rcdmodtime != null">
-        RcdModTime = #{rcdmodtime,jdbcType=TIMESTAMP},
+        RcdModTime = #{rcdmodtime,jdbcType=VARCHAR},
       </if>
       <if test="rcdintro != null">
         RcdIntro = #{rcdintro,jdbcType=VARCHAR},
+      </if>
+      <if test="posno != null">
+        PosNo = #{posno,jdbcType=INTEGER},
       </if>
     </set>
     where RcdNo = #{rcdno,jdbcType=INTEGER}
@@ -109,9 +135,10 @@
     set UserNo = #{userno,jdbcType=INTEGER},
       RePNo = #{repno,jdbcType=INTEGER},
       RcdState = #{rcdstate,jdbcType=INTEGER},
-      RcdAddTime = #{rcdaddtime,jdbcType=TIMESTAMP},
-      RcdModTime = #{rcdmodtime,jdbcType=TIMESTAMP},
-      RcdIntro = #{rcdintro,jdbcType=VARCHAR}
+      RcdAddTime = #{rcdaddtime,jdbcType=VARCHAR},
+      RcdModTime = #{rcdmodtime,jdbcType=VARCHAR},
+      RcdIntro = #{rcdintro,jdbcType=VARCHAR},
+      PosNo = #{posno,jdbcType=INTEGER}
     where RcdNo = #{rcdno,jdbcType=INTEGER}
   </update>
 </mapper>

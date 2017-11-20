@@ -64,14 +64,14 @@
             <input type="checkbox" name="id[]" value="" id="id[]" th:value="${position.posno}"/>
         </td>
         <th th:text="${iterStat.count}">100</th>
-        <td th:if="${position.postype == 1}">java工程师</td>
-        <td th:if="${position.postype == 2}">前端工程师</td>
-        <td th:if="${position.postype == 3}">后台工程师</td>
-        <td th:if="${position.postype == 4}">UI设计师</td>
-        <td th:if="${position.postype == 5}">市场经理</td>
-        <td th:if="${position.postype == 6}">财务</td>
-        <td th:if="${position.postype == 7}">总经理助理</td>
-        <td th:if="${position.postype == 8}">文员</td>
+        <td th:if="${position.postype == 1}"><a th:if="${job eq 'hr'}" th:href="@{/hr/needToBeDoneDetail(positionID = ${position.posno})}">java工程师</a><h5 th:if="${job eq 're'}">java工程师</h5></td>
+        <td th:if="${position.postype == 2}"><a th:if="${job eq 'hr'}" th:href="@{/hr/needToBeDoneDetail(positionID = ${position.posno})}">前端工程师</a><h5 th:if="${job eq 're'}">前端工程师</h5></td>
+        <td th:if="${position.postype == 3}"><a th:if="${job eq 'hr'}" th:href="@{/hr/needToBeDoneDetail(positionID = ${position.posno})}">后台工程师</a><h5 th:if="${job eq 're'}">后台工程师</h5></td>
+        <td th:if="${position.postype == 4}"><a th:if="${job eq 'hr'}" th:href="@{/hr/needToBeDoneDetail(positionID = ${position.posno})}">UI设计师</a><h5 th:if="${job eq 're'}">UI设计师</h5></td>
+        <td th:if="${position.postype == 5}"><a th:if="${job eq 'hr'}" th:href="@{/hr/needToBeDoneDetail(positionID = ${position.posno})}">市场经理</a><h5 th:if="${job eq 're'}">市场经理</h5></td>
+        <td th:if="${position.postype == 6}"><a th:if="${job eq 'hr'}" th:href="@{/hr/needToBeDoneDetail(positionID = ${position.posno})}">财务</a><h5 th:if="${job eq 're'}">财务</h5></td>
+        <td th:if="${position.postype == 7}"><a th:if="${job eq 'hr'}" th:href="@{/hr/needToBeDoneDetail(positionID = ${position.posno})}">总经理助理</a><h5 th:if="${job eq 're'}">总经理助理</h5></td>
+        <td th:if="${position.postype == 8}"><a th:if="${job eq 'hr'}" th:href="@{/hr/needToBeDoneDetail(positionID = ${position.posno})}">文员</a><h5 th:if="${job eq 're'}">文员</h5></td>
         <td th:text="${position.posneeds}">1000</td>
         <td th:text="${position.posoffice}">宁夏回族自治区某某某市</td>
         <td th:text="${position.postime}">2017-11-14 19:31:30</td>
@@ -87,7 +87,7 @@
                     <span class="icon-trash-o"></span> 删除
                 </a>
 
-                <a th:if="${job eq 're'}" class="button border-red" href="../templates/re" th:href="@{/re/recommendBtn}">
+                <a th:if="${job eq 're'}" class="button border-red" href="#" th:href="@{/re/recommendBtn(positionID = ${position.posno})}">
                     <span class="icon-trash-o"></span> 推荐
                 </a>
             </div>

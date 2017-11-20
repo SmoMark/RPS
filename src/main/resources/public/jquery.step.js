@@ -1,21 +1,18 @@
 ﻿
   $(function() {
-
     var step= $("#myStep").step();
-    
+
     $(".preBtn").click(function(event) {
       var yes=step.preStep();//上一步
     });
     $(".nextBtn").click(function(event) {
       var yes=step.nextStep();
     });
-    $(".goBtn").click(function(event) {
-			var yes=step.goStep(3);//到指定步
-		});
+      $(".goBtn5").click(function(event) {
+          var yes=step.goStep(5);//到指定步
+      });
   });
 
-
-  
 (function (factory) {
     "use strict";
     if (typeof define === 'function') {

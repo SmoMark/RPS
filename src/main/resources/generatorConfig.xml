@@ -60,7 +60,7 @@
         <!-- 配置表信息 -->
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
         是否生成 example类 -->
-<!--        <table schema="rpsystem" tableName="bonus"
+        <table schema="rpsystem" tableName="bonus"
                domainObjectName="Bonus" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
@@ -84,17 +84,17 @@
                domainObjectName="Recommend" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
-        </table>-->
+        </table>
         <table schema="rpsystem" tableName="recommendedperson"
                domainObjectName="RecommendedPerson" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
-<!--        <table schema="rpsystem" tableName="user"
+        <table schema="rpsystem" tableName="user"
                domainObjectName="User" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
-        </table>-->
+        </table>
     </context>
 </generatorConfiguration>
 

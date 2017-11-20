@@ -32,15 +32,15 @@
             <td>出 生：<h3 th:text="${recommendedPerson.rdpbirthday}" style="height: 20px"></h3>
             </td>
             <td>民 族：
-                <h3 th:if="${recommendedPerson.rdpnation == 3}">汉族</h3>
-                <h3 th:unless="${recommendedPerson.rdpnation == 3}">少数民族</h3>
+                <h3 th:if="${recommendedPerson.rdpnation == 0}">汉族</h3>
+                <h3 th:unless="${recommendedPerson.rdpnation == 0}">少数民族</h3>
             </td>
         </tr>
         <tr>
             <td>政治面貌：
                 <h3 th:if="${recommendedPerson.rdpdeal == 0}">群众</h3>
-                <h3 th:if="${recommendedPerson.rdpdeal == 1}">党员</h3>
-                <h3 th:if="${recommendedPerson.rdpdeal == 2}">团员</h3>
+                <h3 th:if="${recommendedPerson.rdpdeal == 1}">团员</h3>
+                <h3 th:if="${recommendedPerson.rdpdeal == 2}">党员</h3>
                 <h3 th:if="${recommendedPerson.rdpdeal == 3}">其他</h3>
             </td>
             <td>籍 贯：
