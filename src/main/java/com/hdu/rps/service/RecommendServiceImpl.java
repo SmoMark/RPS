@@ -133,24 +133,25 @@ public class RecommendServiceImpl implements RecommendService {
     }
 
     @Override
-    public void recommend(int userID, int recommendedPersonID,int positionID) {
+    public int recommend(int userID, int recommendedPersonID,int positionID) {
         logger.info("--------查询该被推荐人是否被推荐到该职位-----");
         logger.info("------recommendedPersonID:" + recommendedPersonID + ",positionID:" + positionID);
         recommend = recommendMapper.selectByRecommendedNoAndPosNo(recommendedPersonID,positionID);
         if(recommend != null) {
             logger.info("-----该被推荐人已经被推荐过----");
-            //添加前端提示功能
-            return;
+            return -1;
         }
         recommend = new Recommend();
         recommend.setUserno(userID);
         recommend.setRepno(recommendedPersonID);
         recommend.setPosno(positionID);
+        recommend.setRcdstate(1);
         //获取当前时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         recommend.setRcdaddtime(simpleDateFormat.format(date));
         logger.info("------------进行推荐-------------");
         recommendMapper.insert(recommend);
+        return 1;
     }
 }

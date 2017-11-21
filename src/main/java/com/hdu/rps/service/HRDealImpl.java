@@ -69,7 +69,17 @@ public class HRDealImpl implements HRDeal {
 
     @Override
     public void notPass(int recommendedPersonID, int positionNo) {
-
+        recommend = recommendMapper.selectByRecommendedNoAndPosNo(recommendedPersonID,positionNo);
+        try {
+            state = recommend.getRcdstate();
+        } catch (NullPointerException nullException) {
+            state = 1;
+        }
+        recommend.setRcdstate(-1);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        recommend.setRcdmodtime(simpleDateFormat.format(date));
+        recommendMapper.updateByPrimaryKeySelective(recommend);
     }
 
     @Override

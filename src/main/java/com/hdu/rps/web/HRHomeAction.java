@@ -49,12 +49,19 @@ public class HRHomeAction {
     private ArrayList<RecommendedPerson> recommendedPersonArrayList;
 
     @RequestMapping("/homeDetail")
-    public String homeDetail(ModelMap modelMap, HttpServletRequest request) {
+    public String homeDetail(ModelMap modelMap, HttpServletRequest request,@RequestParam(required = false)String haveRecomended) {
         positionList = hrRecruitServiceImpl.getPositionList();
         httpSession = request.getSession();
         job = (String) httpSession.getAttribute("job");
         modelMap.addAttribute("positionList",positionList);
         modelMap.addAttribute("job",job);
+        if(haveRecomended == null) {
+
+        } else if(haveRecomended.equals("1")) {
+            logger.info("****************************************");
+            //前端提示功能（已经被推荐）
+            modelMap.addAttribute("haveRecomended",true);
+        }
         return "hrHomeDetail";
     }
 
@@ -118,10 +125,13 @@ public class HRHomeAction {
     }
 
     @RequestMapping("/needToBeDoneDetail")
-    public String needToBeDoneHome(@RequestParam String positionID, ModelMap modelMap) {
+    public String needToBeDoneDetail(@RequestParam String positionID, ModelMap modelMap) {
+        logger.info("*******/hr/needToBeDoneDetail******");
         recommendedPersonArrayList = hrDealImpl.findRecommendedPersonByPosNo(Integer.parseInt(positionID));
         if(recommendedPersonArrayList == null) {
+            logger.info("******/hr/needToBeDoneDetail尚未有被推荐人选****");
             modelMap.addAttribute("zero",true);
+            modelMap.addAttribute("positionNo",positionID);
             return "needToBeDoneDetail";  //尚未有被推荐人选，前端显示
         }
         return "redirect:/hr/showRecomendedPersonByState/?positionID=" + positionID + "&state=1";
@@ -144,12 +154,12 @@ public class HRHomeAction {
         logger.info("++++++positionID:" + positionID + ",state:" + state);
         recommendedPersonArrayList = hrDealImpl.findRecommendedPersonByPosNoAndState(Integer.parseInt(positionID),state);
         if(recommendedPersonArrayList == null) {
+            modelMap.addAttribute("positionNo",positionID);
             modelMap.addAttribute("zero",true);
             return "needToBeDoneDetail";  //尚未有处于此状态的被推荐人，前端显示
         }
         modelMap.addAttribute("recommendedPersonByPosNo",recommendedPersonArrayList);
         modelMap.addAttribute("positionNo",positionID);
-        modelMap.addAttribute("page",state);
         return "needToBeDoneDetail";
     }
 }

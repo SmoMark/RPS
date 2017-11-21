@@ -16,8 +16,12 @@
         body{text-align:center}
         table{width:100%;height:7%;align:center;align-content: center}
     </style>
+    <script th:if="${haveRecomended == true}">
+        alert("该被推荐人已经被推荐过");
+        window.location.replace("/hr/homeDetail");
+    </script>
 </head>
-<div class="title">招聘信息</div>
+<div class="title" th:unless="${haveRecomended == true}">招聘信息</div>
 <style type="text/css">
     table.hovertable th {
         background-color:#c3dde0;
@@ -36,7 +40,7 @@
         border-color: #a9c6c9;
     }
 </style>
-<body>
+<body th:unless="${haveRecomended == true}">
 <div style="float: right">
     <li th:if="${job eq 'hr'}">
         <button type="button" class="button border-green" id="checkall" ><span class="icon-check"></span> 全选</button>

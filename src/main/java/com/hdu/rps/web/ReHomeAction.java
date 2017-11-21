@@ -28,6 +28,7 @@ public class ReHomeAction {
     private RecommendedPerson recommendedPerson;
     private HttpSession httpSession;
     private int userID;
+    private int haveRecomended;
 
     @Autowired
     private RecommendServiceImpl recommendServiceImpl;
@@ -124,7 +125,11 @@ public class ReHomeAction {
         try {
             userID = (int) httpSession.getAttribute("userID");
             logger.info("--------positionID:" + positionID + ",recommendedPersonID:" + recommendedPersonID + ",userID:" + userID);
-            recommendServiceImpl.recommend(userID,Integer.parseInt(recommendedPersonID),Integer.parseInt(positionID));
+            haveRecomended = recommendServiceImpl.recommend(userID,Integer.parseInt(recommendedPersonID),Integer.parseInt(positionID));
+            if(haveRecomended == -1) {
+                //该被推荐人已经被推荐过
+                return "redirect:/hr/homeDetail?haveRecomended=1";
+            }
         } catch (Exception e) {
             logger.warning("-------推荐出错-----" + e.getMessage());
         }

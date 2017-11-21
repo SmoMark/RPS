@@ -14,17 +14,17 @@
     <script th:src="@{../../jquery.step.js}" src="../public/jquery.step.js"></script>
 </head>
 <body>
-<div class="step-body" id="myStep" th:unless="${zero == true}">
+<div class="step-body" id="myStep">
     <div class="step-header" style="width:80%">
         <ul>
-            <li><p>初步筛选</p></li>
-            <li><p>一面</p></li>
-            <li><p>二面</p></li>
-            <li><p>三面</p></li>
-            <li><p>通过</p></li>
+            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=1)}">初步筛选</a></p></li>
+            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=2)}">一面</a></p></li>
+            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=3)}">二面</a></p></li>
+            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=4)}">三面</a></p></li>
+            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=5)}">发放offer</a></p></li>
         </ul>
     </div>
-    <div class="step-content">
+   <!-- <div class="step-content">
         <div class="step-list">
             <div class="butModel">
                 <a class="nextBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=2)}">下一步</a>
@@ -54,7 +54,7 @@
                 <a class="goBtn5" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=6)}">发放offer</a>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 
 <div class="container">

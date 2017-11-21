@@ -17,5 +17,5 @@ public interface RecommendService {
                      String xueli,  String computer,  String english,
                      String interest, MultipartFile fil);
     RecommendedPerson findByID(int id);
-    void recommend(int userID,int recommendedPersonID,int positionID);
+    int recommend(int userID,int recommendedPersonID,int positionID);
 }
