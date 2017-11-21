@@ -1,7 +1,9 @@
 package com.hdu.rps.service;
 
+import com.hdu.rps.mapper.PositionMapper;
 import com.hdu.rps.mapper.RecommendMapper;
 import com.hdu.rps.mapper.RecommendedPersonMapper;
+import com.hdu.rps.model.Position;
 import com.hdu.rps.model.Recommend;
 import com.hdu.rps.model.RecommendedPerson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,17 @@ public class HRDealImpl implements HRDeal {
     private Recommend recommend;
     private int state;
     private ArrayList<Integer> recommendedPersonIDByPosnoAndState;
+    private Position position;
+    private int jobCount;
 
     @Autowired
     private RecommendMapper recommendMapper;
 
     @Autowired
     private RecommendedPersonMapper recommendedPersonMapper;
+
+    @Autowired
+    private PositionMapper positionMapper;
 
 
     @Override
@@ -61,6 +68,16 @@ public class HRDealImpl implements HRDeal {
             state = 1;
         }
         recommend.setRcdstate(state+1);
+        if((state + 1) >= 5) {  //通过全部面试
+            //职位空缺-1
+            position = positionMapper.selectByPrimaryKey(positionNo);
+            jobCount = position.getPosstate();
+            position.setPosstate(jobCount-1);
+            if((jobCount -1) < 0) {
+                throw new RuntimeException("岗位余量不足");
+            }
+            positionMapper.updateByPrimaryKeySelective(position);
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         recommend.setRcdmodtime(simpleDateFormat.format(date));
@@ -94,6 +111,18 @@ public class HRDealImpl implements HRDeal {
                 recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(recommendedID);
                 recommendedPersonArrayList.add(recommendedPerson);
             }
+        }
+        return recommendedPersonArrayList;
+    }
+
+    @Override
+    public ArrayList<RecommendedPerson> findPassedPersonByPos(int posno) {
+        recommendedPersonArrayList.clear();
+        recommendedPersonIDByPosnoAndState = recommendMapper.selectRecommendedPersonIDByPosnoAndState(posno,5);
+        for(index = 0;index < recommendedPersonIDByPosnoAndState.size();index++) {
+            recommendedID = recommendedPersonIDByPosnoAndState.get(index);
+            recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(recommendedID);
+            recommendedPersonArrayList.add(recommendedPerson);
         }
         return recommendedPersonArrayList;
     }

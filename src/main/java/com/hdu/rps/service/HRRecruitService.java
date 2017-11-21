@@ -13,4 +13,5 @@ public interface HRRecruitService {
     List<Position> getPositionList();
     void delByID(int id);
     void delSelected(String[] ids);
+    List<Position> getPositionListHaveNoNeeds();
 }

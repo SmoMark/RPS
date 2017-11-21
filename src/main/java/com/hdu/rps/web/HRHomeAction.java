@@ -55,6 +55,7 @@ public class HRHomeAction {
         job = (String) httpSession.getAttribute("job");
         modelMap.addAttribute("positionList",positionList);
         modelMap.addAttribute("job",job);
+        modelMap.addAttribute("noNeeds",false);
         if(haveRecomended == null) {
 
         } else if(haveRecomended.equals("1")) {
@@ -65,6 +66,23 @@ public class HRHomeAction {
         return "hrHomeDetail";
     }
 
+    @RequestMapping("/findAllHaveNoNeeds")
+    public String findAllHaveNoNeeds(ModelMap modelMap, HttpServletRequest request,@RequestParam(required = false)String haveRecomended) {
+        positionList = hrRecruitServiceImpl.getPositionListHaveNoNeeds();
+        httpSession = request.getSession();
+        job = (String) httpSession.getAttribute("job");
+        modelMap.addAttribute("positionList",positionList);
+        modelMap.addAttribute("job",job);
+        modelMap.addAttribute("noNeeds",true);
+        if(haveRecomended == null) {
+
+        } else if(haveRecomended.equals("1")) {
+            logger.info("****************************************");
+            //前端提示功能（已经被推荐）
+            modelMap.addAttribute("haveRecomended",true);
+        }
+        return "hrHomeDetail";
+    }
     @RequestMapping("/addJob")
     public String addJob() {
         return "addJob";
@@ -160,6 +178,15 @@ public class HRHomeAction {
         }
         modelMap.addAttribute("recommendedPersonByPosNo",recommendedPersonArrayList);
         modelMap.addAttribute("positionNo",positionID);
+        return "needToBeDoneDetail";
+    }
+
+    @RequestMapping("/lookHaveNoNeedsPosition")
+    public String lookHaveNoNeedsPosition(@RequestParam String positionID,ModelMap modelMap) {
+        recommendedPersonArrayList = hrDealImpl.findPassedPersonByPos(Integer.parseInt(positionID));
+        modelMap.addAttribute("recommendedPersonByPosNo",recommendedPersonArrayList);
+        modelMap.addAttribute("positionNo",positionID);
+        modelMap.addAttribute("havaPassed",true);
         return "needToBeDoneDetail";
     }
 }

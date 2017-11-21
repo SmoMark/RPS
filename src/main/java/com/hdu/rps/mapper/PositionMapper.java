@@ -18,6 +18,8 @@ public interface PositionMapper {
 
     int updateByPrimaryKey(Position record);
 
-    List<Position> findAll();
+    List<Position> findAllHaveNeeds();
+
+    List<Position> findAllHaveNoNeeds();
 
 }

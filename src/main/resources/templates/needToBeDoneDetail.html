@@ -14,7 +14,7 @@
     <script th:src="@{../../jquery.step.js}" src="../public/jquery.step.js"></script>
 </head>
 <body>
-<div class="step-body" id="myStep">
+<div class="step-body" id="myStep" th:unless="${havaPassed == true}">
     <div class="step-header" style="width:80%">
         <ul>
             <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=1)}">初步筛选</a></p></li>
@@ -73,7 +73,7 @@
                 <div class="social-touch" >
                     <a class="tweet-touch" th:href="@{/re/getRecommendedPersonDetail(personID=${recommendedPerson.rdpno})}" href="../templates/recommendedPersonDetail.html">详细信息</a>
                 </div>
-                <div>
+                <div th:unless="${havaPassed == true}">
                     <label>
                         <div style="float:left;">
                             <a th:href="@{/hr/notPass/{recommendedPersonID}/{positionNo}(recommendedPersonID=${recommendedPerson.rdpno},positionNo=${positionNo})}" class="button1">不通过</a>

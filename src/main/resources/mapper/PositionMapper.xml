@@ -30,11 +30,15 @@
     <result column="PosMessage" jdbcType="VARCHAR" property="posmessage" />
   </resultMap>
 
-  <select id="findAll" resultMap="findAllMap">
+  <select id="findAllHaveNeeds" resultMap="findAllMap">
     SELECT * from POSITION
+    WHERE PosState &gt; 0
   </select>
 
-
+  <select id="findAllHaveNoNeeds" resultMap="findAllMap">
+    SELECT * from POSITION
+    WHERE PosState &lt; 1
+  </select>
 
   <sql id="Base_Column_List">
     PosNo, PosType, PosState, PosOffice, PosTime, PosDeadline, PosNeeds, PosIntro, PosSalary1, 

@@ -84,7 +84,7 @@ public class HRRecruitServiceImpl implements HRRecruitService {
 
     @Override
     public List<Position> getPositionList() {
-        positionList = positionMapper.findAll();
+        positionList = positionMapper.findAllHaveNeeds();
         return positionList;
     }
 
@@ -105,6 +105,12 @@ public class HRRecruitServiceImpl implements HRRecruitService {
             logger.info("------多项删除：第" + (index+1) + "项id： " + nums[index]);
             positionMapper.deleteByPrimaryKey(nums[index]);
         }
+    }
+
+    @Override
+    public List<Position> getPositionListHaveNoNeeds() {
+        positionList = positionMapper.findAllHaveNoNeeds();
+        return positionList;
     }
 
 
