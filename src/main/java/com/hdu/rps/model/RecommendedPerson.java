@@ -41,6 +41,8 @@ public class RecommendedPerson {
 
     private String rdpgraduation;
 
+    private int rdpincompany;
+
     public Integer getRdpno() {
         return rdpno;
     }
@@ -199,6 +201,14 @@ public class RecommendedPerson {
 
     public void setRdpgraduation(String rdpgraduation) {
         this.rdpgraduation = rdpgraduation == null ? null : rdpgraduation.trim();
+    }
+
+    public int getRdpincompany() {
+        return rdpincompany;
+    }
+
+    public void setRdpincompany(int rdpincompany) {
+        this.rdpincompany = rdpincompany;
     }
 
     @Override

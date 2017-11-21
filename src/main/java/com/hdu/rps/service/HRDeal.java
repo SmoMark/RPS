@@ -11,6 +11,6 @@ public interface HRDeal {
     ArrayList<RecommendedPerson> findRecommendedPersonByPosNo(int posno);
     void pass(int recommendedPersonID,int positionNo);
     void notPass(int recommendedPersonID,int positionNo);
-    ArrayList<RecommendedPerson> findRecommendedPersonByPosNoAndState(int posno,int state);
+    ArrayList<RecommendedPerson> findRecommendedPersonByPosNoAndState(int posno, int state);
     ArrayList<RecommendedPerson> findPassedPersonByPos(int posno);
 }

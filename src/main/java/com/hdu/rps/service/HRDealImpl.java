@@ -77,6 +77,9 @@ public class HRDealImpl implements HRDeal {
                 throw new RuntimeException("岗位余量不足");
             }
             positionMapper.updateByPrimaryKeySelective(position);
+            recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(recommendedPersonID);
+            recommendedPerson.setRdpincompany(1);
+            recommendedPersonMapper.updateByPrimaryKeySelective(recommendedPerson);
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();

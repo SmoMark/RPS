@@ -22,16 +22,18 @@
     <result column="RdPPhoto" jdbcType="VARCHAR" property="rdpphoto" />
     <result column="RdpBrief" jdbcType="VARCHAR" property="rdpbrief" />
     <result column="RdpGraduation" jdbcType="VARCHAR" property="rdpgraduation" />
+    <result column="RdpInCompany" jdbcType="INTEGER" property="rdpincompany"/>
   </resultMap>
   <sql id="Base_Column_List">
     RdPNo, RdPName, RdPNation, RdPLocate, RdPBirthday, RdPSex, RdPDeal, RdPInsurance, 
     RdPMarriage, RdPEnglishLevel, RdPComputLevel, RdPJobAge, RdPPhone, RdPAddress, RdPSchool, 
-    RdPMajor, RdPEmail, RdPPhoto, RdpBrief, RdpGraduation
+    RdPMajor, RdPEmail, RdPPhoto, RdpBrief, RdpGraduation,RdpInCompany
   </sql>
   <select id="findAll" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     from recommendedperson
+    where RdpInCompany = 0
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -50,14 +52,14 @@
       RdPEnglishLevel, RdPComputLevel, RdPJobAge, 
       RdPPhone, RdPAddress, RdPSchool, 
       RdPMajor, RdPEmail, RdPPhoto, 
-      RdpBrief, RdpGraduation)
+      RdpBrief, RdpGraduation,RdpInCompany)
     values (#{rdpno,jdbcType=INTEGER}, #{rdpname,jdbcType=VARCHAR}, #{rdpnation,jdbcType=INTEGER}, 
       #{rdplocate,jdbcType=VARCHAR}, #{rdpbirthday,jdbcType=VARCHAR}, #{rdpsex,jdbcType=INTEGER},
       #{rdpdeal,jdbcType=INTEGER}, #{rdpinsurance,jdbcType=INTEGER}, #{rdpmarriage,jdbcType=INTEGER}, 
       #{rdpenglishlevel,jdbcType=VARCHAR}, #{rdpcomputlevel,jdbcType=VARCHAR}, #{rdpjobage,jdbcType=INTEGER},
       #{rdpphone,jdbcType=VARCHAR}, #{rdpaddress,jdbcType=VARCHAR}, #{rdpschool,jdbcType=VARCHAR},
       #{rdpmajor,jdbcType=VARCHAR}, #{rdpemail,jdbcType=VARCHAR}, #{rdpphoto,jdbcType=VARCHAR}, 
-      #{rdpbrief,jdbcType=VARCHAR}, #{rdpgraduation,jdbcType=VARCHAR})
+      #{rdpbrief,jdbcType=VARCHAR}, #{rdpgraduation,jdbcType=VARCHAR},#{rdpincompany,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.hdu.rps.model.RecommendedPerson">
     insert into recommendedperson
@@ -122,6 +124,9 @@
       <if test="rdpgraduation != null">
         RdpGraduation,
       </if>
+      <if test="rdpincompany != null">
+        RdpInCompany
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rdpno != null">
@@ -183,6 +188,9 @@
       </if>
       <if test="rdpgraduation != null">
         #{rdpgraduation,jdbcType=VARCHAR},
+      </if>
+      <if test="rdpincompany != null">
+        #{rdpincompany,jdbcType=INTEGER}
       </if>
     </trim>
   </insert>
@@ -246,6 +254,9 @@
       <if test="rdpgraduation != null">
         RdpGraduation = #{rdpgraduation,jdbcType=VARCHAR},
       </if>
+      <if test="rdpincompany != null">
+        RdpInCompany = #{rdpincompany,jdbcType=INTEGER}
+      </if>
     </set>
     where RdPNo = #{rdpno,jdbcType=INTEGER}
   </update>
@@ -269,7 +280,8 @@
       RdPEmail = #{rdpemail,jdbcType=VARCHAR},
       RdPPhoto = #{rdpphoto,jdbcType=VARCHAR},
       RdpBrief = #{rdpbrief,jdbcType=VARCHAR},
-      RdpGraduation = #{rdpgraduation,jdbcType=VARCHAR}
+      RdpGraduation = #{rdpgraduation,jdbcType=VARCHAR},
+      RdpInCompany = #{rdpincompany,jdbcType=INTEGER}
     where RdPNo = #{rdpno,jdbcType=INTEGER}
   </update>
 </mapper>

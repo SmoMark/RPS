@@ -122,7 +122,7 @@ public class RecommendServiceImpl implements RecommendService {
         recommendedPerson.setRdpenglishlevel(english);
         recommendedPerson.setRdpbrief(interest);
         recommendedPerson.setRdpphoto(email + fileLastName);
-
+        recommendedPerson.setRdpincompany(0);
         recommendedPersonMapper.insert(recommendedPerson);
     }
 
