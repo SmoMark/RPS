@@ -39,7 +39,11 @@
     SELECT * from POSITION
     WHERE PosState &lt; 1
   </select>
-
+  <select id="selectDeatTimeByPositionID" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT PosDeadline
+    from POSITION
+    WHERE PosNo = #{posno,jdbcType=INTEGER}
+  </select>
   <sql id="Base_Column_List">
     PosNo, PosType, PosState, PosOffice, PosTime, PosDeadline, PosNeeds, PosIntro, PosSalary1, 
     PosSalary2, PosSkill, PosMessage

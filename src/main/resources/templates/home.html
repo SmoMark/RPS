@@ -6,8 +6,9 @@
     <meta http-equiv="Pragma"   content="no-cache"/>
     <meta http-equiv="Cache-Control"   content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
-    <title th:if="${job eq 'HR'}">HR</title>
-    <title th:if="${job eq '推荐人'}">推荐人</title>
+    <title th:if="${job eq 'hr'}">HR</title>
+    <title th:if="${job eq 're'}">推荐人</title>
+    <title th:if="${job eq 'ad'}">管理员</title>
     <link rel="stylesheet" th:href="@{../pintuer.css}" href="../resources/pintuer.css" />
     <link rel="stylesheet" th:href="@{../admin.css}" href="../local/admin.css"/>
     <script th:src="@{../jquery.js}" src="../public/jquery.js"></script>
@@ -20,6 +21,9 @@
         </h1>
         <h1 th:if="${job eq 're'}">
             <img th:src="@{/HR.png}" src="../static/HR.png" class="radius-circle rotate-hover" height="50" alt="" />推荐人
+        </h1>
+        <h1 th:if="${job eq 'ad'}">
+            <img th:src="@{/HR.png}" src="../static/HR.png" class="radius-circle rotate-hover" height="50" alt="" />管理员
         </h1>
     </div>
     <div class="head-l" style="float: right">
@@ -111,7 +115,7 @@
                 </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言:&nbsp;&nbsp;
         <a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
 </ul>
-<div class="admin">
+<div class="admin" th:unless="${job eq 'ad'}" >
     <iframe scrolling="auto" rameborder="0" th:src="@{/hr/homeDetail}" src="../templates/hrHomeDetail.html" name="right" width="100%" height="100%"></iframe>
 </div>
 </body>

@@ -1,5 +1,6 @@
 package com.hdu.rps.service;
 
+import com.hdu.rps.mapper.PositionMapper;
 import com.hdu.rps.mapper.RecommendMapper;
 import com.hdu.rps.mapper.RecommendedPersonMapper;
 import com.hdu.rps.model.Recommend;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +38,9 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Autowired
     private RecommendMapper recommendMapper;
+
+    @Autowired
+    private PositionMapper positionMapper;
 
     @Override
     public ArrayList<RecommendedPerson> findAll() {
@@ -153,5 +158,23 @@ public class RecommendServiceImpl implements RecommendService {
         logger.info("------------进行推荐-------------");
         recommendMapper.insert(recommend);
         return 1;
+    }
+
+    @Override
+    public int haveDelayed(int positionID) {
+        try {
+            String deadTime = positionMapper.selectDeatTimeByPositionID(positionID);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            Date nowDate = new Date();
+            Date afterConDeadTime = simpleDateFormat.parse(deadTime);
+            Date nowTime = simpleDateFormat.parse(simpleDateFormat.format(nowDate));
+            logger.info("////////////////nowTime.getTime:" + nowTime.getTime() + " , " + afterConDeadTime.getTime());
+            if(nowTime.getTime() > afterConDeadTime.getTime()) {
+                return 1;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

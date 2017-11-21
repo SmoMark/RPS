@@ -18,4 +18,5 @@ public interface RecommendService {
                      String interest, MultipartFile fil);
     RecommendedPerson findByID(int id);
     int recommend(int userID,int recommendedPersonID,int positionID);
+    int haveDelayed(int positionID);
 }

@@ -22,4 +22,6 @@ public interface PositionMapper {
 
     List<Position> findAllHaveNoNeeds();
 
+    String selectDeatTimeByPositionID(int posno);
+
 }

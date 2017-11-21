@@ -20,6 +20,10 @@
         alert("该被推荐人已经被推荐过");
         window.location.replace("/hr/homeDetail");
     </script>
+    <script th:if="${havaDelayed == true}">
+        alert("该招聘信息已经逾期");
+        window.location.replace("/hr/homeDetail");
+    </script>
 </head>
 <div class="title" th:unless="${haveRecomended == true}">招聘信息</div>
 <style type="text/css">

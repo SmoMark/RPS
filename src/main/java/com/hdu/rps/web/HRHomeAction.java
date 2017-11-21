@@ -52,7 +52,13 @@ public class HRHomeAction {
     private ArrayList<RecommendedPerson> recommendedPersonArrayList;
 
     @RequestMapping("/homeDetail")
-    public String homeDetail(ModelMap modelMap, HttpServletRequest request,@RequestParam(required = false)String haveRecomended) {
+    public String homeDetail(ModelMap modelMap, HttpServletRequest request,@RequestParam(required = false)String haveRecomended,@RequestParam(required = false)String havaDelayed) {
+        if(havaDelayed == null) {
+
+        } else if(havaDelayed.equals("1")) {
+            logger.info("///////////该招聘信息确认已经延误/////");
+            modelMap.addAttribute("havaDelayed",true);
+        }
         positionList = hrRecruitServiceImpl.getPositionList();
         httpSession = request.getSession();
         job = (String) httpSession.getAttribute("job");

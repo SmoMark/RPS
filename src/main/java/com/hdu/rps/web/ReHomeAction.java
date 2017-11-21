@@ -41,11 +41,19 @@ public class ReHomeAction {
 
     @RequestMapping("/recommendBtn")
     public String recommendBtn(ModelMap modelMap,@RequestParam String positionID) {
-        logger.info("---------进入被推荐人列表-------");
-        recommendedPersonArrayList = recommendServiceImpl.findAll();
-        modelMap.addAttribute("recommendedPersonArrayList",recommendedPersonArrayList);
-        modelMap.addAttribute("positionID",positionID);
-        return "recommend";
+        logger.info("---------检查是否该职位已经误期-------");
+        int havaDealyed = recommendServiceImpl.haveDelayed(Integer.parseInt(positionID));
+        if(havaDealyed == 1) {
+            //已经延误
+            logger.info("///////////该招聘信息已经延误/////");
+            return "redirect:/hr/homeDetail?havaDelayed=1";
+        } else {
+            logger.info("---------进入被推荐人列表-------");
+            recommendedPersonArrayList = recommendServiceImpl.findAll();
+            modelMap.addAttribute("recommendedPersonArrayList",recommendedPersonArrayList);
+            modelMap.addAttribute("positionID",positionID);
+            return "recommend";
+        }
     }
 
     @RequestMapping("/addToReposHome")
