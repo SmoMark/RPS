@@ -1,7 +1,5 @@
 package com.hdu.rps.model;
 
-import java.util.Date;
-
 public class Counts {
     private Integer countsno;
 
@@ -13,7 +11,7 @@ public class Counts {
 
     private Integer countsquantity;
 
-    private Date countstime;
+    private String countstime;
 
     private String countsintro;
 
@@ -57,11 +55,11 @@ public class Counts {
         this.countsquantity = countsquantity;
     }
 
-    public Date getCountstime() {
+    public String getCountstime() {
         return countstime;
     }
 
-    public void setCountstime(Date countstime) {
+    public void setCountstime(String countstime) {
         this.countstime = countstime;
     }
 

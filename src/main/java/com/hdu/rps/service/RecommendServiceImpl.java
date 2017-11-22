@@ -1,8 +1,10 @@
 package com.hdu.rps.service;
 
+import com.hdu.rps.mapper.CountsMapper;
 import com.hdu.rps.mapper.PositionMapper;
 import com.hdu.rps.mapper.RecommendMapper;
 import com.hdu.rps.mapper.RecommendedPersonMapper;
+import com.hdu.rps.model.Counts;
 import com.hdu.rps.model.Recommend;
 import com.hdu.rps.model.RecommendedPerson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ public class RecommendServiceImpl implements RecommendService {
     private String fileLastName;
     private Logger logger = Logger.getLogger(String.valueOf(RecommendServiceImpl.this));
     private Recommend recommend = null;
+    private Counts counts;
 
     @Autowired
     private RecommendedPersonMapper recommendedPersonMapper;
@@ -41,6 +44,9 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Autowired
     private PositionMapper positionMapper;
+
+    @Autowired
+    private CountsMapper countsMapper;
 
     @Override
     public ArrayList<RecommendedPerson> findAll() {
@@ -157,6 +163,15 @@ public class RecommendServiceImpl implements RecommendService {
         recommend.setRcdaddtime(simpleDateFormat.format(date));
         logger.info("------------进行推荐-------------");
         recommendMapper.insert(recommend);
+        //加入积分表
+        counts = countsMapper.selectByUserNo(userID);
+        if(counts == null) {
+            counts = new Counts();
+            counts.setUserno(userID);
+            counts.setCountsquantity(0);
+            counts.setCountstime(simpleDateFormat.format(date));
+            countsMapper.insert(counts);
+        }
         return 1;
     }
 

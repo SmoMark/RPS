@@ -7,12 +7,29 @@
     <result column="CountsType" jdbcType="INTEGER" property="countstype" />
     <result column="CountsReason" jdbcType="INTEGER" property="countsreason" />
     <result column="CountsQuantity" jdbcType="INTEGER" property="countsquantity" />
-    <result column="CountsTime" jdbcType="TIMESTAMP" property="countstime" />
+    <result column="CountsTime" jdbcType="VARCHAR" property="countstime" />
     <result column="CountsIntro" jdbcType="VARCHAR" property="countsintro" />
   </resultMap>
   <sql id="Base_Column_List">
     CountsNo, UserNo, CountsType, CountsReason, CountsQuantity, CountsTime, CountsIntro
   </sql>
+  <select id="selectCountByUserNo" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT CountsQuantity
+    from counts
+    where UserNo = #{userno,jdbcType=INTEGER}
+  </select>
+  <select id="findAllOrderByCounts" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from counts
+    ORDER BY CountsQuantity DESC
+  </select>
+  <select id="selectByUserNo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from counts
+    where UserNo = #{userno,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -28,7 +45,7 @@
       CountsReason, CountsQuantity, CountsTime, 
       CountsIntro)
     values (#{countsno,jdbcType=INTEGER}, #{userno,jdbcType=INTEGER}, #{countstype,jdbcType=INTEGER}, 
-      #{countsreason,jdbcType=INTEGER}, #{countsquantity,jdbcType=INTEGER}, #{countstime,jdbcType=TIMESTAMP}, 
+      #{countsreason,jdbcType=INTEGER}, #{countsquantity,jdbcType=INTEGER}, #{countstime,jdbcType=VARCHAR},
       #{countsintro,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hdu.rps.model.Counts">
@@ -73,7 +90,7 @@
         #{countsquantity,jdbcType=INTEGER},
       </if>
       <if test="countstime != null">
-        #{countstime,jdbcType=TIMESTAMP},
+        #{countstime,jdbcType=VARCHAR},
       </if>
       <if test="countsintro != null">
         #{countsintro,jdbcType=VARCHAR},
@@ -96,7 +113,7 @@
         CountsQuantity = #{countsquantity,jdbcType=INTEGER},
       </if>
       <if test="countstime != null">
-        CountsTime = #{countstime,jdbcType=TIMESTAMP},
+        CountsTime = #{countstime,jdbcType=VARCHAR},
       </if>
       <if test="countsintro != null">
         CountsIntro = #{countsintro,jdbcType=VARCHAR},
@@ -110,7 +127,7 @@
       CountsType = #{countstype,jdbcType=INTEGER},
       CountsReason = #{countsreason,jdbcType=INTEGER},
       CountsQuantity = #{countsquantity,jdbcType=INTEGER},
-      CountsTime = #{countstime,jdbcType=TIMESTAMP},
+      CountsTime = #{countstime,jdbcType=VARCHAR},
       CountsIntro = #{countsintro,jdbcType=VARCHAR}
     where CountsNo = #{countsno,jdbcType=INTEGER}
   </update>

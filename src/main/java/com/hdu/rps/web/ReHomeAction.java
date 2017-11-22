@@ -1,6 +1,8 @@
 package com.hdu.rps.web;
 
+import com.hdu.rps.model.Counts;
 import com.hdu.rps.model.RecommendedPerson;
+import com.hdu.rps.service.CountsServiceImpl;
 import com.hdu.rps.service.RecommendServiceImpl;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,13 @@ public class ReHomeAction {
     private HttpSession httpSession;
     private int userID;
     private int haveRecomended;
+    private ArrayList<Counts> countsArrayList;
 
     @Autowired
     private RecommendServiceImpl recommendServiceImpl;
+
+    @Autowired
+    private CountsServiceImpl countsServiceImpl;
 
     @ResponseBody
     @RequestMapping("/")
@@ -65,12 +71,15 @@ public class ReHomeAction {
     @RequestMapping("/recommendFollow")
     public String recommendFollow() {
         logger.info("-------进入推荐跟踪页面----");
+
         return "recommendFollow";
     }
 
     @RequestMapping("/scoreBoard")
-    public String scoreBoard() {
+    public String scoreBoard(ModelMap modelMap) {
         logger.info("----进入积分排行榜页面----");
+        countsArrayList = countsServiceImpl.findAllOrderByCounts();
+        modelMap.addAttribute("countsArrayList",countsArrayList);
         return "scoreBoard";
     }
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>积分排行</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>排名</td>
+            <td>用户名</td>
+            <td>分数</td>
+            <td>更新时间</td>
+        </tr>
+        <tbody>
+            <tr th:each="counts,iterStat : ${countsArrayList}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${counts.countsintro}">1</td>
+                <td th:text="${counts.countsquantity}">2</td>
+                <td th:text="${counts.countstime}">2017-11-24 12:00:32</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

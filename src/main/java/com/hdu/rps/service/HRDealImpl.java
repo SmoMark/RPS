@@ -1,8 +1,10 @@
 package com.hdu.rps.service;
 
+import com.hdu.rps.mapper.CountsMapper;
 import com.hdu.rps.mapper.PositionMapper;
 import com.hdu.rps.mapper.RecommendMapper;
 import com.hdu.rps.mapper.RecommendedPersonMapper;
+import com.hdu.rps.model.Counts;
 import com.hdu.rps.model.Position;
 import com.hdu.rps.model.Recommend;
 import com.hdu.rps.model.RecommendedPerson;
@@ -31,6 +33,7 @@ public class HRDealImpl implements HRDeal {
     private ArrayList<Integer> recommendedPersonIDByPosnoAndState;
     private Position position;
     private int jobCount;
+    private Counts counts;
 
     @Autowired
     private RecommendMapper recommendMapper;
@@ -40,6 +43,9 @@ public class HRDealImpl implements HRDeal {
 
     @Autowired
     private PositionMapper positionMapper;
+
+    @Autowired
+    private CountsMapper countsMapper;
 
 
     @Override
@@ -67,6 +73,52 @@ public class HRDealImpl implements HRDeal {
         } catch (NullPointerException nullException) {
             state = 1;
         }
+        //推荐人增加积分
+        int userNo = recommend.getUserno();
+        counts = countsMapper.selectByUserNo(userNo);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date = new Date();
+        if(counts == null) {
+            /*counts = new Counts();
+            counts.setUserno(userNo);
+            counts.setCountstime(simpleDateFormat.format(date));
+            switch (state){
+                case 1:
+                    counts.setCountsquantity(1);
+                    break;
+                case 2:
+                    counts.setCountsquantity(3);
+                    break;
+                case 3:
+                    counts.setCountsquantity(6);
+                    break;
+                case 4:
+                    counts.setCountsquantity(10);
+                    break;
+                default:
+                    break;
+            }
+            countsMapper.insert(counts);*/
+        } else {
+            counts.setCountstime(simpleDateFormat.format(date));
+            switch (state){
+                case 1:
+                    counts.setCountsquantity(1 + countsMapper.selectCountByUserNo(userNo));
+                    break;
+                case 2:
+                    counts.setCountsquantity(2 + countsMapper.selectCountByUserNo(userNo));
+                    break;
+                case 3:
+                    counts.setCountsquantity(3 + countsMapper.selectCountByUserNo(userNo));
+                    break;
+                case 4:
+                    counts.setCountsquantity(4 + countsMapper.selectCountByUserNo(userNo));
+                    break;
+                default:
+                    break;
+            }
+            countsMapper.updateByPrimaryKeySelective(counts);
+        }
         recommend.setRcdstate(state+1);
         if((state + 1) >= 5) {  //通过全部面试
             //职位空缺-1
@@ -81,8 +133,8 @@ public class HRDealImpl implements HRDeal {
             recommendedPerson.setRdpincompany(1);
             recommendedPersonMapper.updateByPrimaryKeySelective(recommendedPerson);
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        date = new Date();
         recommend.setRcdmodtime(simpleDateFormat.format(date));
         recommendMapper.updateByPrimaryKeySelective(recommend);
     }
