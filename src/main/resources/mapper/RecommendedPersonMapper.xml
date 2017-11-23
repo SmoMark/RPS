@@ -29,6 +29,12 @@
     RdPMarriage, RdPEnglishLevel, RdPComputLevel, RdPJobAge, RdPPhone, RdPAddress, RdPSchool, 
     RdPMajor, RdPEmail, RdPPhoto, RdpBrief, RdpGraduation,RdpInCompany
   </sql>
+  <select id="selectByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from recommendedperson
+    where RdPEmail = #{rdpemail,jdbcType=VARCHAR}
+  </select>
   <select id="findAll" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />

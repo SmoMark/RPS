@@ -1,13 +1,7 @@
 package com.hdu.rps.service;
 
-import com.hdu.rps.mapper.CountsMapper;
-import com.hdu.rps.mapper.PositionMapper;
-import com.hdu.rps.mapper.RecommendMapper;
-import com.hdu.rps.mapper.RecommendedPersonMapper;
-import com.hdu.rps.model.Counts;
-import com.hdu.rps.model.Position;
-import com.hdu.rps.model.Recommend;
-import com.hdu.rps.model.RecommendedPerson;
+import com.hdu.rps.mapper.*;
+import com.hdu.rps.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +28,7 @@ public class HRDealImpl implements HRDeal {
     private Position position;
     private int jobCount;
     private Counts counts;
+    private User user;
 
     @Autowired
     private RecommendMapper recommendMapper;
@@ -46,6 +41,9 @@ public class HRDealImpl implements HRDeal {
 
     @Autowired
     private CountsMapper countsMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
 
     @Override
@@ -114,13 +112,15 @@ public class HRDealImpl implements HRDeal {
                 case 4:
                     counts.setCountsquantity(4 + countsMapper.selectCountByUserNo(userNo));
                     break;
+                case 5:
+                    counts.setCountsquantity(5 + countsMapper.selectCountByUserNo(userNo));
                 default:
                     break;
             }
             countsMapper.updateByPrimaryKeySelective(counts);
         }
         recommend.setRcdstate(state+1);
-        if((state + 1) >= 5) {  //通过全部面试
+        if((state + 1) >= 6) {  //通过全部面试
             //职位空缺-1
             position = positionMapper.selectByPrimaryKey(positionNo);
             jobCount = position.getPosstate();
@@ -132,6 +132,14 @@ public class HRDealImpl implements HRDeal {
             recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(recommendedPersonID);
             recommendedPerson.setRdpincompany(1);
             recommendedPersonMapper.updateByPrimaryKeySelective(recommendedPerson);
+            //可以添加把该人员添加到本公司职员列表功能
+            user = new User();
+            recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(recommendedPersonID);
+            user.setUserpassword("123456");
+            user.setUsername(recommendedPerson.getRdpname());
+            user.setUsersex(recommendedPerson.getRdpsex());
+            user.setUseremail(recommendedPerson.getRdpemail());
+            userMapper.insert(user);
         }
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         date = new Date();
@@ -173,7 +181,7 @@ public class HRDealImpl implements HRDeal {
     @Override
     public ArrayList<RecommendedPerson> findPassedPersonByPos(int posno) {
         recommendedPersonArrayList.clear();
-        recommendedPersonIDByPosnoAndState = recommendMapper.selectRecommendedPersonIDByPosnoAndState(posno,5);
+        recommendedPersonIDByPosnoAndState = recommendMapper.selectRecommendedPersonIDByPosnoAndState(posno,6);
         for(index = 0;index < recommendedPersonIDByPosnoAndState.size();index++) {
             recommendedID = recommendedPersonIDByPosnoAndState.get(index);
             recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(recommendedID);

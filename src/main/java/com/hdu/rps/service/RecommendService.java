@@ -1,5 +1,6 @@
 package com.hdu.rps.service;
 
+import com.hdu.rps.model.FollowDetail;
 import com.hdu.rps.model.RecommendedPerson;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public interface RecommendService {
     ArrayList<RecommendedPerson> findAll();
-    void addToRepos( String name,  String sex,  String birthdate,
+    int addToRepos( String name,  String sex,  String birthdate,
                      String minzu,  String mianmao,  String province,
                      String city,  String telphone,  String email,
                      String address,  String school,  String major,
@@ -19,4 +20,5 @@ public interface RecommendService {
     RecommendedPerson findByID(int id);
     int recommend(int userID,int recommendedPersonID,int positionID);
     int haveDelayed(int positionID);
+    ArrayList<FollowDetail> getFollowDetailByUserno(int userno);
 }

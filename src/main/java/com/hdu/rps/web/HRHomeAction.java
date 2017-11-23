@@ -52,12 +52,21 @@ public class HRHomeAction {
     private ArrayList<RecommendedPerson> recommendedPersonArrayList;
 
     @RequestMapping("/homeDetail")
-    public String homeDetail(ModelMap modelMap, HttpServletRequest request,@RequestParam(required = false)String haveRecomended,@RequestParam(required = false)String havaDelayed) {
+    public String homeDetail(ModelMap modelMap, HttpServletRequest request,@RequestParam(required = false)String haveRecomended,@RequestParam(required = false)String havaDelayed,@RequestParam(required = false)String rep) {
         if(havaDelayed == null) {
 
         } else if(havaDelayed.equals("1")) {
             logger.info("///////////该招聘信息确认已经延误/////");
             modelMap.addAttribute("havaDelayed",true);
+        }
+        if(rep == null) {
+
+        } else if(rep.equals("-1")) {
+            logger.info("//////////人才库已存在该人员");
+            modelMap.addAttribute("rdp",-1);
+        } else if(rep.equals("-2")) {
+            logger.info("//////////本公司已存在该人员");
+            modelMap.addAttribute("rdp",-2);
         }
         positionList = hrRecruitServiceImpl.getPositionList();
         httpSession = request.getSession();
@@ -187,6 +196,10 @@ public class HRHomeAction {
         }
         modelMap.addAttribute("recommendedPersonByPosNo",recommendedPersonArrayList);
         modelMap.addAttribute("positionNo",positionID);
+        if(state == 6) {
+            modelMap.addAttribute("havaOver",false);
+            logger.info("hr://///////////已经入职/////////");
+        }
         return "needToBeDoneDetail";
     }
 
@@ -195,7 +208,7 @@ public class HRHomeAction {
         recommendedPersonArrayList = hrDealImpl.findPassedPersonByPos(Integer.parseInt(positionID));
         modelMap.addAttribute("recommendedPersonByPosNo",recommendedPersonArrayList);
         modelMap.addAttribute("positionNo",positionID);
-        modelMap.addAttribute("havaPassed",true);
+        modelMap.addAttribute("havaPassed",false);
         return "needToBeDoneDetail";
     }
 }

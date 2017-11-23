@@ -24,6 +24,14 @@
         alert("该招聘信息已经逾期");
         window.location.replace("/hr/homeDetail");
     </script>
+    <script th:if="${rdp == -1}">
+        alert("人才库已存在该人员");
+        window.location.replace("/hr/homeDetail");
+    </script>
+    <script th:if="${rdp == -2}">
+        alert("本公司已存在该人员");
+        window.location.replace("/hr/homeDetail");
+    </script>
 </head>
 <div class="title" th:unless="${haveRecomended == true}">招聘信息</div>
 <style type="text/css">
@@ -63,8 +71,8 @@
         <th style="text-align: center" width="110px" th:width="110px">薪资</th>
         <th style="text-align: center" width="200px" th:width="200px">岗位职责</th>
         <th style="text-align: center" width="90px" th:width="90px">岗位要求</th>
-        <th style="text-align: center">备注</th>
-        <th style="text-align: center" width="110px">操作</th>
+        <th style="text-align: center" width="90px" th:width="90px">备注</th>
+        <th style="text-align: center" width="110px" th:width="110px">操作</th>
     </tr>
     <tbody>
     <tr th:each="position,iterStat : ${positionList}" class="tr-link">
@@ -95,12 +103,12 @@
                     <span class="icon-trash-o"></span> 删除
                 </a>
 
-                <a th:if="${job eq 're'}" class="button border-red" href="#" th:href="@{/re/recommendBtn(positionID = ${position.posno})}" >
-                    <span class="icon-trash-o"></span> 推荐
+                <a th:if="${job eq 're'}" class="button border-green" href="#" th:href="@{/re/recommendBtn(positionID = ${position.posno})}" >
+                    <span class="icon-send"></span> 推荐
                 </a>
 
-                <a th:if="${noNeeds == true}" class="button border-red" href="#" th:href="@{/hr/lookHaveNoNeedsPosition(positionID = ${position.posno})}">
-                    <span class="icon-trash-o"></span> 查看
+                <a th:if="${noNeeds == true}" class="button border-blue" href="#" th:href="@{/hr/lookHaveNoNeedsPosition(positionID = ${position.posno})}">
+                    <span class="icon-file"></span> 查看
                 </a>
             </div>
         </td>

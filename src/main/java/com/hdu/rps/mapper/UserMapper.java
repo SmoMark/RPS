@@ -20,4 +20,5 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     List<String> findEmailByJob(String job);
+
 }

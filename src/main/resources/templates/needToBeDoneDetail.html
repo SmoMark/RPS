@@ -14,7 +14,7 @@
     <script th:src="@{../../jquery.step.js}" src="../public/jquery.step.js"></script>
 </head>
 <body>
-<div class="step-body" id="myStep" th:unless="${havaPassed == true}">
+<div class="step-body" id="myStep" th:unless="${havaPassed == true}" >
     <div class="step-header" style="width:80%">
         <ul>
             <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=1)}">初步筛选</a></p></li>
@@ -22,6 +22,7 @@
             <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=3)}">二面</a></p></li>
             <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=4)}">三面</a></p></li>
             <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=5)}">发放offer</a></p></li>
+            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=6)}">已入职</a></p></li>
         </ul>
     </div>
    <!-- <div class="step-content">
@@ -61,7 +62,6 @@
     <!-- Team members structure start -->
     <div class="team-members row">
         <h1 th:if="${zero == true}">尚未有推荐人选</h1>
-
         <div class="single-member effect-2" th:each="recommendedPerson,iterStat : ${recommendedPersonByPosNo}">
             <div class="member-image">
                 <img th:src="@{/re/getRecommendedPersonPhoto/(userPhoto=${recommendedPerson.rdpphoto})}"  alt="被推荐人照片"/><!--这里是每个人的头像-->
@@ -73,7 +73,7 @@
                 <div class="social-touch" >
                     <a class="tweet-touch" th:href="@{/re/getRecommendedPersonDetail(personID=${recommendedPerson.rdpno})}" href="../templates/recommendedPersonDetail.html">详细信息</a>
                 </div>
-                <div th:unless="${havaPassed == true}">
+                <div th:if="${havaPassed == false || haveOver == true || havaOver == null}">
                     <label>
                         <div style="float:left;">
                             <a th:href="@{/hr/notPass/{recommendedPersonID}/{positionNo}(recommendedPersonID=${recommendedPerson.rdpno},positionNo=${positionNo})}" class="button1">不通过</a>

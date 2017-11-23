@@ -19,4 +19,6 @@ public interface RecommendedPersonMapper {
 
     ArrayList<RecommendedPerson> findAll();
 
+    RecommendedPerson selectByEmail(String rdpemail);
+
 }

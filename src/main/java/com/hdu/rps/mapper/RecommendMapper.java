@@ -23,4 +23,8 @@ public interface RecommendMapper {
     ArrayList<Integer> selectRecommendedPersonIDByPosno(int posno);
 
     ArrayList<Integer> selectRecommendedPersonIDByPosnoAndState(@Param("posno") int posno,@Param("state") int state);
+
+    ArrayList<Integer> selectRecommendedPersonIDByUserno(int userno);
+
+    ArrayList<Recommend> selectRecommendByUserno(int userno);
 }

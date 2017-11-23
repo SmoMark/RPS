@@ -1,12 +1,7 @@
 package com.hdu.rps.service;
 
-import com.hdu.rps.mapper.CountsMapper;
-import com.hdu.rps.mapper.PositionMapper;
-import com.hdu.rps.mapper.RecommendMapper;
-import com.hdu.rps.mapper.RecommendedPersonMapper;
-import com.hdu.rps.model.Counts;
-import com.hdu.rps.model.Recommend;
-import com.hdu.rps.model.RecommendedPerson;
+import com.hdu.rps.mapper.*;
+import com.hdu.rps.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +30,12 @@ public class RecommendServiceImpl implements RecommendService {
     private Logger logger = Logger.getLogger(String.valueOf(RecommendServiceImpl.this));
     private Recommend recommend = null;
     private Counts counts;
+    private ArrayList<FollowDetail> followDetailArrayList = new ArrayList<FollowDetail>();
+    private FollowDetail followDetail;
+    private ArrayList<Recommend> recommendArrayList;
+    private int repno,posno,state,posType;
+    private String repName,posName;
+    private User user;
 
     @Autowired
     private RecommendedPersonMapper recommendedPersonMapper;
@@ -48,6 +49,9 @@ public class RecommendServiceImpl implements RecommendService {
     @Autowired
     private CountsMapper countsMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public ArrayList<RecommendedPerson> findAll() {
         recommendedPersonArrayList = recommendedPersonMapper.findAll();
@@ -55,86 +59,99 @@ public class RecommendServiceImpl implements RecommendService {
     }
 
     @Override
-    public void addToRepos(String name, String sex, String birthdate, String minzu, String mianmao, String province, String city,
+    public int addToRepos(String name, String sex, String birthdate, String minzu, String mianmao, String province, String city,
                            String telphone, String email, String address, String school, String major,
                            String xueli, String computer, String english, String interest, MultipartFile file) {
-        recommendedPerson = new RecommendedPerson();
-        //数据类型转换
-        if("男".equals(sex)) {
-            gender = 0;
+        //检查人才库是否已经存在该人员
+        logger.info("//////////////////email:" + email + "//////");
+        recommendedPerson = recommendedPersonMapper.selectByEmail(email);
+        if(recommendedPerson != null) {
+            return -1;          //人才库存在该人员
         } else {
-            gender = 1;
-        }
-        if("汉".equals(minzu) || "汉族".equals(minzu)) {
-            nation = 0;
-        } else {
-            nation = 1;
-        }
-        if("群众".equals(mianmao)) {
-            deal = 0;
-        } else if("团员".equals(mianmao)) {
-            deal = 1;
-        } else if("党员".equals(mianmao)) {
-            deal = 2;
-        } else {
-            deal = 3;
-        }
-        if("专科".equals(xueli)) {
-            insurance = 5;
-        } else if ("本科".equals(xueli)) {
-            insurance = 4;
-        } else if ("硕士".equals(xueli)) {
-            insurance = 6;
-        } else if ("博士".equals(xueli)) {
-            insurance = 7;
-        } else {
-            insurance = 1;
-        }
-        pointIndex = file.getOriginalFilename().lastIndexOf('.');
-        fileLastName = file.getOriginalFilename().substring(pointIndex,file.getOriginalFilename().length());
-
-        //上传照片
-        if(!file.isEmpty()) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
-                                new FileOutputStream(new File("E:\\recommendedPersonPhoto\\" + email + fileLastName)));
-                        bufferedOutputStream.write(file.getBytes());
-                        bufferedOutputStream.flush();
-                        bufferedOutputStream.close();
-                    } catch (FileNotFoundException e) {
-                        logger.warning("------------上传照片失败1------------");
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        logger.warning("------------上传照片失败2------------");
-                        e.printStackTrace();
-                    }
+            user = userMapper.selectByUserEmail(email);
+            if(user != null) {
+                return -2;  //本公司存在该人员
+            } else {
+                recommendedPerson = new RecommendedPerson();
+                //数据类型转换
+                if("男".equals(sex)) {
+                    gender = 0;
+                } else {
+                    gender = 1;
                 }
-            }).start();
-        } else {
-            logger.warning("-------文件是空的------");
-        }
+                if("汉".equals(minzu) || "汉族".equals(minzu)) {
+                    nation = 0;
+                } else {
+                    nation = 1;
+                }
+                if("群众".equals(mianmao)) {
+                    deal = 0;
+                } else if("团员".equals(mianmao)) {
+                    deal = 1;
+                } else if("党员".equals(mianmao)) {
+                    deal = 2;
+                } else {
+                    deal = 3;
+                }
+                if("专科".equals(xueli)) {
+                    insurance = 5;
+                } else if ("本科".equals(xueli)) {
+                    insurance = 4;
+                } else if ("硕士".equals(xueli)) {
+                    insurance = 6;
+                } else if ("博士".equals(xueli)) {
+                    insurance = 7;
+                } else {
+                    insurance = 1;
+                }
+                pointIndex = file.getOriginalFilename().lastIndexOf('.');
+                fileLastName = file.getOriginalFilename().substring(pointIndex,file.getOriginalFilename().length());
 
-        recommendedPerson.setRdpname(name);
-        recommendedPerson.setRdpsex(gender);
-        recommendedPerson.setRdpbirthday(birthdate);
-        recommendedPerson.setRdpnation(nation);
-        recommendedPerson.setRdpdeal(deal);
-        recommendedPerson.setRdplocate(province + city);
-        recommendedPerson.setRdpphone(telphone);
-        recommendedPerson.setRdpemail(email);
-        recommendedPerson.setRdpaddress(address);
-        recommendedPerson.setRdpschool(school);
-        recommendedPerson.setRdpmajor(major);
-        recommendedPerson.setRdpinsurance(insurance);
-        recommendedPerson.setRdpcomputlevel(computer);
-        recommendedPerson.setRdpenglishlevel(english);
-        recommendedPerson.setRdpbrief(interest);
-        recommendedPerson.setRdpphoto(email + fileLastName);
-        recommendedPerson.setRdpincompany(0);
-        recommendedPersonMapper.insert(recommendedPerson);
+                //上传照片
+                if(!file.isEmpty()) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
+                                        new FileOutputStream(new File("E:\\recommendedPersonPhoto\\" + email + fileLastName)));
+                                bufferedOutputStream.write(file.getBytes());
+                                bufferedOutputStream.flush();
+                                bufferedOutputStream.close();
+                            } catch (FileNotFoundException e) {
+                                logger.warning("------------上传照片失败1------------");
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                logger.warning("------------上传照片失败2------------");
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                } else {
+                    logger.warning("-------文件是空的------");
+                }
+
+                recommendedPerson.setRdpname(name);
+                recommendedPerson.setRdpsex(gender);
+                recommendedPerson.setRdpbirthday(birthdate);
+                recommendedPerson.setRdpnation(nation);
+                recommendedPerson.setRdpdeal(deal);
+                recommendedPerson.setRdplocate(province + city);
+                recommendedPerson.setRdpphone(telphone);
+                recommendedPerson.setRdpemail(email);
+                recommendedPerson.setRdpaddress(address);
+                recommendedPerson.setRdpschool(school);
+                recommendedPerson.setRdpmajor(major);
+                recommendedPerson.setRdpinsurance(insurance);
+                recommendedPerson.setRdpcomputlevel(computer);
+                recommendedPerson.setRdpenglishlevel(english);
+                recommendedPerson.setRdpbrief(interest);
+                recommendedPerson.setRdpphoto(email + fileLastName);
+                recommendedPerson.setRdpincompany(0);
+                recommendedPersonMapper.insert(recommendedPerson);
+                return 1;
+            }
+        }
     }
 
     @Override
@@ -192,4 +209,56 @@ public class RecommendServiceImpl implements RecommendService {
         }
         return 0;
     }
+
+    @Override
+    public ArrayList<FollowDetail> getFollowDetailByUserno(int userno) {
+        followDetailArrayList.clear();
+        recommendArrayList = recommendMapper.selectRecommendByUserno(userno);
+        for(int i = 0;i < recommendArrayList.size();i++) {
+            recommend = recommendArrayList.get(i);
+            repno = recommend.getRepno();
+            posno = recommend.getPosno();
+            state = recommend.getRcdstate();
+            logger.info("///////////////repno:" + repno + " , state: " + state);
+            repName = recommendedPersonMapper.selectByPrimaryKey(repno).getRdpname();
+            posType = positionMapper.selectByPrimaryKey(posno).getPostype();
+            switch (posType){
+                case 1:
+                    posName = "java工程师";
+                    break;
+                case 2:
+                    posName = "前端工程师";
+                    break;
+                case 3:
+                    posName = "后台工程师";
+                    break;
+                case 4:
+                    posName = "UI设计师";
+                    break;
+                case 5:
+                    posName = "市场经理";
+                    break;
+                case 6:
+                    posName = "财务";
+                    break;
+                case 7:
+                    posName = "总经理助理";
+                    break;
+                case 8:
+                    posName = "文员";
+                    break;
+                default:
+                    posName = "";
+                    break;
+            }
+            followDetail = new FollowDetail();
+            followDetail.setPositionName(posName);
+            followDetail.setRdpName(repName);
+            followDetail.setState(state);
+            followDetailArrayList.add(followDetail);
+        }
+        return followDetailArrayList;
+    }
+
+
 }

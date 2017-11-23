@@ -1,6 +1,7 @@
 package com.hdu.rps.web;
 
 import com.hdu.rps.model.Counts;
+import com.hdu.rps.model.FollowDetail;
 import com.hdu.rps.model.RecommendedPerson;
 import com.hdu.rps.service.CountsServiceImpl;
 import com.hdu.rps.service.RecommendServiceImpl;
@@ -32,6 +33,7 @@ public class ReHomeAction {
     private int userID;
     private int haveRecomended;
     private ArrayList<Counts> countsArrayList;
+    private ArrayList<FollowDetail> followDetailArrayList;
 
     @Autowired
     private RecommendServiceImpl recommendServiceImpl;
@@ -69,9 +71,13 @@ public class ReHomeAction {
     }
 
     @RequestMapping("/recommendFollow")
-    public String recommendFollow() {
+    public String recommendFollow(HttpServletRequest httpServletRequest,ModelMap modelMap) {
         logger.info("-------进入推荐跟踪页面----");
-
+        httpSession = httpServletRequest.getSession();
+        userID = (int) httpSession.getAttribute("userID");
+        //根据推荐人ID得到详细跟踪信息
+        followDetailArrayList = recommendServiceImpl.getFollowDetailByUserno(userID);
+        modelMap.addAttribute("followDetailArrayList",followDetailArrayList);
         return "recommendFollow";
     }
 
@@ -92,9 +98,14 @@ public class ReHomeAction {
                              @RequestParam String interest, @RequestParam("file")MultipartFile file) {
 
         logger.info("-------------新增人才库------------");
-        recommendServiceImpl.addToRepos(name,sex,birthdate,minzu,mianmao,province,city,telphone,email,address,school,
+        int result = recommendServiceImpl.addToRepos(name,sex,birthdate,minzu,mianmao,province,city,telphone,email,address,school,
                 major,xueli,computer,english,interest,file);
-        return "redirect:/hr/homeDetail";
+        if(result == -1) {
+            return "redirect:/hr/homeDetail?rep=-1";
+        } else if (result == -2) {
+            return "redirect:/hr/homeDetail?rep=-2";
+        }
+        return "redirect:/hr/homeDetail?rep=1";
 
         /*int pointIndex = file.getOriginalFilename().lastIndexOf('.');
         logger.info("------------pointIndex : " + pointIndex);

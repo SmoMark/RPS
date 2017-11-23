@@ -6,6 +6,12 @@
     <title>上传简历</title>
     <!--CSS-->
     <link rel="stylesheet" th:href="@{../admin.css}" href="../local/admin.css"/>
+    <style type="text/css">
+        .button.border-green:hover,
+        .button.border-green:focus,
+        .button.bg-green:hover,
+        .button.bg-green:focus{color:#fff;border-color:#5d8;background-color:#5d8;}
+    </style>
 </head>
 <body>
 <form method="post" enctype="multipart/form-data" action="#" th:action="@{/re/addToRepos}">
@@ -97,7 +103,13 @@
         <td colspan="3"><input type="text" id="interest" name="interest" style="height: 20px; width: 60%" /></td>
     </tr>
 </table>
-    <input type="submit" value="上传"/>
+    <br><br>
+    <tr>
+        <div style="text-align:center; width:150%;height:100%;margin:0px; ">
+            <input type="submit"style="width: 100px" class="button border-green"  value="上传" name="btn"/>
+        </div>
+    </tr>
+    <br><br>
 </form>
     <script type="text/javascript">
         var list1 = new Array;
