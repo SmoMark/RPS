@@ -31,6 +31,26 @@ public class User {
 
     private Integer userjobage;
 
+    private String usergender;
+
+    public String getUsergender() {
+        return usergender;
+    }
+
+    public void setUsergender(String usergender) {
+        this.usergender = usergender;
+    }
+
+    private int userscore;
+
+    public int getUserscore() {
+        return userscore;
+    }
+
+    public void setUserscore(int userscore) {
+        this.userscore = userscore;
+    }
+
     public Integer getUserno() {
         return userno;
     }

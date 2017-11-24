@@ -2,6 +2,7 @@ package com.hdu.rps.mapper;
 
 import com.hdu.rps.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserMapper {
@@ -20,5 +21,7 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     List<String> findEmailByJob(String job);
+
+    ArrayList<User> findAllUserByJob(String job);
 
 }

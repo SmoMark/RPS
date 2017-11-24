@@ -255,6 +255,7 @@ public class RecommendServiceImpl implements RecommendService {
             followDetail.setPositionName(posName);
             followDetail.setRdpName(repName);
             followDetail.setState(state);
+            followDetail.setPosno(posno);
             followDetailArrayList.add(followDetail);
         }
         return followDetailArrayList;

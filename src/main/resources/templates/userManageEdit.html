@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户被编辑</title>
+</head>
+<body>
+    <form>
+        <tr>
+            <td>姓名：<input type="text" th:value="${user.username}"/></td>
+            <td>手机号：<input type="text" th:value="${user.userphone}"/></td>
+        </tr>
+        <br/>
+        <tr>
+            <td>邮箱：<input type="text" th:value="${user.useremail}"/></td>
+            <td>密码：<input type="text" th:value="${user.userpassword}"/></td>
+        </tr>
+        <br/>
+        <tr>
+            <td>性别：<input type="text" th:value="${user.usergender}"/></td>
+            <td>积分：<input type="text" th:value="${user.userscore}"/></td>
+        </tr>
+        <br/>
+        <tr><input type="submit" value="提交"/></tr>
+    </form>
+</body>
+</html>

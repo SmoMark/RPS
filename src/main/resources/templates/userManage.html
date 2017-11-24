@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>推荐人管理</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>序号</td>
+            <td>姓名</td>
+            <td>邮箱</td>
+            <td>密码</td>
+            <td>电话</td>
+            <td>积分</td>
+        </tr>
+        <tr th:each="user,iterStat : ${userArrayList}">
+            <th th:text="${iterStat.count}">1</th>
+            <th th:text="${user.username}">123</th>
+            <th th:text="${user.useremail}">123@qq.com</th>
+            <th th:text="${user.userpassword}">123456</th>
+            <th th:text="${user.userphone}">123456789</th>
+            <th th:text="${user.userscore}">10</th>
+            <th><a th:href="@{/ad/userManage/edit(userID = ${user.userno})}">编辑</a></th>
+            <th><a th:href="@{/ad/userManage/del(userID = ${user.userno})}">删除</a></th>
+        </tr>
+    </table>
+</body>
+</html>

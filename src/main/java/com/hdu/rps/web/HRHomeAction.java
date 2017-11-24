@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -50,6 +47,8 @@ public class HRHomeAction {
     private ArrayList<String> emailList;
     private String[] emailStrings;
     private ArrayList<RecommendedPerson> recommendedPersonArrayList;
+    private int state = 1;
+    private Position position;
 
     @RequestMapping("/homeDetail")
     public String homeDetail(ModelMap modelMap, HttpServletRequest request,@RequestParam(required = false)String haveRecomended,@RequestParam(required = false)String havaDelayed,@RequestParam(required = false)String rep) {
@@ -163,6 +162,7 @@ public class HRHomeAction {
     @RequestMapping("/needToBeDoneDetail")
     public String needToBeDoneDetail(@RequestParam String positionID, ModelMap modelMap) {
         logger.info("*******/hr/needToBeDoneDetail******");
+        state = 1;
         recommendedPersonArrayList = hrDealImpl.findRecommendedPersonByPosNo(Integer.parseInt(positionID));
         if(recommendedPersonArrayList == null) {
             logger.info("******/hr/needToBeDoneDetail尚未有被推荐人选****");
@@ -203,6 +203,42 @@ public class HRHomeAction {
         return "needToBeDoneDetail";
     }
 
+    @RequestMapping("/nextBtnShowRecomendedPerson")
+    public String nextBtnShowRecomendedPerson(@RequestParam String positionID,ModelMap modelMap){
+        logger.info("/hr/nextBtnShowRecomendedPerson:state:" + (state + 1));
+        recommendedPersonArrayList = hrDealImpl.findRecommendedPersonByPosNoAndState(Integer.parseInt(positionID),++state);
+        if(recommendedPersonArrayList == null) {
+            modelMap.addAttribute("positionNo",positionID);
+            modelMap.addAttribute("zero",true);
+            return "needToBeDoneDetail";  //尚未有处于此状态的被推荐人，前端显示
+        }
+        modelMap.addAttribute("recommendedPersonByPosNo",recommendedPersonArrayList);
+        modelMap.addAttribute("positionNo",positionID);
+        if(state == 6) {
+            modelMap.addAttribute("havaOver",false);
+            logger.info("hr://///////////已经入职/////////");
+        }
+        return "needToBeDoneDetail";
+    }
+
+    @RequestMapping("/preBtnShowRecomendedPerson")
+    public String preBtnShowRecomendedPerson(@RequestParam String positionID,ModelMap modelMap){
+        logger.info("/hr/preBtnShowRecomendedPerson:state:" + (state - 1));
+        recommendedPersonArrayList = hrDealImpl.findRecommendedPersonByPosNoAndState(Integer.parseInt(positionID),--state);
+        if(recommendedPersonArrayList == null) {
+            modelMap.addAttribute("positionNo",positionID);
+            modelMap.addAttribute("zero",true);
+            return "needToBeDoneDetail";  //尚未有处于此状态的被推荐人，前端显示
+        }
+        modelMap.addAttribute("recommendedPersonByPosNo",recommendedPersonArrayList);
+        modelMap.addAttribute("positionNo",positionID);
+        if(state == 6) {
+            modelMap.addAttribute("havaOver",false);
+            logger.info("hr://///////////已经入职/////////");
+        }
+        return "needToBeDoneDetail";
+    }
+
     @RequestMapping("/lookHaveNoNeedsPosition")
     public String lookHaveNoNeedsPosition(@RequestParam String positionID,ModelMap modelMap) {
         recommendedPersonArrayList = hrDealImpl.findPassedPersonByPos(Integer.parseInt(positionID));
@@ -210,5 +246,12 @@ public class HRHomeAction {
         modelMap.addAttribute("positionNo",positionID);
         modelMap.addAttribute("havaPassed",false);
         return "needToBeDoneDetail";
+    }
+
+    @RequestMapping("/findPosByPosno")
+    public String findPosByPosno(ModelMap modelMap,@RequestParam String posno) {
+        position = hrDealImpl.findPosByPosno(Integer.parseInt(posno));
+        modelMap.addAttribute("position",position);
+        return "followPosition";
     }
 }

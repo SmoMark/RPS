@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Pragma"   content="no-cache"/>
+    <meta http-equiv="Cache-Control"   content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>招聘信息</title>
+    <link rel="stylesheet" th:href="@{/pintuer.css}" href="../resources/pintuer.css"/>
+    <link rel="stylesheet" th:href="@{/admin.css}" href="../resources/admin.css"/>
+    <link th:href="@{/bootstrap.css}" rel="stylesheet" href="../resources/bootstrap.css"/>
+    <style type="text/css">
+        body{text-align:center}
+        table{width:100%;height:7%;align:center;align-content: center}
+    </style>
+</head>
+<div class="title">招聘信息</div>
+<style type="text/css">
+    table.hovertable th {
+        background-color:#c3dde0;
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #a9c6c9;
+    }
+    table.hovertable tr {
+        background-color:#d4e3e5;
+    }
+    table.hovertable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #a9c6c9;
+    }
+</style>
+<body>
+    <table class="hovertable">
+        <tr>
+            <th style="text-align: center" width="90px" th:width="90px">岗位</th>
+            <th style="text-align: center" width="50px" th:width="50px">招聘人数</th>
+            <th style="text-align: center" width="105px" th:width="105px">工作地点</th>
+            <th style="text-align: center" width="110px" th:width="110px">发布时间</th>
+            <th style="text-align: center" width="100px" th:width="100px">截止时间</th>
+            <th style="text-align: center" width="110px" th:width="110px">薪资</th>
+            <th style="text-align: center" width="200px" th:width="200px">岗位职责</th>
+            <th style="text-align: center" width="90px" th:width="90px">岗位要求</th>
+            <th style="text-align: center" width="90px" th:width="90px">备注</th>
+        </tr>
+        <tr>
+            <td th:if="${position.postype == 1}">java工程师</td>
+            <td th:if="${position.postype == 2}">前端工程师</td>
+            <td th:if="${position.postype == 3}">后台工程师</td>
+            <td th:if="${position.postype == 4}">UI设计师</td>
+            <td th:if="${position.postype == 5}">市场经理</td>
+            <td th:if="${position.postype == 6}">财务</td>
+            <td th:if="${position.postype == 7}">总经理助理</td>
+            <td th:if="${position.postype == 8}">文员</td>
+            <td th:text="${position.posneeds}">1000</td>
+            <td th:text="${position.posoffice}">宁夏回族自治区某某某市</td>
+            <td th:text="${position.postime}">2017-11-14 19:31:30</td>
+            <td th:text="${position.posdeadline}">2017-12-31 12:00</td>
+            <td th:text="|${position.possalary1}-${position.possalary2}|">10000-11000</td>
+            <td th:utext="${position.posintro}">配合团队完成原型设计等前端工作</td>
+            <td th:text="${position.posskill}">软件工程-英语六级-3-5年</td>
+            <td th:text="${position.posmessage}">备注</td>
+        </tr>
+    </table>
+</body>
+</html>

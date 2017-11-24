@@ -1,94 +1,76 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="renderer" content="webkit"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../style.css}" href="../resources/style.css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../jquery.step.css}" href="../local/jquery.step.css"/>
-    <script th:src="@{../../jquery-treat.js}" src="../public/jquery-treat.js"></script>
-    <script th:src="@{../../jquery.step.js}" src="../public/jquery.step.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../../jquery.step.css}" href="../resources/jquery.step.css"/>
+    <script th:src="@{../../jquery-2.1.1.min.js}" src="../public/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" th:src="@{../../jquery.step.js}" src="../public/jquery.step.js"></script>
+    <title>测试</title>
 </head>
 <body>
-<div class="step-body" id="myStep" th:unless="${havaPassed == true}" >
-    <div class="step-header" style="width:80%">
-        <ul>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=1)}">初步筛选</a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=2)}">一面</a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=3)}">二面</a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=4)}">三面</a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=5)}">发放offer</a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=6)}">已入职</a></p></li>
-        </ul>
+<script>
+    function nextBtn() {
+        alert("nextBtn");
+        window.location.replace("http//www.baidu.com");
+    }
+</script>
+<div class="card step-progress">
+    <h5 th:if="${zero == true}">尚未有此状态人选</h5>
+    <h5 th:text="|positionNo:${positionNo}|">1</h5>
+    <h5 th:text="|recommendedPersonByPosNo:${recommendedPersonByPosNo}|"></h5>
+    <div class="step-slider">
+        <div data-id="step1" class="step-slider-item">初步筛选</div>
+        <div data-id="step2" class="step-slider-item">一面</div>
+        <div data-id="step3" class="step-slider-item">二面</div>
+        <div data-id="step4" class="step-slider-item">三面</div>
+        <div data-id="step5" class="step-slider-item">发放offer</div>
+        <div data-id="step6" class="step-slider-item">成功入职</div>
     </div>
-   <!-- <div class="step-content">
-        <div class="step-list">
-            <div class="butModel">
-                <a class="nextBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=2)}">下一步</a>
-            </div>
-        </div>
-        <div class="step-list">
-            <div class="butModel">
-                <a class="preBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=1)}">上一步</a>
-                <a class="nextBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=3)}">下一步</a>
-            </div>
-        </div>
-        <div class="step-list">
-            <div class="butModel">
-                <a class="preBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=2)}">上一步</a>
-                <a class="nextBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=4)}">下一步</a>
-            </div>
-        </div>
-        <div class="step-list">
-            <div class="butModel">
-                <a class="preBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=3)}">上一步</a>
-                <a class="nextBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=5)}">下一步</a>
-            </div>
-        </div>
-        <div class="step-list">
-            <div class="butModel">
-                <a class="preBtn" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=4)}">上一步</a>
-                <a class="goBtn5" th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=6)}">发放offer</a>
-            </div>
-        </div>
-    </div>-->
-</div>
 
-<div class="container">
-    <!-- Team members structure start -->
-    <div class="team-members row">
-        <h1 th:if="${zero == true}">尚未有推荐人选</h1>
-        <div class="single-member effect-2" th:each="recommendedPerson,iterStat : ${recommendedPersonByPosNo}">
-            <div class="member-image">
-                <img th:src="@{/re/getRecommendedPersonPhoto/(userPhoto=${recommendedPerson.rdpphoto})}"  alt="被推荐人照片"/><!--这里是每个人的头像-->
-            </div>
-            <div class="member-info">
-                <h3 th:text="${recommendedPerson.rdpname}">石佳豪</h3>
-                <br/>
-                <h4 th:text="${recommendedPerson.rdpmajor}">软件工程</h4>
-                <div class="social-touch" >
-                    <a class="tweet-touch" th:href="@{/re/getRecommendedPersonDetail(personID=${recommendedPerson.rdpno})}" href="../templates/recommendedPersonDetail.html">详细信息</a>
-                </div>
-                <div th:if="${havaPassed == false || haveOver == true || havaOver == null}">
-                    <label>
-                        <div style="float:left;">
-                            <a th:href="@{/hr/notPass/{recommendedPersonID}/{positionNo}(recommendedPersonID=${recommendedPerson.rdpno},positionNo=${positionNo})}" class="button1">不通过</a>
+    <div class="step-content">
+        <div class="step-content-foot">
+            <button class="active" name="prev" onclick="nextBtn()">上一步</button>
+            <button class="active" name="next">下一步</button>
+            <button type="button" class="active out" name="finish">完成</button>
+        </div>
+        <div data-id="step1" class="step-content-body">Step 1</div>
+        <div id="step2" class="step-content-body out" th:each="recommendedPerson : ${recommendedPersonByPosNo}">
+            <div class="team-members row">
+                <div class="single-member effect-2">
+                    <div class="member-image">
+                        <img th:src="@{/re/getRecommendedPersonPhoto/(userPhoto=${recommendedPerson.rdpphoto})}"  alt="被推荐人照片"/><!--这里是每个人的头像-->
+                    </div>
+                    <div class="member-info" th:unless="${zero == true}">
+                        <h3 th:text="${recommendedPerson.rdpname}">石佳豪</h3>
+                        <h5 th:text="${recommendedPerson.rdpmajor}">软件工程</h5>
+                        <div class="social-touch" >
+                            <a class="tweet-touch" th:href="@{/re/getRecommendedPersonDetail(personID=${recommendedPerson.rdpno})}" href="../templates/recommendedPersonDetail.html">详细信息</a>
                         </div>
-                    </label>
-                    <label>
-                        <div style="float:right;">
-                            <a th:href="@{/hr/pass/{recommendedPersonID}/{positionNo}(recommendedPersonID=${recommendedPerson.rdpno},positionNo=${positionNo})}" class="button2">通过</a>
+                        <div th:if="${havaPassed == false || haveOver == true || havaOver == null}">
+                            <label>
+                                <div style="float:left;">
+                                    <a th:href="@{/hr/notPass/{recommendedPersonID}/{positionNo}(recommendedPersonID=${recommendedPerson.rdpno},positionNo=${positionNo})}" class="button1">不通过</a>
+                                </div>
+                            </label>
+                            <label>
+                                <div style="float:right;">
+                                    <a th:href="@{/hr/pass/{recommendedPersonID}/{positionNo}(recommendedPersonID=${recommendedPerson.rdpno},positionNo=${positionNo})}" class="button2">通过</a>
+                                </div>
+                            </label>
                         </div>
-                    </label>
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="step3" class="step-content-body out">Step 3</div>
+        <div id="step4" class="step-content-body out">Step 4</div>
+        <div id="step5" class="step-content-body out">Step 5</div>
+        <div id="step6" class="step-content-body out">Step 6</div>
+        <div id="stepLast" class="step-content-body out">本次招聘已结束</div>
     </div>
 </div>
-
 </body>
 </html>

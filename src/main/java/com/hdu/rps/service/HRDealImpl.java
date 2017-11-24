@@ -54,7 +54,6 @@ public class HRDealImpl implements HRDeal {
             return null;
         } else {
             for(index = 0;index<recommendedPersonIDByPosno.size();index++) {
-                logger.info("----recommendedID:" + index + " : " + recommendedPersonIDByPosno.get(index));
                 recommendedID = recommendedPersonIDByPosno.get(index);
                 recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(recommendedID);
                 recommendedPersonArrayList.add(recommendedPerson);
@@ -188,5 +187,11 @@ public class HRDealImpl implements HRDeal {
             recommendedPersonArrayList.add(recommendedPerson);
         }
         return recommendedPersonArrayList;
+    }
+
+    @Override
+    public Position findPosByPosno(int posno) {
+        position = positionMapper.selectByPrimaryKey(posno);
+        return position;
     }
 }

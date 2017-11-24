@@ -41,12 +41,6 @@ public class ReHomeAction {
     @Autowired
     private CountsServiceImpl countsServiceImpl;
 
-    @ResponseBody
-    @RequestMapping("/")
-    public String index() {
-        return "此功能暂未实现";
-    }
-
     @RequestMapping("/recommendBtn")
     public String recommendBtn(ModelMap modelMap,@RequestParam String positionID) {
         logger.info("---------检查是否该职位已经误期-------");
@@ -106,14 +100,6 @@ public class ReHomeAction {
             return "redirect:/hr/homeDetail?rep=-2";
         }
         return "redirect:/hr/homeDetail?rep=1";
-
-        /*int pointIndex = file.getOriginalFilename().lastIndexOf('.');
-        logger.info("------------pointIndex : " + pointIndex);
-        String fileLastName = file.getOriginalFilename().substring(pointIndex,file.getOriginalFilename().length());
-        return "name:" + name + ",sex:" + sex + ",birthday:" + birthdate + ",minzu:" + minzu + ",mianmao:" + mianmao
-                + ",province:" + province + ",city:" + city + "telphone:" + telphone + ",email:" + email + ",address:"
-                + address  +",school" + school + ",major:" + major + ",xueli:" + xueli + ",computer:" + computer +
-                ",english:" + english + "interest:" + interest + ",file:" + (email + fileLastName);*/
     }
 
     @RequestMapping("/getRecommendedPersonPhoto")

@@ -1,5 +1,6 @@
 package com.hdu.rps.service;
 
+import com.hdu.rps.model.Position;
 import com.hdu.rps.model.RecommendedPerson;
 
 import java.util.ArrayList;
@@ -13,4 +14,5 @@ public interface HRDeal {
     void notPass(int recommendedPersonID,int positionNo);
     ArrayList<RecommendedPerson> findRecommendedPersonByPosNoAndState(int posno, int state);
     ArrayList<RecommendedPerson> findPassedPersonByPos(int posno);
+    Position findPosByPosno(int posno);
 }

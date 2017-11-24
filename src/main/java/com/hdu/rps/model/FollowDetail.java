@@ -7,6 +7,15 @@ public class FollowDetail {
     private String rdpName;
     private String positionName;
     private int state;
+    private int posno;
+
+    public int getPosno() {
+        return posno;
+    }
+
+    public void setPosno(int posno) {
+        this.posno = posno;
+    }
 
     public String getRdpName() {
         return rdpName;

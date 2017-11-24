@@ -51,6 +51,10 @@
     delete from recommendedperson
     where RdPNo = #{rdpno,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByEmail" parameterType="java.lang.String">
+    delete from recommendedperson
+    where RdPEmail = #{rdpemail,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.hdu.rps.model.RecommendedPerson">
     insert into recommendedperson (RdPNo, RdPName, RdPNation, 
       RdPLocate, RdPBirthday, RdPSex, 

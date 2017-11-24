@@ -28,7 +28,12 @@
   <select id="findEmailByJob" parameterType="java.lang.String" resultMap="emailMap">
     SELECT UserEmail from user where UserJob = #{userjob}
   </select>
-
+<select id="findAllUserByJob" parameterType="java.lang.String" resultMap="BaseResultMap">
+  SELECT
+  <include refid="Base_Column_List" />
+  from user
+  WHERE UserJob = #{userjob,jdbcType=VARCHAR}
+</select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

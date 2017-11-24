@@ -21,4 +21,6 @@ public interface RecommendedPersonMapper {
 
     RecommendedPerson selectByEmail(String rdpemail);
 
+    void deleteByEmail(String rdpemail);
+
 }

@@ -96,7 +96,8 @@
         <tr th:each="followDetail,iterstat : ${followDetailArrayList}">
             <td th:text="${iterstat.count}">1</td>
             <td th:text="${followDetail.rdpName}">123</td>
-            <td th:text="${followDetail.positionName}">java</td>
+            <td><a th:href="@{/hr/findPosByPosno(posno = ${followDetail.posno})}"><h4 th:text="${followDetail.positionName}"></h4></a></td>
+            <!--<td th:text="${followDetail.positionName}">java</td>-->
             <td th:if="${followDetail.state == 1}">未审核</td>
             <td th:if="${followDetail.state == 2}">通过审核</td>
             <td th:if="${followDetail.state == 3}">通过一面</td>

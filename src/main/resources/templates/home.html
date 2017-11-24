@@ -55,7 +55,7 @@
     <div th:if="${job eq 're'}">
         <ul style="display:block">
             <li>
-                <a href="../templates/recommended.html" th:href="@{/re/recommendFollow}" target="right">
+                <a href="../templates/recommendFollow.html" th:href="@{/re/recommendFollow}" target="right">
                     <span class="icon-caret-right"></span> 推荐跟踪
                 </a>
             </li>
@@ -65,8 +65,28 @@
                 </a>
             </li>
             <li>
-                <a href="../templates/integral.html" th:href="@{/re/scoreBoard}" target="right">
+                <a href="../templates/scoreBoard.html" th:href="@{/re/scoreBoard}" target="right">
                     <span class="icon-caret-right"></span> 积分排行
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div th:if="${job eq 'ad'}">
+        <ul style="display:block">
+            <li>
+                <a href="../templates/" th:href="@{/ad/userManage}" target="right">
+                    <span class="icon-caret-right"></span> 推荐人管理
+                </a>
+            </li>
+            <li>
+                <a href="../templates/" th:href="@{/ad/}" target="right">
+                    <span class="icon-caret-right"></span> HR管理
+                </a>
+            </li>
+            <li>
+                <a href="../templates/" th:href="@{/ad/}" target="right">
+                    <span class="icon-caret-right"></span> 人才库
                 </a>
             </li>
         </ul>
@@ -109,7 +129,8 @@
 </script>
 <ul class="bread">
 
-    <li><a th:href="@{/hr/homeDetail}" href="../templates/hrHomeDetail.html" target="right" class="icon-home"> 已发布招聘信息</a></li>
+    <li th:unless="${job eq 'ad'}"><a th:href="@{/hr/homeDetail}" href="../templates/hrHomeDetail.html" target="right" class="icon-home"> 已发布招聘信息</a></li>
+    <li th:if="${job eq 'ad'}"><a th:href="@{/ad/userManage}" href="../templates/userManage.html" target="right" class="icon-home"> 推荐人管理</a></li>
     <li><a href="##" id="a_leader_txt">网站信息</a></li>
     <li><b>当前语言：</b><span style="color:darkred;">中文
                 </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言:&nbsp;&nbsp;
@@ -117,6 +138,9 @@
 </ul>
 <div class="admin" th:unless="${job eq 'ad'}" >
     <iframe scrolling="auto" rameborder="0" th:src="@{/hr/homeDetail}" src="../templates/hrHomeDetail.html" name="right" width="100%" height="100%"></iframe>
+</div>
+<div class="admin" th:if="${job eq 'ad'}" >
+    <iframe scrolling="auto" rameborder="0" th:src="@{/ad/userManage}" src="../templates/userManage.html" name="right" width="100%" height="100%"></iframe>
 </div>
 </body>
 </html>
