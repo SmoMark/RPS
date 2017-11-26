@@ -44,6 +44,43 @@ public class RecommendedPerson {
     private int rdpincompany;
 
     private int rdphavechecked;
+    /************************转换****************************/
+    private String gender;
+    private String deal;
+    private String insurance;
+    private String nation;
+
+    public String getNation() {
+        return nation;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDeal() {
+        return deal;
+    }
+
+    public void setDeal(String deal) {
+        this.deal = deal;
+    }
+
+    public String getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(String insurance) {
+        this.insurance = insurance;
+    }
 
     public Integer getRdpno() {
         return rdpno;

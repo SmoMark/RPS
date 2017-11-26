@@ -100,6 +100,36 @@ public class ADServiceImpl implements ADSercive {
     @Override
     public RecommendedPerson selectRecommendPersonByRdpno(int rdpno) {
         recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(rdpno);
+        if(recommendedPerson.getRdpsex() == 0) {
+            recommendedPerson.setGender("男");
+        } else {
+            recommendedPerson.setGender("女");
+        }
+        if(recommendedPerson.getRdpdeal() == 0) {
+            recommendedPerson.setDeal("群众");
+        } else if(recommendedPerson.getRdpdeal() == 1) {
+            recommendedPerson.setDeal("团员");
+        } else if(recommendedPerson.getRdpdeal() == 2) {
+            recommendedPerson.setDeal("党员");
+        } else {
+            recommendedPerson.setDeal("其他");
+        }
+        if(recommendedPerson.getRdpinsurance() == 1) {
+            recommendedPerson.setInsurance("非文盲");
+        } else if (recommendedPerson.getRdpinsurance() == 4) {
+            recommendedPerson.setInsurance("本科");
+        } else if (recommendedPerson.getRdpinsurance() == 5) {
+            recommendedPerson.setInsurance("专科");
+        } else if (recommendedPerson.getRdpinsurance() == 6) {
+            recommendedPerson.setInsurance("硕士");
+        } else if (recommendedPerson.getRdpinsurance() == 7) {
+            recommendedPerson.setInsurance("博士");
+        }
+        if(recommendedPerson.getRdpnation() == 0) {
+            recommendedPerson.setNation("汉");
+        } else {
+            recommendedPerson.setNation("少数民族");
+        }
         return recommendedPerson;
     }
 
@@ -123,5 +153,10 @@ public class ADServiceImpl implements ADSercive {
         } catch (Exception e) {
             logger.warning("删除失败：" + e.getMessage());
         }
+    }
+
+    @Override
+    public void delHavePassedRecommended(int rdpno) {
+        recommendedPersonMapper.deleteByPrimaryKey(rdpno);
     }
 }

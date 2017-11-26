@@ -61,6 +61,26 @@ public class ADHomeAction {
         return "recommend";
     }
 
+    @RequestMapping("/recommendedHaveChecked/edit")
+    public String recommendedHaveCheckedEdit(@RequestParam String recommendedPersonID,ModelMap modelMap) {
+        recommendedPerson = adServiceImpl.selectRecommendPersonByRdpno(Integer.parseInt(recommendedPersonID));
+        modelMap.addAttribute("recommendedPerson",recommendedPerson);
+        return "recommendedhavepassededit";
+    }
+
+    @RequestMapping("/recommendedHaveChecked/edit/submit")
+    public String recommendedHaveCheckedEditSubmit(@RequestParam String recommendedPersonID) {
+
+        return "";
+    }
+
+    @RequestMapping("/recommendedHaveChecked/del")
+    public String recommendedHaveCheckedDel(@RequestParam String recommendedPersonID) {
+        logger.info("--------/ad/recommendedHaveChecked/del?recommendedPersonID=" + recommendedPersonID);
+        adServiceImpl.delHavePassedRecommended(Integer.parseInt(recommendedPersonID));
+        return "redirect:/ad/recommendedPersonHaveChecked";
+    }
+
     @RequestMapping("/recommendedPersonNotChecked")
     public String recommendedPersonNotChecked(ModelMap modelMap) {
         recommendedPersonArrayList = adServiceImpl.selectRecommendedPersonNotChecked();

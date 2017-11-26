@@ -1,47 +1,119 @@
-﻿$(function() {
-    var step = 0;
-    var stepItem = $('.step-progress .step-slider .step-slider-item');
+﻿
+  $(function() {
 
-    // Step Next
-    $('.step-content .step-content-foot button[name="next"]').on('click', function() {
-        var instance = $(this);
-        if (stepItem.length - 1 < step) {
-            return;
+    var step= $("#myStep").step();
+    
+    $(".preBtn").click(function(event) {
+      var yes=step.preStep();//上一步
+    });
+    $(".nextBtn").click(function(event) {
+      var yes=step.nextStep();
+    });
+    $(".goBtn").click(function(event) {
+			var yes=step.goStep(3);//到指定步
+		});
+  });
+
+
+  
+(function (factory) {
+    "use strict";
+    if (typeof define === 'function') {
+        // using CMD; register as anon module
+      define.cmd&&define('jquery-step', ['jquery'], function (require, exports, moudles) {
+            var $=require("jquery");
+            factory($);
+            return $;
+        });
+      define.amd&&define(['jquery'], factory);
+    } else {
+        // no CMD; invoke directly
+        factory( (typeof(jQuery) != 'undefined') ? jQuery : window.Zepto );
+    }
+}
+
+(function($){
+  $.fn.step = function(options) { 
+      var opts = $.extend({}, $.fn.step.defaults, options);
+      var size=this.find(".step-header li").length;
+      var barWidth=opts.initStep<size?100/(2*size)+100*(opts.initStep-1)/size : 100;
+      var curPage=opts.initStep;
+
+      this.find(".step-header").prepend("<div class=\"step-bar\"><div class=\"step-bar-active\"></div></div>");
+      this.find(".step-list").eq(opts.initStep-1).show();
+      if (size<opts.initStep) {
+        opts.initStep=size;
+      }
+      if (opts.animate==false) {
+        opts.speed=0;
+      }
+      this.find(".step-header li").each(function (i, li) {
+        if (i<opts.initStep){
+          $(li).addClass("step-active");
         }
-        if (step == (stepItem.length - 2)) {
-            instance.addClass('out');
-            instance.siblings('button[name="finish"]').removeClass('out');
-        }
-        $(stepItem[step]).addClass('active');
-        $('.step-content-body').addClass('out');
-        $('#' + stepItem[step + 1].dataset.id).removeClass('out');
-        step++;
+        //$(li).prepend("<span>"+(i+1)+"</span>");
+        $(li).append("<span>"+(i+1)+"</span>");
+    });
+    this.find(".step-header li").css({
+      "width": 100/size+"%"
+    });
+    this.find(".step-header").show();
+    this.find(".step-bar-active").animate({
+        "width": barWidth+"%"},
+        opts.speed, function() {
+        
     });
 
-    // Step Last
-    $('.step-content .step-content-foot button[name="finish"]').on('click', function() {
-        if (step == stepItem.length) {
-            return;
+      this.nextStep=function() {
+        if (curPage>=size) {
+          return false;
         }
-        $(stepItem[stepItem.length - 1]).addClass('active');
-        $('.step-content-body').addClass('out');
-        $('#stepLast').removeClass('out');
-    });
+        return this.goStep(curPage+1);
+      }
 
-    // Step Previous
-    $('.step-content .step-content-foot button[name="prev"]').on('click', function() {
-        var instance = $(this);
-        $(stepItem[step]).removeClass('active');
-        if (step == (stepItem.length - 1)) {
-            instance.siblings('button[name="next"]').removeClass('out');
-            instance.siblings('button[name="finish"]').addClass('out');
+      this.preStep=function() {
+        if (curPage<=1) {
+          return false;
         }
-        $('.step-content-body').addClass('out');
-        $('#' + stepItem[step].dataset.id).removeClass('out');
-        if (step <= 0) {
-            return;
+        return this.goStep(curPage-1);
+      }
+
+      this.goStep=function(page) {
+        if (page ==undefined || isNaN(page) || page<0) {
+          if(window.console&&window.console.error){
+            console.error('the method goStep has a error,page:'+page);
+          }
+        return false;
         }
-        step--;
-        /*window.location.href="/hr/preBtnShowRecomendedPerson(positionID = ${positionNo})";*/
-    });
-});
+        curPage=page;
+        this.find(".step-list").hide();
+        this.find(".step-list").eq(curPage-1).show();
+        this.find(".step-header li").each(function (i, li) {
+          $li=$(li);
+          $li.removeClass('step-active');
+          if (i<page){
+            $li.addClass('step-active');
+            if(opts.scrollTop){
+             $('html,body').animate({scrollTop:0}, 'slow');
+            }
+        }
+      });
+      barWidth=page<size?100/(2*size)+100*(page-1)/size : 100;
+        this.find(".step-bar-active").animate({
+          "width": barWidth+"%"},
+          opts.speed, function() {
+            
+        });
+        return true;
+      }
+      return this;
+  };
+   
+  $.fn.step.defaults = {
+      animate:true,
+      speed:500,
+    initStep:1,
+    scrollTop:true
+  };
+
+}));  

@@ -186,8 +186,13 @@ public class HRHomeAction {
     }
 
     @RequestMapping("/showRecomendedPersonByState")
-    public String showRecomendedPersonByState(@RequestParam String positionID,@RequestParam int state,ModelMap modelMap){
+    public String showRecomendedPersonByState(@RequestParam(required = false) String positionID,@RequestParam int state,ModelMap modelMap){
         logger.info("++++++positionID:" + positionID + ",state:" + state);
+        modelMap.addAttribute("index",state);
+        if(positionID == null) {
+            modelMap.addAttribute("zero",true);
+            return "needToBeDoneDetail";
+        }
         recommendedPersonArrayList = hrDealImpl.findRecommendedPersonByPosNoAndState(Integer.parseInt(positionID),state);
         if(recommendedPersonArrayList == null) {
             modelMap.addAttribute("positionNo",positionID);

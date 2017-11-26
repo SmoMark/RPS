@@ -20,4 +20,6 @@ public interface ADSercive {
 
     void recommendedNotcheckedPass(int rdpno);
     void recommendedNotcheckedNotPass(int rdpno);
+
+    void delHavePassedRecommended(int rdpno);
 }

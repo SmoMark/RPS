@@ -278,7 +278,7 @@
         RdpGraduation = #{rdpgraduation,jdbcType=VARCHAR},
       </if>
       <if test="rdpincompany != null">
-        RdpInCompany = #{rdpincompany,jdbcType=INTEGER}
+        RdpInCompany = #{rdpincompany,jdbcType=INTEGER},
       </if>
       <if test="rdphavechecked != null">
         RdpHaveChecked = #{rdphavechecked,jdbcType=INTEGER}
