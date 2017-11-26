@@ -107,5 +107,9 @@
         </tr>
     </table>
 </form>
+    <tr th:if="${adcheck == true}">
+        <td><a th:href="@{/ad/recommendedNotChecked/pass(recommendedPersonID = ${recommendedPerson.rdpno})}">通过</a></td>
+        <td><a th:href="@{/ad/recommendedNotChecked/notpass(recommendedPersonID = ${recommendedPerson.rdpno})}">不通过</a></td>
+    </tr>
 </body>
 </html>

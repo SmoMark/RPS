@@ -73,6 +73,12 @@
     </div>
 
     <div th:if="${job eq 'ad'}">
+        <h2>
+            <span class="icon-user"></span> 人员管理
+        </h2>
+    </div>
+
+    <div th:if="${job eq 'ad'}">
         <ul style="display:block">
             <li>
                 <a href="../templates/" th:href="@{/ad/userManage}" target="right">
@@ -84,11 +90,6 @@
                     <span class="icon-caret-right"></span> HR管理
                 </a>
             </li>
-            <li>
-                <a href="../templates/" th:href="@{/ad/}" target="right">
-                    <span class="icon-caret-right"></span> 人才库
-                </a>
-            </li>
         </ul>
     </div>
 
@@ -97,7 +98,26 @@
             <span class="icon-user"></span> 招聘处理
         </h2>
     </div>
+    <div th:if="${job eq 'ad'}">
+        <h2>
+            <span class="icon-user"></span> 人才库管理
+        </h2>
+    </div>
 
+    <div th:if="${job eq 'ad'}">
+        <ul style="display:block">
+            <li>
+                <a href="../templates/" th:href="@{/ad/recommendedPersonHaveChecked}" target="right">
+                    <span class="icon-caret-right"></span> 已审核人才库
+                </a>
+            </li>
+            <li>
+                <a href="../templates/" th:href="@{/ad/recommendedPersonNotChecked}" target="right">
+                    <span class="icon-caret-right"></span> 未审核人才库
+                </a>
+            </li>
+        </ul>
+    </div>
 
     <div th:if="${job eq 'hr'}">
         <ul style="display:block">

@@ -17,10 +17,11 @@ public interface RecommendedPersonMapper {
 
     int updateByPrimaryKey(RecommendedPerson record);
 
-    ArrayList<RecommendedPerson> findAll();
+    ArrayList<RecommendedPerson> findAllHaveChecked();
 
     RecommendedPerson selectByEmail(String rdpemail);
 
     void deleteByEmail(String rdpemail);
 
+    ArrayList<RecommendedPerson> findAllNotChecked();
 }

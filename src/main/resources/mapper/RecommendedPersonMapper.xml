@@ -23,11 +23,12 @@
     <result column="RdpBrief" jdbcType="VARCHAR" property="rdpbrief" />
     <result column="RdpGraduation" jdbcType="VARCHAR" property="rdpgraduation" />
     <result column="RdpInCompany" jdbcType="INTEGER" property="rdpincompany"/>
+    <result column="RdpHaveChecked" jdbcType="INTEGER" property="rdphavechecked"/>
   </resultMap>
   <sql id="Base_Column_List">
     RdPNo, RdPName, RdPNation, RdPLocate, RdPBirthday, RdPSex, RdPDeal, RdPInsurance, 
     RdPMarriage, RdPEnglishLevel, RdPComputLevel, RdPJobAge, RdPPhone, RdPAddress, RdPSchool, 
-    RdPMajor, RdPEmail, RdPPhoto, RdpBrief, RdpGraduation,RdpInCompany
+    RdPMajor, RdPEmail, RdPPhoto, RdpBrief, RdpGraduation,RdpInCompany,RdpHaveChecked
   </sql>
   <select id="selectByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT
@@ -35,11 +36,17 @@
     from recommendedperson
     where RdPEmail = #{rdpemail,jdbcType=VARCHAR}
   </select>
-  <select id="findAll" resultMap="BaseResultMap">
+  <select id="findAllHaveChecked" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     from recommendedperson
-    where RdpInCompany = 0
+    where RdpInCompany = 0 and RdpHaveChecked = 1
+  </select>
+  <select id="findAllNotChecked" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from recommendedperson
+    where RdpInCompany = 0 and RdpHaveChecked = 0
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -62,14 +69,14 @@
       RdPEnglishLevel, RdPComputLevel, RdPJobAge, 
       RdPPhone, RdPAddress, RdPSchool, 
       RdPMajor, RdPEmail, RdPPhoto, 
-      RdpBrief, RdpGraduation,RdpInCompany)
+      RdpBrief, RdpGraduation,RdpInCompany,RdpHaveChecked)
     values (#{rdpno,jdbcType=INTEGER}, #{rdpname,jdbcType=VARCHAR}, #{rdpnation,jdbcType=INTEGER}, 
       #{rdplocate,jdbcType=VARCHAR}, #{rdpbirthday,jdbcType=VARCHAR}, #{rdpsex,jdbcType=INTEGER},
       #{rdpdeal,jdbcType=INTEGER}, #{rdpinsurance,jdbcType=INTEGER}, #{rdpmarriage,jdbcType=INTEGER}, 
       #{rdpenglishlevel,jdbcType=VARCHAR}, #{rdpcomputlevel,jdbcType=VARCHAR}, #{rdpjobage,jdbcType=INTEGER},
       #{rdpphone,jdbcType=VARCHAR}, #{rdpaddress,jdbcType=VARCHAR}, #{rdpschool,jdbcType=VARCHAR},
       #{rdpmajor,jdbcType=VARCHAR}, #{rdpemail,jdbcType=VARCHAR}, #{rdpphoto,jdbcType=VARCHAR}, 
-      #{rdpbrief,jdbcType=VARCHAR}, #{rdpgraduation,jdbcType=VARCHAR},#{rdpincompany,jdbcType=INTEGER})
+      #{rdpbrief,jdbcType=VARCHAR}, #{rdpgraduation,jdbcType=VARCHAR},#{rdpincompany,jdbcType=INTEGER},#{rdphavechecked,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.hdu.rps.model.RecommendedPerson">
     insert into recommendedperson
@@ -137,6 +144,9 @@
       <if test="rdpincompany != null">
         RdpInCompany
       </if>
+      <if test="rdphavechecked != null">
+        RdpHaveChecked
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rdpno != null">
@@ -201,6 +211,9 @@
       </if>
       <if test="rdpincompany != null">
         #{rdpincompany,jdbcType=INTEGER}
+      </if>
+      <if test="rdphavechecked != null">
+        #{rdphavechecked,jdbcType=INTEGER}
       </if>
     </trim>
   </insert>
@@ -267,6 +280,9 @@
       <if test="rdpincompany != null">
         RdpInCompany = #{rdpincompany,jdbcType=INTEGER}
       </if>
+      <if test="rdphavechecked != null">
+        RdpHaveChecked = #{rdphavechecked,jdbcType=INTEGER}
+      </if>
     </set>
     where RdPNo = #{rdpno,jdbcType=INTEGER}
   </update>
@@ -291,7 +307,8 @@
       RdPPhoto = #{rdpphoto,jdbcType=VARCHAR},
       RdpBrief = #{rdpbrief,jdbcType=VARCHAR},
       RdpGraduation = #{rdpgraduation,jdbcType=VARCHAR},
-      RdpInCompany = #{rdpincompany,jdbcType=INTEGER}
+      RdpInCompany = #{rdpincompany,jdbcType=INTEGER},
+      RdpHaveChecked = #{rdphavechecked,jdbcType=INTEGER}
     where RdPNo = #{rdpno,jdbcType=INTEGER}
   </update>
 </mapper>

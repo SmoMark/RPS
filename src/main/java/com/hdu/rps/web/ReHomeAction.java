@@ -7,9 +7,13 @@ import com.hdu.rps.service.CountsServiceImpl;
 import com.hdu.rps.service.RecommendServiceImpl;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -34,6 +38,8 @@ public class ReHomeAction {
     private int haveRecomended;
     private ArrayList<Counts> countsArrayList;
     private ArrayList<FollowDetail> followDetailArrayList;
+    @Value("${my.basePhotoPath}")
+    private String basePhotoPath;
 
     @Autowired
     private RecommendServiceImpl recommendServiceImpl;
@@ -54,6 +60,8 @@ public class ReHomeAction {
             recommendedPersonArrayList = recommendServiceImpl.findAll();
             modelMap.addAttribute("recommendedPersonArrayList",recommendedPersonArrayList);
             modelMap.addAttribute("positionID",positionID);
+            modelMap.addAttribute("adchecked",false);
+            modelMap.addAttribute("adnotchecked",false);
             return "recommend";
         }
     }
@@ -91,7 +99,7 @@ public class ReHomeAction {
                              @RequestParam String xueli, @RequestParam String computer, @RequestParam String english,
                              @RequestParam String interest, @RequestParam("file")MultipartFile file) {
 
-        logger.info("-------------新增人才库------------");
+        logger.info("-------------/re/addToRepos新增人才库------------");
         int result = recommendServiceImpl.addToRepos(name,sex,birthdate,minzu,mianmao,province,city,telphone,email,address,school,
                 major,xueli,computer,english,interest,file);
         if(result == -1) {
@@ -108,7 +116,7 @@ public class ReHomeAction {
         BufferedInputStream bis = null;
         int length;
         try {
-            bis = new BufferedInputStream(new FileInputStream(new File("E:\\recommendedPersonPhoto\\" + userPhoto)));
+            bis = new BufferedInputStream(new FileInputStream(new File(basePhotoPath + "/" + userPhoto)));
             byte[] bytes = new byte[1024*1024];
             ByteArrayOutputStream out = new ByteArrayOutputStream(1024*1024);
             while((length = bis.read(bytes))!=-1){

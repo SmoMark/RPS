@@ -14,6 +14,7 @@
 </head>
 <body>
 <div class="container">
+    <h3 th:if="${allchecked == true}">暂未有未审核简历</h3>
     <!-- Team members structure start -->
     <div class="team-members row">
         <div class="single-member effect-2" th:each="recommendedPerson,iterStat : ${recommendedPersonArrayList}">
@@ -25,10 +26,15 @@
                 <br/>
                 <h4 th:text="${recommendedPerson.rdpmajor}">软件工程</h4>
                 <!--<h5 th:text="${recommendedPerson.rdpbrief}">个人简介</h5>-->
-                <div class="social-touch" >
+                <div class="social-touch" th:if="${adchecked == false &amp;&amp; adnotchecked == false}">
                     <a class="tweet-touch" th:href="@{/re/getRecommendedPersonDetail(personID=${recommendedPerson.rdpno})}" href="../templates/recommendedPersonDetail.html">详细信息</a>
                 </div>
-                <a class="button border-red" th:href="@{/re/recommend/{positionID}/{recommendedPersonID}((positionID = ${positionID}),recommendedPersonID = ${recommendedPerson.rdpno})}">推荐</a>
+                <a th:if="${adchecked == false &amp;&amp; adnotchecked == false}" class="button border-red" th:href="@{/re/recommend/{positionID}/{recommendedPersonID}((positionID = ${positionID}),recommendedPersonID = ${recommendedPerson.rdpno})}">推荐</a>
+                <tr th:if="${adchecked == true}">
+                    <td><a th:href="@{/ad/recommendedHaveChecked/edit(recommendedPersonID = ${recommendedPerson.rdpno})}">编辑</a></td>
+                    <td><a th:href="@{/ad/recommendedHaveChecked/del(recommendedPersonID = ${recommendedPerson.rdpno})}">删除</a></td>
+                </tr>
+                <a th:if="${adnotchecked == true}" class="button border-red" th:href="@{/ad/recommendedNotChecked/detail/(recommendedPersonID = ${recommendedPerson.rdpno})}">详情</a>
             </div>
         </div>
     </div>

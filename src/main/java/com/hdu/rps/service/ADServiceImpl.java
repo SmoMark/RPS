@@ -6,9 +6,11 @@ import com.hdu.rps.mapper.UserMapper;
 import com.hdu.rps.model.RecommendedPerson;
 import com.hdu.rps.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -25,6 +27,13 @@ public class ADServiceImpl implements ADSercive {
     private int userno;
     private int userscore;
     private RecommendedPerson recommendedPerson = null;
+    private File file;
+    private String photoPath;
+
+    @Value("${my.basePhotoPath}")
+    private String basePhotoPath;
+
+    private ArrayList<RecommendedPerson> recommendedPersonArrayList;
 
     @Autowired
     private UserMapper userMapper;
@@ -74,5 +83,45 @@ public class ADServiceImpl implements ADSercive {
             user.setUsergender("女");
         }
         return user;
+    }
+
+    @Override
+    public ArrayList<RecommendedPerson> selectRecommendedPersonHaveChecked() {
+        recommendedPersonArrayList = recommendedPersonMapper.findAllHaveChecked();
+        return recommendedPersonArrayList;
+    }
+
+    @Override
+    public ArrayList<RecommendedPerson> selectRecommendedPersonNotChecked() {
+        recommendedPersonArrayList = recommendedPersonMapper.findAllNotChecked();
+        return recommendedPersonArrayList;
+    }
+
+    @Override
+    public RecommendedPerson selectRecommendPersonByRdpno(int rdpno) {
+        recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(rdpno);
+        return recommendedPerson;
+    }
+
+    @Override
+    public void recommendedNotcheckedPass(int rdpno) {
+        recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(rdpno);
+        recommendedPerson.setRdphavechecked(1);
+        recommendedPersonMapper.updateByPrimaryKeySelective(recommendedPerson);
+    }
+
+    @Override
+    public void recommendedNotcheckedNotPass(int rdpno) {
+        try {
+            photoPath = recommendedPersonMapper.selectByPrimaryKey(rdpno).getRdpphoto();
+            file = new File(basePhotoPath + "/" + photoPath);
+            logger.info("照片路径：" + basePhotoPath + "/" + photoPath);
+            if(file.exists()) {
+                file.delete();
+            }
+            recommendedPersonMapper.deleteByPrimaryKey(rdpno);
+        } catch (Exception e) {
+            logger.warning("删除失败：" + e.getMessage());
+        }
     }
 }

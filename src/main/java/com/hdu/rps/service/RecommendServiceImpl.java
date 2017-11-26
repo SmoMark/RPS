@@ -3,6 +3,7 @@ package com.hdu.rps.service;
 import com.hdu.rps.mapper.*;
 import com.hdu.rps.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +37,8 @@ public class RecommendServiceImpl implements RecommendService {
     private int repno,posno,state,posType;
     private String repName,posName;
     private User user;
+    @Value("${my.basePhotoPath}")
+    private String basePhotoPath;
 
     @Autowired
     private RecommendedPersonMapper recommendedPersonMapper;
@@ -54,7 +57,7 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public ArrayList<RecommendedPerson> findAll() {
-        recommendedPersonArrayList = recommendedPersonMapper.findAll();
+        recommendedPersonArrayList = recommendedPersonMapper.findAllHaveChecked();
         return recommendedPersonArrayList;
     }
 
@@ -114,7 +117,7 @@ public class RecommendServiceImpl implements RecommendService {
                         public void run() {
                             try {
                                 BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
-                                        new FileOutputStream(new File("E:\\recommendedPersonPhoto\\" + email + fileLastName)));
+                                        new FileOutputStream(new File(basePhotoPath + "/" + email + fileLastName)));
                                 bufferedOutputStream.write(file.getBytes());
                                 bufferedOutputStream.flush();
                                 bufferedOutputStream.close();
@@ -148,6 +151,7 @@ public class RecommendServiceImpl implements RecommendService {
                 recommendedPerson.setRdpbrief(interest);
                 recommendedPerson.setRdpphoto(email + fileLastName);
                 recommendedPerson.setRdpincompany(0);
+                recommendedPerson.setRdphavechecked(0);
                 recommendedPersonMapper.insert(recommendedPerson);
                 return 1;
             }

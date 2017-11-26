@@ -43,6 +43,8 @@ public class RecommendedPerson {
 
     private int rdpincompany;
 
+    private int rdphavechecked;
+
     public Integer getRdpno() {
         return rdpno;
     }
@@ -209,6 +211,14 @@ public class RecommendedPerson {
 
     public void setRdpincompany(int rdpincompany) {
         this.rdpincompany = rdpincompany;
+    }
+
+    public int getRdphavechecked() {
+        return rdphavechecked;
+    }
+
+    public void setRdphavechecked(int rdphavechecked) {
+        this.rdphavechecked = rdphavechecked;
     }
 
     @Override
