@@ -115,7 +115,7 @@ public class ADServiceImpl implements ADSercive {
             recommendedPerson.setDeal("其他");
         }
         if(recommendedPerson.getRdpinsurance() == 1) {
-            recommendedPerson.setInsurance("非文盲");
+            recommendedPerson.setInsurance("其他");
         } else if (recommendedPerson.getRdpinsurance() == 4) {
             recommendedPerson.setInsurance("本科");
         } else if (recommendedPerson.getRdpinsurance() == 5) {
@@ -126,7 +126,7 @@ public class ADServiceImpl implements ADSercive {
             recommendedPerson.setInsurance("博士");
         }
         if(recommendedPerson.getRdpnation() == 0) {
-            recommendedPerson.setNation("汉");
+            recommendedPerson.setNation("汉族");
         } else {
             recommendedPerson.setNation("少数民族");
         }
