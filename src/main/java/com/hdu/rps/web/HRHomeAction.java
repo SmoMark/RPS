@@ -6,13 +6,16 @@ import com.hdu.rps.service.HRDealImpl;
 import com.hdu.rps.service.HRRecruitServiceImpl;
 import com.hdu.rps.service.LoginServiceImpl;
 import com.hdu.rps.service.MailServiceImpl;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,15 +46,14 @@ public class HRHomeAction {
     private String[] ids;
     private HttpSession httpSession;
     private String job;
-    private String hrEmail;
     private ArrayList<String> emailList;
-    private String[] emailStrings;
     private ArrayList<RecommendedPerson> recommendedPersonArrayList;
     private int state = 1;
     private Position position;
 
+
     @RequestMapping("/homeDetail")
-    public String homeDetail(ModelMap modelMap, HttpServletRequest request,@RequestParam(required = false)String haveRecomended,@RequestParam(required = false)String havaDelayed,@RequestParam(required = false)String rep) {
+    public String homeDetail(ModelMap modelMap, HttpServletRequest request, @RequestParam(required = false)String haveRecomended, @RequestParam(required = false)String havaDelayed, @RequestParam(required = false)String rep) {
         if(havaDelayed == null) {
 
         } else if(havaDelayed.equals("1")) {
@@ -120,15 +122,13 @@ public class HRHomeAction {
             //添加邮件服务
             try {
                 httpSession = request.getSession();
-                hrEmail = (String) httpSession.getAttribute("hrEmail");
                 emailList = loginServiceImpl.findEmailByJob("re");
                 logger.info("-------emailList.size:" + emailList.size());
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         for(int i = 0;i<emailList.size();i++) {
-                            logger.info("-----"+hrEmail + "------发送邮件到 " + emailList.get(i));
-                             mailServiceImpl.sendSimpleMail(hrEmail,emailList.get(i),"紧急招聘"+jobname+","+jobcount+"人","紧急招聘"+jobname
+                             mailServiceImpl.sendSimpleMail(emailList.get(i),"紧急招聘"+jobname+","+jobcount+"人","紧急招聘"+jobname
                             +jobcount+"人，工作地点为" + province + city + ",截止日期为" + deadtime + ",薪资为" + salary1 + "-" + salary2
                             +",职责是：" + duty + ",需要" + skill + ",备注：" + message);
                         }

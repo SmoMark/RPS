@@ -5,7 +5,6 @@ import com.hdu.rps.model.FollowDetail;
 import com.hdu.rps.model.RecommendedPerson;
 import com.hdu.rps.service.CountsServiceImpl;
 import com.hdu.rps.service.RecommendServiceImpl;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -73,7 +73,7 @@ public class ReHomeAction {
     }
 
     @RequestMapping("/recommendFollow")
-    public String recommendFollow(HttpServletRequest httpServletRequest,ModelMap modelMap) {
+    public String recommendFollow(HttpServletRequest httpServletRequest, ModelMap modelMap) {
         logger.info("-------进入推荐跟踪页面----");
         httpSession = httpServletRequest.getSession();
         userID = (int) httpSession.getAttribute("userID");

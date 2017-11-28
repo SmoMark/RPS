@@ -49,6 +49,69 @@ public class RecommendedPerson {
     private String deal;
     private String insurance;
     private String nation;
+    private boolean know1 = false;
+    private boolean know2 = false;
+    private boolean know3 = false;
+    private boolean know4 = false;
+    private boolean know5 = false;
+    private boolean know6 = false;
+    private boolean know7 = false;
+
+    public boolean isKnow1() {
+        return know1;
+    }
+
+    public void setKnow1(boolean know1) {
+        this.know1 = know1;
+    }
+
+    public boolean isKnow2() {
+        return know2;
+    }
+
+    public void setKnow2(boolean know2) {
+        this.know2 = know2;
+    }
+
+    public boolean isKnow3() {
+        return know3;
+    }
+
+    public void setKnow3(boolean know3) {
+        this.know3 = know3;
+    }
+
+    public boolean isKnow4() {
+        return know4;
+    }
+
+    public void setKnow4(boolean know4) {
+        this.know4 = know4;
+    }
+
+    public boolean isKnow5() {
+        return know5;
+    }
+
+    public void setKnow5(boolean know5) {
+        this.know5 = know5;
+    }
+
+    public boolean isKnow6() {
+        return know6;
+    }
+
+    public void setKnow6(boolean know6) {
+        this.know6 = know6;
+    }
+
+    public boolean isKnow7() {
+        return know7;
+    }
+
+    public void setKnow7(boolean know7) {
+        this.know7 = know7;
+    }
 
     public String getNation() {
         return nation;

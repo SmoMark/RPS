@@ -14,7 +14,7 @@ public class MyCustomizer {
     @Bean
     public EmbeddedServletContainerCustomizer add() {
         return container -> {
-           /* container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404"));*/
+            container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404"));
             container.addErrorPages(new ErrorPage(HttpStatus.METHOD_NOT_ALLOWED, "/405"));
         };
     }

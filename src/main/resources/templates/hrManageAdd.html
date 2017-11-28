@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>新增HR</title>
+</head>
+<body>
+<form th:action="@{/ad/hrManage/add/submit}">
+    <tr>
+        <td>姓名：<input type="text" name="name"/></td>
+        <td>手机号：<input type="text" name="phone"/></td>
+    </tr>
+    <br/>
+    <tr>
+        <td>邮箱：<input type="text" name="email"/></td>
+        <td>密码：<input type="text" name="password"/></td>
+    </tr>
+    <br/>
+    <tr>
+        <td>性别：
+            <select name="sex">
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </td>
+    </tr>
+    <br/>
+    <tr>
+        <input type="submit" value="提交"/>
+    </tr>
+</form>
+</body>
+</html>

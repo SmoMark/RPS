@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>用户被编辑</title>
+    <title>HR信息编辑</title>
 </head>
 <body>
-    <form th:action="@{/ad/userManage/edit/submit/{userno}(userno = ${user.userno})}">
+    <form th:action="@{/ad/hrManage/edit/submit/{userno}(userno = ${user.userno})}">
         <tr>
             <td>姓名：<input type="text" th:value="${user.username}" name="name"/></td>
             <td>手机号：<input type="text" th:value="${user.userphone}" name="phone"/></td>
@@ -24,7 +24,6 @@
                 </select>
                 <!--<input type="text" th:value="${user.usergender}" name="sex"/>-->
             </td>
-            <td>积分：<input type="text" th:value="${user.userscore}" name="score"/></td>
         </tr>
         <br/>
         <tr><input type="submit" value="提交"/></tr>

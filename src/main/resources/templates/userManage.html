@@ -9,6 +9,7 @@
         <tr>
             <td>序号</td>
             <td>姓名</td>
+            <td>性别</td>
             <td>邮箱</td>
             <td>密码</td>
             <td>电话</td>
@@ -17,6 +18,7 @@
         <tr th:each="user,iterStat : ${userArrayList}">
             <th th:text="${iterStat.count}">1</th>
             <th th:text="${user.username}">123</th>
+            <th th:text="${user.usergender}">男</th>
             <th th:text="${user.useremail}">123@qq.com</th>
             <th th:text="${user.userpassword}">123456</th>
             <th th:text="${user.userphone}">123456789</th>

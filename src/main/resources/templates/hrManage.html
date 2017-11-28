@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>HR管理</title>
+</head>
+<body>
+<h3 th:if="${empty == true}">暂无HR信息</h3>
+<a th:href="@{/ad/hrManage/add}">添加</a>
+<table th:unless="${empty == true}">
+    <tr>
+        <td>序号</td>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>邮箱</td>
+        <td>密码</td>
+        <td>电话</td>
+    </tr>
+    <tr th:each="user,iterStat : ${userArrayList}">
+        <th th:text="${iterStat.count}">1</th>
+        <th th:text="${user.username}">123</th>
+        <th th:text="${user.usergender}">男</th>
+        <th th:text="${user.useremail}">123@qq.com</th>
+        <th th:text="${user.userpassword}">123456</th>
+        <th th:text="${user.userphone}">123456789</th>
+        <th><a th:href="@{/ad/hrManage/edit(userID = ${user.userno})}">编辑</a></th>
+        <th><a th:href="@{/ad/hrManage/del(userID = ${user.userno})}">删除</a></th>
+    </tr>
+</table>
+</body>
+</html>

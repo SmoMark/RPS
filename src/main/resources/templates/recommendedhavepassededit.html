@@ -49,7 +49,7 @@
             <td>出 生：<input type="date" name="birthdate" style="height: 20px" th:value="${recommendedPerson.rdpbirthday}" /></td>
             <td style="width: 250px">
                 民 族：
-                <select name="nation" style="height: 20px">
+                <select name="minzu" style="height: 20px">
                     <option value="汉族" th:selected="${recommendedPerson.nation eq '汉族'}">汉族</option>
                     <option value="少数民族" th:selected="${recommendedPerson.nation eq '少数民族'}">少数民族</option>
                 </select>
@@ -58,7 +58,7 @@
         <tr>
             <td style="width: 250px">
                 政治面貌：
-                <select name="deal" style="height: 20px">
+                <select name="mianmao" style="height: 20px">
                     <option value="党员" th:selected="${recommendedPerson.deal eq '党员'}">党员</option>
                     <option value="团员" th:selected="${recommendedPerson.deal eq '团员'}">团员</option>
                     <option value="群众" th:selected="${recommendedPerson.deal eq '群众'}">群众</option>
@@ -100,15 +100,15 @@
         </tr>
         <tr>
             <td >
-                <label><input name="computer" type="checkbox" value="精通JAVA" style="height: 20px ; width: 60%" th:checked="${recommendedPerson.rdpcomputlevel contains '精通JAVA'}"/>精通JAVA </label>
-                <label><input name="computer" type="checkbox" value="精通C++" style="height: 20px ; width: 60%" />精通C++ </label>
-                <label><input name="computer" type="checkbox" value="精通JS" style="height: 20px ; width: 60%" />精通JS </label>
-                <label><input name="computer" type="checkbox" value="精通mysql" style="height: 20px ; width: 60%" />精通mysql</label>
+                <label><input name="computer" type="checkbox" value="精通JAVA" style="height: 20px ; width: 60%" th:checked="${recommendedPerson.know1}"/>精通JAVA </label>
+                <label><input name="computer" type="checkbox" value="精通C++" style="height: 20px ; width: 60%" th:checked="${recommendedPerson.know2}"/>精通C++ </label>
+                <label><input name="computer" type="checkbox" value="精通JS" style="height: 20px ; width: 60%" th:checked="${recommendedPerson.know3}"/>精通JS </label>
+                <label><input name="computer" type="checkbox" value="精通mysql" style="height: 20px ; width: 60%" th:checked="${recommendedPerson.know4}"/>精通mysql</label>
             </td>
             <td colspan="2">
-                <label><input name="computer" type="checkbox" value="熟练掌握办公软件" style="height: 20px ; width: 60%" />熟练掌握办公软件</label>
-                <label><input name="computer" type="checkbox" value="熟练掌握PS技术" style="height: 20px ; width: 60%" />熟练掌握PS技术</label>
-                <label><input name="computer" type="checkbox" value="熟练掌握AI技术" style="height: 20px ; width: 60%" />熟练掌握AI技术</label>
+                <label><input name="computer" type="checkbox" value="熟练掌握办公软件" style="height: 20px ; width: 60%" th:checked="${recommendedPerson.know5}"/>熟练掌握办公软件</label>
+                <label><input name="computer" type="checkbox" value="熟练掌握PS技术" style="height: 20px ; width: 60%" th:checked="${recommendedPerson.know6}"/>熟练掌握PS技术</label>
+                <label><input name="computer" type="checkbox" value="熟练掌握AI技术" style="height: 20px ; width: 60%" th:checked="${recommendedPerson.know7}"/>熟练掌握AI技术</label>
             </td>
         </tr>
         <tr>
