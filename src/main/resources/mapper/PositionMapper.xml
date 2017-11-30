@@ -31,17 +31,17 @@
   </resultMap>
 
   <select id="findAllHaveNeeds" resultMap="findAllMap">
-    SELECT * from POSITION
+    SELECT * from position
     WHERE PosState &gt; 0
   </select>
 
   <select id="findAllHaveNoNeeds" resultMap="findAllMap">
-    SELECT * from POSITION
+    SELECT * from position
     WHERE PosState &lt; 1
   </select>
   <select id="selectDeatTimeByPositionID" parameterType="java.lang.Integer" resultType="java.lang.String">
     SELECT PosDeadline
-    from POSITION
+    from position
     WHERE PosNo = #{posno,jdbcType=INTEGER}
   </select>
   <sql id="Base_Column_List">

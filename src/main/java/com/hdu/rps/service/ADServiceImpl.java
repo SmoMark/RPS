@@ -216,7 +216,7 @@ public class ADServiceImpl implements ADSercive {
                                             String email, String address, String school, String major,
                                             String xueli, String computer, String english, String interest,
                                             MultipartFile newfile) {
-        recommendedPerson = new RecommendedPerson();
+        recommendedPerson = recommendedPersonMapper.selectByPrimaryKey(rdpno);
         //数据类型转换
         if("男".equals(sex)) {
             gender = 0;
@@ -248,6 +248,23 @@ public class ADServiceImpl implements ADSercive {
         } else {
             insurance = 1;
         }
+
+        recommendedPerson.setRdpname(name);
+        recommendedPerson.setRdpsex(gender);
+        recommendedPerson.setRdpbirthday(birthdate);
+        recommendedPerson.setRdpnation(nation);
+        recommendedPerson.setRdpdeal(deal);
+        recommendedPerson.setRdplocate(province + city);
+        recommendedPerson.setRdpphone(telphone);
+        recommendedPerson.setRdpemail(email);
+        recommendedPerson.setRdpaddress(address);
+        recommendedPerson.setRdpschool(school);
+        recommendedPerson.setRdpmajor(major);
+        recommendedPerson.setRdpinsurance(insurance);
+        recommendedPerson.setRdpcomputlevel(computer);
+        recommendedPerson.setRdpenglishlevel(english);
+        recommendedPerson.setRdpbrief(interest);
+        recommendedPerson.setRdphavechecked(1);
         //上传照片
         if(!newfile.isEmpty()) {
            /* new Thread(new Runnable() {
@@ -267,26 +284,7 @@ public class ADServiceImpl implements ADSercive {
                         bufferedOutputStream.write(newfile.getBytes());
                         bufferedOutputStream.flush();
                         bufferedOutputStream.close();
-
-                        recommendedPerson.setRdpno(rdpno);
-                        recommendedPerson.setRdpname(name);
-                        recommendedPerson.setRdpsex(gender);
-                        recommendedPerson.setRdpbirthday(birthdate);
-                        recommendedPerson.setRdpnation(nation);
-                        recommendedPerson.setRdpdeal(deal);
-                        recommendedPerson.setRdplocate(province + city);
-                        recommendedPerson.setRdpphone(telphone);
-                        recommendedPerson.setRdpemail(email);
-                        recommendedPerson.setRdpaddress(address);
-                        recommendedPerson.setRdpschool(school);
-                        recommendedPerson.setRdpmajor(major);
-                        recommendedPerson.setRdpinsurance(insurance);
-                        recommendedPerson.setRdpcomputlevel(computer);
-                        recommendedPerson.setRdpenglishlevel(english);
-                        recommendedPerson.setRdpbrief(interest);
                         recommendedPerson.setRdpphoto(email + fileLastName);
-                        recommendedPerson.setRdphavechecked(1);
-                        recommendedPersonMapper.updateByPrimaryKeySelective(recommendedPerson);
                     } catch (FileNotFoundException e) {
                         logger.warning("------------上传照片失败1------------");
                         e.printStackTrace();
@@ -299,6 +297,7 @@ public class ADServiceImpl implements ADSercive {
         } else {
             logger.warning("-------文件是空的------");
         }
+        recommendedPersonMapper.updateByPrimaryKeySelective(recommendedPerson);
     }
 
     @Override

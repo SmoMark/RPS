@@ -43,7 +43,7 @@ body {
     width:100%;
     height:70%;
     line-height:450px;
-    background:url("/background1.jpg") repeat-x;
+    background:url("/rps/background1.jpg") repeat-x;
     position:absolute;
     top:0px;
     overflow:hidden;
@@ -71,7 +71,7 @@ body {
     width:140px;
     height:25px;
     line-height:25px;
-    background:url("/background1.jpg") repeat-x;
+    background:url("/rps/background1.jpg") repeat-x;
     color:#FFFFFF;
     direction:inherit;
     text-align:center;
@@ -79,7 +79,7 @@ body {
     border:1px #06597D solid;
 }
 #left ul li a:hover{
-    background:url("/background1.jpg") 0px 25px;
+    background:url("/rps/background1.jpg") 0px 25px;
     color:#99FFCC;
     direction:inherit;
     text-align:center;

@@ -1,6 +1,6 @@
 body{ color:#333; font-size:13px;}
 input,select,textarea{color:#333;}
-.bg{ width:100%; height:100%; position:absolute; background:url("../bg.jpg") }
+.bg{ width:100%; height:100%; position:absolute; background:url("../rps/bg.jpg") }
 .panel{background:#fff;}
 form .form-group:last-child{padding-bottom:0;}
 .passcode{position:absolute;right:0;bottom:0;height:32px;margin:1px;border-left:solid 1px #ddd;text-align:center;line-height:32px;border-radius:0 4px 4px 0;}
@@ -14,12 +14,12 @@ ul,li{ list-style-type:none;}
 .logo img{ float:left; margin-right:10px;}
 .loginbox { background:url(../images/tmbg-white.png); border:0px;}
 /********头部******/
-.header{height:70px; overflow:hidden; background:url("../bg.jpg") no-repeat 0 -1000px; }
+.header{height:70px; overflow:hidden; background:url("../rps/bg.jpg") no-repeat 0 -1000px; }
 .head-l{ float:left; margin-top:17px; margin-left:15px; }
 .head-l .button{ padding:8px 15px;}
 .head-l .bg-blue:hover{ background-color:#03b6fd;}
 .leftnav{width:180px; height:100%; position:fixed; top:70px; left:0px;}
-.leftnav-title { height:50px; background:url("../bg.jpg") no-repeat 0 -1000px;  color:#FFF; padding-left:22px;  font-size:14px; line-height:50px;}
+.leftnav-title { height:50px; background:url("../rps/bg.jpg") no-repeat 0 -1000px;  color:#FFF; padding-left:22px;  font-size:14px; line-height:50px;}
 .leftnav-title span{ margin-right:10px;}
 .leftnav h2{ padding:10px 0 10px 22px; transition:all .1s ease-in-out; display:block; cursor:pointer; font-weight:bold; font-size:14px; border-top:1px solid #b5cfd9;}
 .leftnav h2.on{ color:#09c;}

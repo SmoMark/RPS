@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -78,7 +79,7 @@ public class ADHomeAction {
         return "recommendedhavepassededit";
     }
 
-    @RequestMapping("/recommendedHaveChecked/edit/submit")
+    @RequestMapping(value = "/recommendedHaveChecked/edit/submit",method = RequestMethod.POST)
     public String recommendedHaveCheckedEditSubmit(@RequestParam String recommendedPersonID,@RequestParam String name, @RequestParam String sex, @RequestParam String birthdate,
                                                    @RequestParam String minzu, @RequestParam String mianmao, @RequestParam String province,
                                                    @RequestParam String city, @RequestParam String telphone, @RequestParam String email,

@@ -31,7 +31,7 @@ public class HomeAction {
             return "home";
         } catch (Exception e) {
             logger.info("-----不存在HomeAction.httpSession.useID----");
-            return "index";
+            return "redirect:/login/";
         }
     }
 }

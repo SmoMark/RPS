@@ -70,8 +70,8 @@
     width: 70%;
 }
 .elegant-aero select {
-    background: #4169E1 url("../down.png") no-repeat right;
-    background: #fbfbfb url("../down.png") no-repeat right;
+    background: #4169E1 url("../rps/down.png") no-repeat right;
+    background: #fbfbfb url("../rps/down.png") no-repeat right;
     appearance:none;
     -webkit-appearance:none;
     -moz-appearance: none;

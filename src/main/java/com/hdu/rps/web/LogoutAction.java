@@ -17,6 +17,6 @@ public class LogoutAction {
         httpSession = request.getSession();
         httpSession.removeAttribute("userID");
         httpSession.invalidate();
-        return "index";
+        return "redirect:/login/";
     }
 }

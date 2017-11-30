@@ -168,9 +168,9 @@ public class HRHomeAction {
             logger.info("******/hr/needToBeDoneDetail尚未有被推荐人选****");
             modelMap.addAttribute("zero",true);
             modelMap.addAttribute("positionNo",positionID);
-            return "needToBeDoneDetail";  //尚未有被推荐人选，前端显示
+            return "redirect:/hr/showRecomendedPersonByState?positionID=" + positionID + "&state=1";  //尚未有被推荐人选，前端显示
         }
-        return "redirect:/hr/showRecomendedPersonByState/?positionID=" + positionID + "&state=1";
+        return "redirect:/hr/showRecomendedPersonByState?positionID=" + positionID + "&state=1";
     }
 
     @RequestMapping("/pass/{recommendedPersonID}/{positionNo}")

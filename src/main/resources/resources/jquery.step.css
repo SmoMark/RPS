@@ -34,11 +34,11 @@
 	color: #625454;
 	height: 25px;
 	line-height: 25px;
-	background: url('../cell.png') center top no-repeat;
+	background: url('../rps/cell.png') center top no-repeat;
 	display: block;
 }
 .step-header li.step-active span{
-	background: url('../cell-active.png') center top  no-repeat ;
+	background: url('../rps/cell-active.png') center top  no-repeat ;
 	color: white;
 }
 .step-header li.step-active p{
@@ -50,7 +50,7 @@
 }
 .step-bar{
 	width:100%;
-	background: url('../bar-bg.png') ;
+	background: url('../rps/bar-bg.png') ;
 	position: relative;
 	border-radius: 12px;
 	z-index: -1;
@@ -59,7 +59,7 @@
 }
 .step-bar-active{
 	width: 0px;
-	background: url('../bar-bg-active.png') ;
+	background: url('../rps/bar-bg-active.png') ;
 	height: 5px;
 
 }
