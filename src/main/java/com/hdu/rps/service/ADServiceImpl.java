@@ -1,9 +1,11 @@
 package com.hdu.rps.service;
 
 import com.hdu.rps.mapper.CountsMapper;
+import com.hdu.rps.mapper.RecommendMapper;
 import com.hdu.rps.mapper.RecommendedPersonMapper;
 import com.hdu.rps.mapper.UserMapper;
 import com.hdu.rps.model.Counts;
+import com.hdu.rps.model.Recommend;
 import com.hdu.rps.model.RecommendedPerson;
 import com.hdu.rps.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,7 @@ public class ADServiceImpl implements ADSercive {
     private String oldFileName;
     private File oldFile;
     private Counts counts;
+    private Recommend recommend;
 
     @Value("${my.basePhotoPath}")
     private String basePhotoPath;
@@ -54,6 +57,9 @@ public class ADServiceImpl implements ADSercive {
 
     @Autowired
     private RecommendedPersonMapper recommendedPersonMapper;
+
+    @Autowired
+    private RecommendMapper recommendMapper;
 
     @Override
     public ArrayList<User> findAllUserByJob(String job) {
@@ -206,8 +212,13 @@ public class ADServiceImpl implements ADSercive {
     }
 
     @Override
-    public void delHavePassedRecommended(int rdpno) {
-        recommendedPersonMapper.deleteByPrimaryKey(rdpno);
+    public void delHavePassedRecommended(int repno) {
+        recommendedPersonMapper.deleteByPrimaryKey(repno);
+        //删除积分跟踪表此用户信息
+        recommend = recommendMapper.selectByRepNo(repno);
+        if(recommend != null) {
+            recommendMapper.deleteByRepNo(repno);
+        }
     }
 
     @Override
@@ -295,7 +306,13 @@ public class ADServiceImpl implements ADSercive {
              /*   }
             }).start();*/
         } else {
-            logger.warning("-------文件是空的------");
+            logger.warning("-------照片为空------");
+            String oldFileName = recommendedPerson.getRdpphoto();
+            File file1 = new File(basePhotoPath + "/" + oldFileName);
+            pointIndex = oldFileName.lastIndexOf(".");
+            fileLastName = oldFileName.substring(pointIndex,oldFileName.length());
+            file1.renameTo(new File(basePhotoPath + "/" + email + fileLastName));
+            recommendedPerson.setRdpphoto(email + fileLastName);
         }
         recommendedPersonMapper.updateByPrimaryKeySelective(recommendedPerson);
     }

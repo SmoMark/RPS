@@ -30,6 +30,12 @@
     from recommend
     where PosNo = #{posno,jdbcType=INTEGER} and RcdState = #{state,jdbcType=INTEGER}
   </select>
+  <select id="selectByRepNo" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from recommend
+    where RepNo = #{repno,jdbcType=INTEGER}
+  </select>
   <select id="selectRecommendedPersonIDByPosno" resultType="java.lang.Integer" parameterType="java.lang.Integer">
     SELECT RepNo
     from recommend
@@ -50,6 +56,10 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from recommend
     where RcdNo = #{rcdno,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByRepNo" parameterType="java.lang.Integer">
+    delete from recommend
+    where RepNo = #{repno,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.hdu.rps.model.Recommend">
     insert into recommend (RcdNo, UserNo, RePNo, 

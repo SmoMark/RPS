@@ -11,54 +11,228 @@
         .button.border-green:focus,
         .button.bg-green:hover,
         .button.bg-green:focus{color:#fff;border-color:#5d8;background-color:#5d8;}
+        .button.border-yellow:hover,
+        .button.border-yellow:focus,
+        .button.bg-yellow:hover,
+        .button.bg-yellow:focus{color:#fff;border-color:#f90;background-color:#f90;}
     </style>
+    <style type="text/css">
+        body{
+            font:14px/28px "微软雅黑";
+        }
+        .contact *:focus{outline :none;}
+        .contact{
+            width: 700px;
+            height: auto;
+            background: #f6f6f6;
+            margin: 40px auto;
+            padding: 10px;
+        }
+        .contact ul {
+            width: 650px;
+            margin: 0 auto;
+        }
+        .contact ul li{
+            border-bottom: 1px solid #dfdfdf;
+            list-style: none;
+            padding: 12px;
+        }
+        .contact ul li label {
+            width: 120px;
+            display: inline-block;
+            float: left;
+        }
+        .contact ul td input:focus{
+            border-color: #c00;
+        }
+        .contact ul li input[type=text]{
+            transition: padding .25s;
+            -o-transition: padding  .25s;
+            -moz-transition: padding  .25s;
+            -webkit-transition: padding  .25s;
+        }
+        .contact ul li input:focus{
+            padding-right: 50px;
+        }
+        .tips{
+            color: rgba(0, 0, 0, 0);
+            padding-left: 10px;
+        }
+        .tips_true,.tips_false{
+            padding-left: 30px;
+        }
+        .tips_true{
+            color: green;
+        }
+        .tips_false{
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        function checkna() {
+            na = form1.name.value;
+            reg = /^[\u4E00-\u9FA5]{2,4}$/;
+            if(!reg.test(na)){
+                divname.innerHTML='<font class="tips_false">姓名必须是2-4位中文！</font>';
+            }
+            else{
+                divname.innerHTML = '<font class="tips_true">输入正确</font>';
+            }
+        }
+        function checksex(){
+            sex = form1.sex.value;
+            if (!sex)
+            {
+                divsex.innerHTML='<font class="tips_false">性别未选择！</font>';
+            }
+        }
+        function checkbirthday() {
+            birth = form1.birthdate.value;
+            if(!birth){
+                divbirth.innerHTML='<font class="tips_false">出生日期未选择！</font>';
+            }
+        }
+        function checkminzu() {
+            minzu = form1.minzu.value;
+            if(minzu ==""){
+                divminzu.innerHTML='<font class="tips_false">不能为空</font>';
+            }
+            else{
+                divminzu.innerHTML = '<font class="tips_true">输入正确</font>';
+            }
+
+        }
+        function checkphone() {
+            phone = form1.telphone.value;
+            var pattern = /^1[34578]\d{9}$/;
+            if(!pattern.test(phone)){
+                divphone.innerHTML='<font class="tips_false">号码不符合标准！</font>';
+            }
+            else{
+                divphone.innerHTML = '<font class="tips_true">输入正确</font>';
+            }
+        }
+
+        function checkmail(){
+            apos=form1.email.value.indexOf("@");
+            dotpos=form1.email.value.lastIndexOf(".");
+            if (apos<1||dotpos-apos<2)
+            {
+                divmail.innerHTML='<font class="tips_false">输入错误</font>' ;
+            }
+            else {
+                divmail.innerHTML='<font class="tips_true">输入正确</font>' ;
+            }
+        }
+        function checkschool() {
+            school = form1.school.value;
+            if(school ==""){
+                divschool.innerHTML='<font class="tips_false">不能为空</font>';
+            }
+            else{
+                divschool.innerHTML = '<font class="tips_true">输入正确</font>';
+            }
+
+        }
+        function checkmajor() {
+            major = form1.major.value;
+            if(major ==""){
+                divmajor.innerHTML='<font class="tips_false">不能为空</font>';
+            }
+            else{
+                divmajor.innerHTML = '<font class="tips_true">输入正确</font>';
+            }
+        }
+        function myCheck()
+        {
+            if(!c()){
+                alert("多选框至少选择一个！");
+            }
+            return false;
+        }
+        function c()
+        {
+            var e=document.getElementsByTagName("input");
+            for(var i=0;i<e.length;i++)
+            {
+                if(e[i].type=='checkbox'&&e[i].checked)
+                {return true;}
+            }
+            return false;
+        }
+    </script>
 </head>
 <body>
-<form method="post" enctype="multipart/form-data" action="#" th:action="@{/re/addToRepos}">
+<form name="form1" method="post" enctype="multipart/form-data" action="#" th:action="@{/re/addToRepos}"  onSubmit="return myCheck()">
 <table width="800" border="1" align="center" cellpadding="10" cellspacing="0">
     <caption><h2>个人简历</h2></caption>
     <tr>
         <td colspan="3" bgcolor="#9FCDEA">个人资料</td>
     </tr>
     <tr>
-        <td style="width: 320px">姓 名：<input type="elegant-aero.input" id="name" style="height: 20px" name="name"/></td>
+        <td style="width: 320px">姓 名：<input type="elegant-aero.input" id="name" style="height: 20px" name="name" onblur="checkna()" required/>
+            <br/>
+            <span class="tips" id="divname"></span>
+        </td>
         <td style="width: 250px">性别：
-            <select name="sex" style="height: 20px" >
-            <option value="男" >男</option><option value="女">女</option></select>
+            <select name="sex" style="height: 20px" onblur="checksex()" required >
+                <option value="男" >男</option><option value="女">女</option>
+            </select>
+            <br/>
+            <span class="tips" id="divsex"></span>
         </td>
 
         <td rowspan="4" align="center" valign="middle" style="height: 200px;">
-            <a href="javascript:;" class="file">选择照片
-                <input type="file" name="file" id="file"/>
+            <a href="javascript:;" class="file" >选择照片
+                <input type="file" name="file" id="file"  accept="image/*"/>
             </a></td>
     </tr>
     <tr>
-        <td>出 生：<input type="date" name="birthdate" style="height: 20px" /></td>
-        <td>民 族：<input type="text" name="minzu" style="height: 20px" /></td>
-    </tr>
-    <tr>
-        <td>政治面貌：<input type="text" name="mianmao" style="height: 20px" /></td>
-        <td>籍 贯：
-            <select id="province" name="province" onchange="selectprovince(this)" style=" width:75px;height:20px"/>
-            <select id="city" name="city"  style=" width:75px;height:20px"></select>
+        <td>出 生：<input type="date" name="birthdate" style="height: 20px"  onblur="checkbirthday()" required />
+            <br/>
+            <span class="tips" id="divbirth"></span>
+        </td>
+        <td>民 族：<input type="text" name="minzu" style="height: 20px"  onblur="checkminzu()" required />
+            <br/>
+            <span class="tips" id="divminzu"></span>
         </td>
     </tr>
     <tr>
-        <td>联系方式：<input type="tel" name="telphone" style="height: 20px" /></td>
-        <td>电子邮件：<input type="email" name="email" style="height: 20px" /></td>
+        <td>政治面貌：<input type="text" name="mianmao" style="height: 20px" required /></td>
+        <td>籍 贯：
+            <select id="province" name="province" onchange="selectprovince(this)" style=" width:75px;height:20px" required/>
+            <select id="city" name="city"  style=" width:75px;height:20px" required></select>
+        </td>
+    </tr>
+    <tr>
+        <td>联系方式：<input type="tel" name="telphone" style="height: 20px"  onblur="checkphone()" required />
+            <br/>
+            <span class="tips" id="divphone"></span>
+        </td>
+        <td>电子邮件：<input type="email" name="email" style="height: 20px" onblur="checkmail()" required />
+            <br/>
+            <span class="tips" id="divmail"></span>
+        </td>
     </tr>
 
     <tr>
-        <td colspan="3">现居地址：<input type="text" name="address" style="height: 20px;width: 60%" /></td>
+        <td colspan="3">现居地址：<input type="text" name="address" style="height: 20px;width: 60%" required />
+        </td>
     </tr>
     <tr>
         <td colspan="3" bgcolor="#9FCDEA">教育背景</td>
     </tr>
     <tr>
-        <td>高校名称 : <input type="text" name="school" style="height: 20px" /></td>
-        <td>主修专业 : <input type="text" name="major" style="height: 20px" /></td>
+        <td>高校名称 : <input type="text" name="school" style="height: 20px" onblur="checkschool()" required/>
+            <br/>
+            <span class="tips" id="divschool"></span>
+        </td>
+        <td>主修专业 : <input type="text" name="major" style="height: 20px"  onblur="checkmajor()" required />
+            <br/>
+            <span class="tips" id="divmajor"></span>
+        </td>
         <td>学 历 :
-        <select name="xueli"  style="height: 20px">
+        <select name="xueli"  style="height: 20px" required>
             <option name="boshi">博士</option>
             <option name="shuoshi">硕士</option>
             <option name="benke" selected="selected">本科</option>
@@ -100,13 +274,14 @@
         <td colspan="3" bgcolor="#9FCDEA">特长及兴趣爱好</td>
     </tr>
     <tr>
-        <td colspan="3"><input type="text" id="interest" name="interest" style="height: 20px; width: 60%" /></td>
+        <td colspan="3"><input type="text" id="interest" name="interest" style="height: 20px; width: 60%" required /></td>
     </tr>
 </table>
     <br/><br/>
     <tr>
         <div style="text-align:center; width:150%;height:100%;margin:0px; ">
             <input type="submit" style="width: 100px" class="button border-green"  value="上传" name="btn"/>
+            <input type="reset" style="width: 100px" class="button border-yellow" value="重置"/>
         </div>
     </tr>
     <br/><br/>

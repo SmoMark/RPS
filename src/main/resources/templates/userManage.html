@@ -3,29 +3,67 @@
 <head>
     <meta charset="UTF-8"/>
     <title>推荐人管理</title>
+    <link rel="stylesheet" th:href="@{/pintuer.css}" href="../resources/pintuer.css"/>
+    <link rel="stylesheet" th:href="@{/admin.css}" href="../resources/admin.css"/>
+    <script th:src="@{/jquery.js}" src="../public/jquery.js"></script>
+    <script th:src="@{/pintuer.js}" src="../public/pintuer.js"></script>
+    <link th:href="@{/bootstrap.css}" rel="stylesheet" href="../resources/bootstrap.css"/>
+    <style type="text/css">
+        body{text-align:center}
+        table{width:70%;height:7%;align:center;align-content: center;margin-left: 15%}
+    </style>
 </head>
+<style type="text/css">
+    table.hovertable th {
+        background-color:#c3dde0;
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #a9c6c9;
+    }
+    table.hovertable tr {
+        background-color:#d4e3e5;
+    }
+    table.hovertable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #a9c6c9;
+    }
+</style>
 <body>
-    <table>
+    <table class="hovertable">
         <tr>
-            <td>序号</td>
-            <td>姓名</td>
-            <td>性别</td>
-            <td>邮箱</td>
-            <td>密码</td>
-            <td>电话</td>
-            <td>积分</td>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>邮箱</th>
+            <th>密码</th>
+            <th>电话</th>
+            <th>积分</th>
+            <th colspan="2">操作</th>
         </tr>
-        <tr th:each="user,iterStat : ${userArrayList}">
-            <th th:text="${iterStat.count}">1</th>
-            <th th:text="${user.username}">123</th>
-            <th th:text="${user.usergender}">男</th>
-            <th th:text="${user.useremail}">123@qq.com</th>
-            <th th:text="${user.userpassword}">123456</th>
-            <th th:text="${user.userphone}">123456789</th>
-            <th th:text="${user.userscore}">10</th>
-            <th><a th:href="@{/ad/userManage/edit(userID = ${user.userno})}">编辑</a></th>
-            <th><a th:href="@{/ad/userManage/del(userID = ${user.userno})}">删除</a></th>
-        </tr>
+        <tbody>
+            <tr th:each="user,iterStat : ${userArrayList}" class="tr-link">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${user.username}">123</td>
+                <td th:text="${user.usergender}">男</td>
+                <td th:text="${user.useremail}">123@qq.com</td>
+                <td th:text="${user.userpassword}">123456</td>
+                <td th:text="${user.userphone}">123456789</td>
+                <td th:text="${user.userscore}">10</td>
+                <td>
+                    <div class="button-group">
+                        <a th:href="@{/ad/userManage/edit(userID = ${user.userno})}"><span class="icon-edit">编辑</span></a>
+                    </div>
+                </td>
+                <td>
+                    <div class="button-group">
+                        <a th:href="@{/ad/userManage/del(userID = ${user.userno})}"><span class="icon-trash-o">删除</span></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>

@@ -27,4 +27,8 @@ public interface RecommendMapper {
     ArrayList<Integer> selectRecommendedPersonIDByUserno(int userno);
 
     ArrayList<Recommend> selectRecommendByUserno(int userno);
+
+    void deleteByRepNo(int repno);
+
+    Recommend selectByRepNo(int repno);
 }
