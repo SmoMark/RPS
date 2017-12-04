@@ -33,7 +33,7 @@
 
     <label>
         <span>招聘人数 :</span>
-        <input id="jobcount" type="text" name="jobcount" />
+        <input id="jobcount" type="text" name="jobcount" required="required"/>
     </label>
 
     <label>
@@ -45,7 +45,7 @@
     <label>
         <span>截止时间 ：</span>
         <td >
-            <input type="datetime-local" name="deadtime"/>
+            <input type="datetime-local" name="deadtime" required="required" />
         </td>
     </label>
 
@@ -82,20 +82,19 @@
     <label>
         <span>岗位职责 :</span>
         <br/><br/><br/>
-       <!-- <input id="duty" type="text" name="duty" placeholder="输入" />-->
-        <textarea cols="80" name="duty" class="ckeditor" id="editor1"  rows="10">
+        <textarea cols="80" name="duty" class="ckeditor" id="editor1"  rows="10" required="required">
 
         </textarea>
     </label>
 
     <label>
         <span>岗位要求 :</span>
-        <input type="text" name="skill" class="" value="" data-value=""  onclick="appendCity(this,'duoxuan')" />
+        <input type="text" name="skill" class="" value="" data-value=""  onclick="appendCity(this,'duoxuan')" required="required"/>
     </label>
 
     <label>
         <span>备注 :</span>
-        <textarea id="message" name="message" placeholder="输入"></textarea>
+        <textarea id="message" name="message" placeholder="输入" required="required"></textarea>
     </label>
 
     <hr style="color: blue;border-style:dashed ;width:100%;size: 1"/>

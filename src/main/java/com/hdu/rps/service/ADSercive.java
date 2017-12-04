@@ -1,6 +1,7 @@
 package com.hdu.rps.service;
 
 import com.hdu.rps.model.RecommendedPerson;
+import com.hdu.rps.model.ScoreRule;
 import com.hdu.rps.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,4 +33,6 @@ public interface ADSercive {
     void hrManageEditSubmit(int rdpno, String name, String phone, String email, String password, String sex);
     void hrManageAddSubmit(String name, String phone,
                            String email, String password, String sex);
+    ScoreRule selectScoreRule();
+    void updateScoreRule(ScoreRule scoreRule);
 }

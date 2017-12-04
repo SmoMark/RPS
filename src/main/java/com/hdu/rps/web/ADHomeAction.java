@@ -1,16 +1,14 @@
 package com.hdu.rps.web;
 
 import com.hdu.rps.model.RecommendedPerson;
+import com.hdu.rps.model.ScoreRule;
 import com.hdu.rps.model.User;
 import com.hdu.rps.service.ADServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -29,6 +27,7 @@ public class ADHomeAction {
     private User user;
     private ArrayList<RecommendedPerson> recommendedPersonArrayList;
     private RecommendedPerson recommendedPerson;
+    private ScoreRule scoreRule;
 
     @Autowired
     private ADServiceImpl adServiceImpl;
@@ -175,4 +174,16 @@ public class ADHomeAction {
         return "redirect:/ad/hrManage";
     }
 
+    @RequestMapping("/scoreRuleManage")
+    public String scoreRuleManage(ModelMap modelMap) {
+        scoreRule = adServiceImpl.selectScoreRule();
+        modelMap.addAttribute("scoreRule",scoreRule);
+        return "scoreRuleManage";
+    }
+
+    @RequestMapping("/updateScoreRule")
+    public String updateScoreRule(@ModelAttribute ScoreRule scoreRule) {
+        adServiceImpl.updateScoreRule(scoreRule);
+        return "redirect:/ad/scoreRuleManage";
+    }
 }

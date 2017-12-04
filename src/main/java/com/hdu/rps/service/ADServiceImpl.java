@@ -1,13 +1,7 @@
 package com.hdu.rps.service;
 
-import com.hdu.rps.mapper.CountsMapper;
-import com.hdu.rps.mapper.RecommendMapper;
-import com.hdu.rps.mapper.RecommendedPersonMapper;
-import com.hdu.rps.mapper.UserMapper;
-import com.hdu.rps.model.Counts;
-import com.hdu.rps.model.Recommend;
-import com.hdu.rps.model.RecommendedPerson;
-import com.hdu.rps.model.User;
+import com.hdu.rps.mapper.*;
+import com.hdu.rps.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -43,6 +37,7 @@ public class ADServiceImpl implements ADSercive {
     private File oldFile;
     private Counts counts;
     private Recommend recommend;
+    private ScoreRule scoreRule;
 
     @Value("${my.basePhotoPath}")
     private String basePhotoPath;
@@ -60,6 +55,9 @@ public class ADServiceImpl implements ADSercive {
 
     @Autowired
     private RecommendMapper recommendMapper;
+
+    @Autowired
+    private ScoreRuleMapper scoreRuleMapper;
 
     @Override
     public ArrayList<User> findAllUserByJob(String job) {
@@ -376,5 +374,17 @@ public class ADServiceImpl implements ADSercive {
             userMapper.insert(user);
         }
 
+    }
+
+    @Override
+    public ScoreRule selectScoreRule() {
+        scoreRule = scoreRuleMapper.selectByPrimaryKey(1);
+        return scoreRule;
+    }
+
+    @Override
+    public void updateScoreRule(ScoreRule scoreRule) {
+        scoreRule.setId(1);
+        scoreRuleMapper.updateByPrimaryKeySelective(scoreRule);
     }
 }

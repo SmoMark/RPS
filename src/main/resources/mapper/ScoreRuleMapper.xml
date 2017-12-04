@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdu.rps.mapper.ScoreRuleMapper">
+  <resultMap id="BaseResultMap" type="com.hdu.rps.model.ScoreRule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pass1" jdbcType="INTEGER" property="pass1" />
+    <result column="pass2" jdbcType="INTEGER" property="pass2" />
+    <result column="pass3" jdbcType="INTEGER" property="pass3" />
+    <result column="pass4" jdbcType="INTEGER" property="pass4" />
+    <result column="pass5" jdbcType="INTEGER" property="pass5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pass1, pass2, pass3, pass4, pass5
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from scorerule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from scorerule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hdu.rps.model.ScoreRule">
+    insert into scorerule (id, pass1, pass2, 
+      pass3, pass4, pass5
+      )
+    values (#{id,jdbcType=INTEGER}, #{pass1,jdbcType=INTEGER}, #{pass2,jdbcType=INTEGER}, 
+      #{pass3,jdbcType=INTEGER}, #{pass4,jdbcType=INTEGER}, #{pass5,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hdu.rps.model.ScoreRule">
+    insert into scorerule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pass1 != null">
+        pass1,
+      </if>
+      <if test="pass2 != null">
+        pass2,
+      </if>
+      <if test="pass3 != null">
+        pass3,
+      </if>
+      <if test="pass4 != null">
+        pass4,
+      </if>
+      <if test="pass5 != null">
+        pass5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pass1 != null">
+        #{pass1,jdbcType=INTEGER},
+      </if>
+      <if test="pass2 != null">
+        #{pass2,jdbcType=INTEGER},
+      </if>
+      <if test="pass3 != null">
+        #{pass3,jdbcType=INTEGER},
+      </if>
+      <if test="pass4 != null">
+        #{pass4,jdbcType=INTEGER},
+      </if>
+      <if test="pass5 != null">
+        #{pass5,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hdu.rps.model.ScoreRule">
+    update scorerule
+    <set>
+      <if test="pass1 != null">
+        pass1 = #{pass1,jdbcType=INTEGER},
+      </if>
+      <if test="pass2 != null">
+        pass2 = #{pass2,jdbcType=INTEGER},
+      </if>
+      <if test="pass3 != null">
+        pass3 = #{pass3,jdbcType=INTEGER},
+      </if>
+      <if test="pass4 != null">
+        pass4 = #{pass4,jdbcType=INTEGER},
+      </if>
+      <if test="pass5 != null">
+        pass5 = #{pass5,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hdu.rps.model.ScoreRule">
+    update scorerule
+    set pass1 = #{pass1,jdbcType=INTEGER},
+      pass2 = #{pass2,jdbcType=INTEGER},
+      pass3 = #{pass3,jdbcType=INTEGER},
+      pass4 = #{pass4,jdbcType=INTEGER},
+      pass5 = #{pass5,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>积分规则</title>
+</head>
+<body>
+    <form th:action="@{/ad/updateScoreRule}">
+        <table border="1">
+            <tr>
+                <th>通过初审</th>
+                <th>通过一面</th>
+                <th>通过二面</th>
+                <th>通过三面</th>
+                <th>成功入职</th>
+            </tr>
+
+            <tr>
+                <td><input type="text" th:value="${scoreRule.pass1}" value="1" name="pass1" required="required" /></td>
+                <td><input type="text" th:value="${scoreRule.pass2}" value="2" name="pass2" required="required" /></td>
+                <td><input type="text" th:value="${scoreRule.pass3}" value="3" name="pass3" required="required" /></td>
+                <td><input type="text" th:value="${scoreRule.pass4}" value="4" name="pass4" required="required" /></td>
+                <td><input type="text" th:value="${scoreRule.pass5}" value="5" name="pass5" required="required" /></td>
+            </tr>
+        </table>
+        <br/><br/>
+        <input type="submit" />
+    </form>
+</body>
+</html>

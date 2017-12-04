@@ -29,6 +29,7 @@ public class HRDealImpl implements HRDeal {
     private int jobCount;
     private Counts counts;
     private User user;
+    private ScoreRule scoreRule;
 
     @Autowired
     private RecommendMapper recommendMapper;
@@ -44,6 +45,9 @@ public class HRDealImpl implements HRDeal {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ScoreRuleMapper scoreRuleMapper;
 
 
     @Override
@@ -71,48 +75,30 @@ public class HRDealImpl implements HRDeal {
             state = 1;
         }
         //推荐人增加积分
+        scoreRule = scoreRuleMapper.selectByPrimaryKey(1);
         int userNo = recommend.getUserno();
         counts = countsMapper.selectByUserNo(userNo);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date date = new Date();
         if(counts == null) {
-            /*counts = new Counts();
-            counts.setUserno(userNo);
-            counts.setCountstime(simpleDateFormat.format(date));
-            switch (state){
-                case 1:
-                    counts.setCountsquantity(1);
-                    break;
-                case 2:
-                    counts.setCountsquantity(3);
-                    break;
-                case 3:
-                    counts.setCountsquantity(6);
-                    break;
-                case 4:
-                    counts.setCountsquantity(10);
-                    break;
-                default:
-                    break;
-            }
-            countsMapper.insert(counts);*/
+
         } else {
             counts.setCountstime(simpleDateFormat.format(date));
             switch (state){
                 case 1:
-                    counts.setCountsquantity(1 + countsMapper.selectCountByUserNo(userNo));
+                    counts.setCountsquantity(scoreRule.getPass1() + countsMapper.selectCountByUserNo(userNo));
                     break;
                 case 2:
-                    counts.setCountsquantity(2 + countsMapper.selectCountByUserNo(userNo));
+                    counts.setCountsquantity(scoreRule.getPass2() + countsMapper.selectCountByUserNo(userNo));
                     break;
                 case 3:
-                    counts.setCountsquantity(3 + countsMapper.selectCountByUserNo(userNo));
+                    counts.setCountsquantity(scoreRule.getPass3() + countsMapper.selectCountByUserNo(userNo));
                     break;
                 case 4:
-                    counts.setCountsquantity(4 + countsMapper.selectCountByUserNo(userNo));
+                    counts.setCountsquantity(scoreRule.getPass4() + countsMapper.selectCountByUserNo(userNo));
                     break;
                 case 5:
-                    counts.setCountsquantity(5 + countsMapper.selectCountByUserNo(userNo));
+                    counts.setCountsquantity(scoreRule.getPass5() + countsMapper.selectCountByUserNo(userNo));
                 default:
                     break;
             }

@@ -116,7 +116,7 @@
         function checkmail(){
             apos=form1.email.value.indexOf("@");
             dotpos=form1.email.value.lastIndexOf(".");
-            if (apos<1||dotpos-apos<2)
+            if (apos &lt; 1||dotpos-apos &lt; 2)
             {
                 divmail.innerHTML='<font class="tips_false">输入错误</font>' ;
             }
@@ -153,9 +153,9 @@
         function c()
         {
             var e=document.getElementsByTagName("input");
-            for(var i=0;i<e.length;i++)
+            for(var i=0; e.length > i; i++)
             {
-                if(e[i].type=='checkbox'&&e[i].checked)
+                if(e[i].type=='checkbox' &amp;&amp; e[i].checked)
                 {return true;}
             }
             return false;
@@ -170,12 +170,12 @@
         <td colspan="3" bgcolor="#9FCDEA">个人资料</td>
     </tr>
     <tr>
-        <td style="width: 320px">姓 名：<input type="elegant-aero.input" id="name" style="height: 20px" name="name" onblur="checkna()" required/>
+        <td style="width: 320px">姓 名：<input type="elegant-aero.input" id="name" style="height: 20px" name="name" onblur="checkna()" required="required"/>
             <br/>
             <span class="tips" id="divname"></span>
         </td>
         <td style="width: 250px">性别：
-            <select name="sex" style="height: 20px" onblur="checksex()" required >
+            <select name="sex" style="height: 20px" onblur="checksex()" required="required">
                 <option value="男" >男</option><option value="女">女</option>
             </select>
             <br/>
@@ -188,51 +188,51 @@
             </a></td>
     </tr>
     <tr>
-        <td>出 生：<input type="date" name="birthdate" style="height: 20px"  onblur="checkbirthday()" required />
+        <td>出 生：<input type="date" name="birthdate" style="height: 20px"  onblur="checkbirthday()" required="required" />
             <br/>
             <span class="tips" id="divbirth"></span>
         </td>
-        <td>民 族：<input type="text" name="minzu" style="height: 20px"  onblur="checkminzu()" required />
+        <td>民 族：<input type="text" name="minzu" style="height: 20px"  onblur="checkminzu()" required="required" />
             <br/>
             <span class="tips" id="divminzu"></span>
         </td>
     </tr>
     <tr>
-        <td>政治面貌：<input type="text" name="mianmao" style="height: 20px" required /></td>
+        <td>政治面貌：<input type="text" name="mianmao" style="height: 20px" required="required"/></td>
         <td>籍 贯：
-            <select id="province" name="province" onchange="selectprovince(this)" style=" width:75px;height:20px" required/>
-            <select id="city" name="city"  style=" width:75px;height:20px" required></select>
+            <select id="province" name="province" onchange="selectprovince(this)" style=" width:75px;height:20px" required="required"/>
+            <select id="city" name="city"  style=" width:75px;height:20px" required="required"></select>
         </td>
     </tr>
     <tr>
-        <td>联系方式：<input type="tel" name="telphone" style="height: 20px"  onblur="checkphone()" required />
+        <td>联系方式：<input type="tel" name="telphone" style="height: 20px"  onblur="checkphone()" required="required" />
             <br/>
             <span class="tips" id="divphone"></span>
         </td>
-        <td>电子邮件：<input type="email" name="email" style="height: 20px" onblur="checkmail()" required />
+        <td>电子邮件：<input type="email" name="email" style="height: 20px" onblur="checkmail()" required="required" />
             <br/>
             <span class="tips" id="divmail"></span>
         </td>
     </tr>
 
     <tr>
-        <td colspan="3">现居地址：<input type="text" name="address" style="height: 20px;width: 60%" required />
+        <td colspan="3">现居地址：<input type="text" name="address" style="height: 20px;width: 60%" required="required" />
         </td>
     </tr>
     <tr>
         <td colspan="3" bgcolor="#9FCDEA">教育背景</td>
     </tr>
     <tr>
-        <td>高校名称 : <input type="text" name="school" style="height: 20px" onblur="checkschool()" required/>
+        <td>高校名称 : <input type="text" name="school" style="height: 20px" onblur="checkschool()" required="required"/>
             <br/>
             <span class="tips" id="divschool"></span>
         </td>
-        <td>主修专业 : <input type="text" name="major" style="height: 20px"  onblur="checkmajor()" required />
+        <td>主修专业 : <input type="text" name="major" style="height: 20px"  onblur="checkmajor()" required="required" />
             <br/>
             <span class="tips" id="divmajor"></span>
         </td>
         <td>学 历 :
-        <select name="xueli"  style="height: 20px" required>
+        <select name="xueli"  style="height: 20px" required="required">
             <option name="boshi">博士</option>
             <option name="shuoshi">硕士</option>
             <option name="benke" selected="selected">本科</option>
@@ -274,7 +274,7 @@
         <td colspan="3" bgcolor="#9FCDEA">特长及兴趣爱好</td>
     </tr>
     <tr>
-        <td colspan="3"><input type="text" id="interest" name="interest" style="height: 20px; width: 60%" required /></td>
+        <td colspan="3"><input type="text" id="interest" name="interest" style="height: 20px; width: 60%" required="required" /></td>
     </tr>
 </table>
     <br/><br/>
