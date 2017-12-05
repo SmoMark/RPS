@@ -3,29 +3,122 @@
 <head>
     <meta charset="UTF-8"/>
     <title>HR信息编辑</title>
+    <link rel="stylesheet" href="../resources/pintuer.css" th:href="@{/pintuer.css}"/>
+    <style type="text/css">
+        /*分别定义HTML中和标记之的距离样式*/
+        html, body, h1, form, fieldset, legend, ol, li {
+            margin: 0;
+            padding: 0;
+        }
+        /*定义<body>标记样式*/
+        body {
+            background: #ffffff;
+            color: #111111;
+            padding-left: 20px;
+        }
+        form#payment {
+            background: #b5f5ec;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            padding: 20px;
+            width: 400px;
+            margin:auto;
+        }
+        form#payment fieldset {
+            border: none;
+            margin-bottom: 10px;
+        }
+        form#payment fieldset:last-of-type { margin-bottom: 0; }
+        form#payment legend {
+            color: #384313;
+            font-size: 16px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            text-shadow: 0 1px 1px #c0d576;
+        }
+        form#payment fieldset fieldset legend {
+            color: #111111;
+            font-size: 13px;
+            font-weight: normal;
+            padding-bottom: 0;
+        }
+        form#payment ol li {
+            background: #b9cf6a;
+            background: rgba(255, 255, 255, .3);
+            border-color: #e3ebc3;
+            border-color: rgba(255, 255, 255, .6);
+            border-style: solid;
+            border-width: 2px;
+            -webkit-border-radius: 5px;
+            line-height: 30px;
+            list-style: none;
+            padding: 5px 10px;
+            margin-bottom: 2px;
+        }
+        form#payment ol ol li {
+            background: none;
+            border: none;
+            float: left;
+        }
+        form#payment label {
+            float: left;
+            font-size: 13px;
+            width: 110px;
+        }
+        form#payment fieldset fieldset label {
+            background: none no-repeat left 50%;
+            line-height: 20px;
+            padding: 0 0 0 30px;
+            width: auto;
+        }
+        form#payment input:not([type=submit]):focus, form#payment textarea:focus {
+            background: #eaeaea;
+            border: #F00 solid 1px;
+        }
+        form#payment input[type=radio] {
+            float: left;
+            margin-right: 5px;
+        }
+    </style>
 </head>
-<body>
-    <form th:action="@{/ad/hrManage/edit/submit/{userno}(userno = ${user.userno})}">
-        <tr>
-            <td>姓名：<input type="text" th:value="${user.username}" name="name"/></td>
-            <td>手机号：<input type="text" th:value="${user.userphone}" name="phone"/></td>
-        </tr>
-        <br/>
-        <tr>
-            <td>邮箱：<input type="text" th:value="${user.useremail}" name="email"/></td>
-            <td>密码：<input type="text" th:value="${user.userpassword}" name="password"/></td>
-        </tr>
-        <br/>
-        <tr>
-            <td>性别：
-                <select name="sex">
-                    <option th:selected="${user.usergender eq '男'}">男</option>
-                    <option th:selected="${user.usergender eq '女'}">女</option>
-                </select>
-            </td>
-        </tr>
-        <br/>
-        <tr><input type="submit" value="提交"/></tr>
-    </form>
+<body style="margin-top: 5%">
+    <div class="border">
+        <form th:action="@{/ad/hrManage/edit/submit/{userno}(userno = ${user.userno})}" id="payment">
+            <fieldset>
+                <legend>HR信息编辑</legend>
+                <ol>
+                    <li>
+                        <label for="name">姓名：</label>
+                        <input id="name" name="name" type="text" th:value="${user.username}" placeholder="请输入用户名" required="required" autofocus/>
+                    </li>
+                    <li>
+                        <label for="phone">联系电话：</label>
+                        <input id="phone" name="phone" type="tel" th:value="${user.userphone}" required="required" />
+                    </li>
+                    <li>
+                        <label for="email">邮件地址：</label>
+                        <input id="email" name="email" type="email" th:value="${user.useremail}" required="required" />
+                    </li>
+                    <li>
+                        <label for="password">密码：</label>
+                        <input id="password" name="password" th:value="${user.userpassword}" required="required" />
+                    </li>
+                    <li>
+                        <label for="sex">性别</label>
+                        <select id="sex" name="sex">
+                            <option th:selected="${user.usergender eq '男'}">男</option>
+                            <option th:selected="${user.usergender eq '女'}">女</option>
+                        </select>
+                    </li>
+                </ol>
+            </fieldset>
+            <fieldset>
+                <br/>
+                <div style="margin-left: 85%;margin-top: 2%">
+                    <input type="submit" value="提交" class="button border-blue"  />
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </body>
 </html>

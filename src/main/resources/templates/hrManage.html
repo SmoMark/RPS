@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
@@ -33,10 +34,10 @@
 </style>
 <body>
 <div class="title" th:if="${empty == true}">暂无HR信息</div>
-<div style="margin-left: -70%">
-    <a th:href="@{/ad/hrManage/add}"><span class="icon-file">添加</span></a>
+<div style="margin-left: 65%;margin-top: 2%">
+    <a th:href="@{/ad/hrManage/add}" href="http://www.baidu.com"><button type="button" class="button border-blue" ><span class="icon-file"></span>添加</button></a>
 </div>
-<br/><br/>
+<br/>
 <table th:unless="${empty == true}" class="hovertable">
     <tr>
         <th>序号</th>
@@ -48,24 +49,24 @@
         <th colspan="2">操作</th>
     </tr>
     <tbody>
-        <tr th:each="user,iterStat : ${userArrayList}" class="tr-link">
-            <td th:text="${iterStat.count}">1</td>
-            <td th:text="${user.username}">123</td>
-            <td th:text="${user.usergender}">男</td>
-            <td th:text="${user.useremail}">123@qq.com</td>
-            <td th:text="${user.userpassword}">123456</td>
-            <td th:text="${user.userphone}">123456789</td>
-            <td>
-                <div class="button-group">
-                    <a th:href="@{/ad/hrManage/edit(userID = ${user.userno})}"><span class="icon-edit">编辑</span></a>
-                </div>
-            </td>
-            <td>
-                <div class="button-group">
-                    <a th:href="@{/ad/hrManage/del(userID = ${user.userno})}"><span class="icon-trash-o">删除</span></a>
-                </div>
-            </td>
-        </tr>
+    <tr th:each="user,iterStat : ${userArrayList}" class="tr-link">
+        <td th:text="${iterStat.count}">1</td>
+        <td th:text="${user.username}">123</td>
+        <td th:text="${user.usergender}">男</td>
+        <td th:text="${user.useremail}">123@qq.com</td>
+        <td th:text="${user.userpassword}">123456</td>
+        <td th:text="${user.userphone}">123456789</td>
+        <td>
+            <div class="button-group">
+                <a th:href="@{/ad/hrManage/edit(userID = ${user.userno})}"><span class="icon-edit">编辑</span></a>
+            </div>
+        </td>
+        <td>
+            <div class="button-group">
+                <a th:href="@{/ad/hrManage/del(userID = ${user.userno})}"><span class="icon-trash-o">删除</span></a>
+            </div>
+        </td>
+    </tr>
     </tbody>
 </table>
 </body>
