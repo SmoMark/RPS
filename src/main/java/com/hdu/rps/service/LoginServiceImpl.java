@@ -27,21 +27,25 @@ public class LoginServiceImpl implements LoginService {
             user = userMapper.selectByUserEmail(useremail);
         }catch (Exception e) {
             System.out.println("LoginService"+e.getMessage());
+            logger.info("-------无该用户---------");
             return -1;
         }
-        if(user == null) {
+        if(user == null) {  //无该用户
+            logger.info("-------无该用户---------");
             return -1;
         }
-        logger.info("--------查找结束-------");
         job = user.getUserjob();
         password = user.getUserpassword();
-        logger.info("-------job:" + job + ",password:" + password);
+        if(!job.equals(userjob)) {
+            logger.info("-------无该用户---------");
+            return -1;
+        }
         if(userjob.equals(job) & password.equals(userpassword)) {
             logger.info("--------找到该账号-------");
             return user.getUserno();
         } else {
-            logger.info("-------未找到该账号---------");
-            return -1;
+            logger.info("-------密码错误---------");
+            return -2;
         }
     }
 

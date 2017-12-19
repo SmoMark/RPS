@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  * Created by SJH on 2017/11/10.
  */
 @Controller
-public class ExceptionAction {
+public class  ExceptionAction {
     private Logger logger = Logger.getLogger(String.valueOf(ExceptionAction.this));
     @RequestMapping("/404")
     public String notFountException() {

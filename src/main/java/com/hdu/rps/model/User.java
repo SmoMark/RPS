@@ -5,7 +5,7 @@ import java.util.Date;
 public class User {
     private Integer userno;
 
-    private Integer userphone;
+    private String userphone;
 
     private String userpassword;
 
@@ -59,11 +59,11 @@ public class User {
         this.userno = userno;
     }
 
-    public Integer getUserphone() {
+    public String getUserphone() {
         return userphone;
     }
 
-    public void setUserphone(Integer userphone) {
+    public void setUserphone(String userphone) {
         this.userphone = userphone;
     }
 

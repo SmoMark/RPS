@@ -17,7 +17,7 @@
                     </li>
                     <li>
                         <label for="phone">联系电话：</label>
-                        <input id="phone" name="phone" type="tel" th:value="${user.userphone}" required="required" />
+                        <input id="phone" name="phone" type="text" th:value="${user.userphone}" required="required" maxlength="11"/>
                     </li>
                     <li>
                         <label for="email">邮件地址：</label>

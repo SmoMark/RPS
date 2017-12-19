@@ -18,11 +18,15 @@
                     </li>
                     <li>
                         <label for="phone">联系电话：</label>
-                        <input id="phone" name="phone" th:value="${user.userphone}" type="tel"  required="required" />
+                        <input id="phone" name="phone" th:value="${user.userphone}" type="text"  required="required" maxlength="11"/>
                     </li>
                     <li>
                         <label for="email">邮件地址：</label>
                         <input id="email" name="email" th:value="${user.useremail}" type="email"  required="required" />
+                    </li>
+                    <li>
+                        <label for="password">密码：</label>
+                        <input id="password" name="password" th:value="${user.userpassword}" type="text" required="required" />
                     </li>
                     <li>
                         <label for="sex">性别</label>

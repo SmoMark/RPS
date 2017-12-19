@@ -3,7 +3,7 @@
 <mapper namespace="com.hdu.rps.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.hdu.rps.model.User">
     <id column="UserNo" jdbcType="INTEGER" property="userno" />
-    <result column="UserPhone" jdbcType="INTEGER" property="userphone" />
+    <result column="UserPhone" jdbcType="VARCHAR" property="userphone" />
     <result column="UserPassword" jdbcType="VARCHAR" property="userpassword" />
     <result column="UserName" jdbcType="VARCHAR" property="username" />
     <result column="UserAge" jdbcType="INTEGER" property="userage" />
@@ -56,7 +56,7 @@
       UserEmail, UserBirthday, UserCompany, 
       UserCreated, UserDepartment, UserJob, 
       UserTime, UserJobAge)
-    values (#{userno,jdbcType=INTEGER}, #{userphone,jdbcType=INTEGER}, #{userpassword,jdbcType=VARCHAR}, 
+    values (#{userno,jdbcType=INTEGER}, #{userphone,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR},
       #{username,jdbcType=VARCHAR}, #{userage,jdbcType=INTEGER}, #{usersex,jdbcType=INTEGER}, 
       #{useremail,jdbcType=VARCHAR}, #{userbirthday,jdbcType=DATE}, #{usercompany,jdbcType=VARCHAR}, 
       #{usercreated,jdbcType=VARCHAR}, #{userdepartment,jdbcType=VARCHAR}, #{userjob,jdbcType=VARCHAR}, 
@@ -113,7 +113,7 @@
         #{userno,jdbcType=INTEGER},
       </if>
       <if test="userphone != null">
-        #{userphone,jdbcType=INTEGER},
+        #{userphone,jdbcType=VARCHAR},
       </if>
       <if test="userpassword != null">
         #{userpassword,jdbcType=VARCHAR},
@@ -157,7 +157,7 @@
     update user
     <set>
       <if test="userphone != null">
-        UserPhone = #{userphone,jdbcType=INTEGER},
+        UserPhone = #{userphone,jdbcType=VARCHAR},
       </if>
       <if test="userpassword != null">
         UserPassword = #{userpassword,jdbcType=VARCHAR},
@@ -200,7 +200,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hdu.rps.model.User">
     update user
-    set UserPhone = #{userphone,jdbcType=INTEGER},
+    set UserPhone = #{userphone,jdbcType=VARCHAR},
       UserPassword = #{userpassword,jdbcType=VARCHAR},
       UserName = #{username,jdbcType=VARCHAR},
       UserAge = #{userage,jdbcType=INTEGER},

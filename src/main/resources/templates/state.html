@@ -5,10 +5,10 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../rps/style.css}" href="../resources/style.css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../rps/jquery.step.css}" href="../local/jquery.step.css"/>
-    <script th:src="@{../../rps/jquery-2.1.1.min.js}" src="../public/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" th:src="@{../../rps/jquery.step.js}" src="../public/jquery.step.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../style.css}" href="../resources/style.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../jquery.step.css}" href="../local/jquery.step.css"/>
+    <script th:src="@{../jquery-2.1.1.min.js}" src="../public/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" th:src="@{../jquery.step.js}" src="../public/jquery.step.js"></script>
     <style type="text/css">
         <!--
         a:link {  color: #000000; text-decoration: none}
@@ -18,22 +18,10 @@
     </style>
 </head>
 <body>
-<div class="step-body" id="myStep" th:unless="${havaPassed == true}">
-    <div class="step-header" style="width:80%">
-        <ul>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=1)}"><font color="red" th:if="${index == 1}">初步筛选</font><h5 th:unless="${index == 1}">初步筛选</h5></a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=2)}"><font color="red" th:if="${index == 2}">一面</font><h5 th:unless="${index == 2}">一面</h5></a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=3)}"><font color="red" th:if="${index == 3}">二面</font><h5 th:unless="${index == 3}">二面</h5></a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=4)}"><font color="red" th:if="${index == 4}">三面</font><h5 th:unless="${index == 4}">三面</h5></a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=5)}"><font color="red" th:if="${index == 5}">发放offer</font><h5 th:unless="${index == 5}">发放offer</h5></a></p></li>
-            <li><p><a th:href="@{/hr/showRecomendedPersonByState(positionID = ${positionNo},state=6)}"><font color="red" th:if="${index == 6}">已入职</font><h5 th:unless="${index == 6}">已入职</h5></a></p></li>
-        </ul>
-    </div>
-</div>
 
 <div class="container">
     <div class="team-members row">
-        <h1 th:if="${zero == true}">尚未有推荐人选</h1>
+        <h1 th:if="${zero == true}">尚未有人选</h1>
         <div class="single-member effect-2" th:unless="${zero == true}" th:each="recommendedPerson,iterStat : ${recommendedPersonByPosNo}">
             <div class="member-image">
                 <img th:src="@{/re/getRecommendedPersonPhoto/(userPhoto=${recommendedPerson.rdpphoto})}"  alt="被推荐人照片"/><!--这里是每个人的头像-->
@@ -45,7 +33,7 @@
                 <div class="social-touch" >
                     <a class="tweet-touch" th:href="@{/re/getRecommendedPersonDetail(personID=${recommendedPerson.rdpno})}" href="../templates/recommendedPersonDetail.html">详细信息</a>
                 </div>
-                <div th:if="${havaPassed == false || haveOver == true || havaOver == null}">
+                <div th:if="${display == true || havaPassed == false || haveOver == true || havaOver == null}">
                     <label th:unless="${done == true}">
                         <div style="float:left;">
                             <a th:href="@{/hr/notPass/{recommendedPersonID}/{positionNo}(recommendedPersonID=${recommendedPerson.rdpno},positionNo=${positionNo})}" class="button1">不通过</a>

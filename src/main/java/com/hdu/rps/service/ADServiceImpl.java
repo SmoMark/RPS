@@ -324,7 +324,7 @@ public class ADServiceImpl implements ADSercive {
     public void userManageEditSubmit(int rdpno, String name, String phone, String email, String password, String sex, String score) {
         user = userMapper.selectByPrimaryKey(rdpno);
         user.setUsername(name);
-        user.setUserphone(Integer.parseInt(phone));
+        user.setUserphone(phone);
         user.setUseremail(email);
         user.setUserpassword(password);
         if(sex.equals("男")) {
@@ -343,7 +343,7 @@ public class ADServiceImpl implements ADSercive {
     public void hrManageEditSubmit(int rdpno, String name, String phone, String email, String password, String sex) {
         user = userMapper.selectByPrimaryKey(rdpno);
         user.setUsername(name);
-        user.setUserphone(Integer.parseInt(phone));
+        user.setUserphone((phone));
         user.setUseremail(email);
         user.setUserpassword(password);
         if(sex.equals("男")) {
@@ -361,7 +361,7 @@ public class ADServiceImpl implements ADSercive {
         if(user == null) {
             user = new User();
             user.setUsername(name);
-            user.setUserphone(Integer.parseInt(phone));
+            user.setUserphone((phone));
             user.setUseremail(email);
             user.setUserpassword(password);
             if(sex.equals("男")) {
